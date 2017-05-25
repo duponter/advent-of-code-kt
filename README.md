@@ -11,3 +11,4 @@
 * [Java To Kotlin](https://fabiomsr.github.io/from-java-to-kotlin/)
 * [Cheat Sheet](https://github.com/MindorksOpenSource/from-java-to-kotlin)
 * [Kotlin and Gradle](https://github.com/JLLeitschuh/ktlint-gradle)
+* [Spek, Kotlin Unit Testing](http://spekframework.org/)
