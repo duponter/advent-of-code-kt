@@ -7,12 +7,18 @@ import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
 
 object Day02Spec : Spek({
+    given("examples day 02") {
+        assertEquals(52, Present(2, 3, 4).surfaceArea())
+        assertEquals(6, Present(2, 3, 4).smallestSideArea())
+        assertEquals(42, Present(1, 1, 10).surfaceArea())
+        assertEquals(1, Present(1, 1, 10).smallestSideArea())
+    }
     given("day 02") {
         val day02 = Day02();
         on("part 1") {
-            val floor = day02.part1()
+            val squareFeet = day02.part1()
             it("should answer How many total square feet of wrapping paper should they order?") {
-                assertEquals(1000, floor)
+                assertEquals(1586300, squareFeet)
             }
         }
         on("part 2") {

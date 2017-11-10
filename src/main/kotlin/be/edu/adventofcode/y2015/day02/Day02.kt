@@ -4,8 +4,13 @@ import java.io.File
 
 class Day02 {
     fun part1(): Int {
-        val input = File(this.javaClass.getResource("Day02.txt").toURI()).readLines()
-        return input.size;
+        return File(this.javaClass.getResource("Day02.txt").toURI()).readLines()
+                .map {
+                    val split = it.split("x").map { it.toInt() }
+                    Present(split.first(), split.elementAt(1), split.last())
+                }
+                .map { it.surfaceArea() + it.smallestSideArea() }
+                .sum()
     }
 
     fun part2(): Int {
@@ -18,4 +23,10 @@ class Day02 {
         forEach { result.add(operation(result.last(), it)) }
         return result
     }
+}
+
+data class Present(val length: Int, val width: Int, val height: Int) {
+    fun surfaceArea(): Int = 2 * length * width + 2 * width * height + 2 * height * length
+
+    fun smallestSideArea(): Int = minOf(length * width, width * height, height * length)
 }
