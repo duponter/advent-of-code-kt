@@ -16,7 +16,7 @@ class Day01 {
                 .size
     }
 
-    fun <T : Any, R : Any> Iterable<T>.scanLeft(initial: R, operation: (R, T) -> R): List<R> {
+    private fun <T : Any, R : Any> Iterable<T>.scanLeft(initial: R, operation: (R, T) -> R): List<R> {
         val result = arrayListOf(initial)
         forEach { result.add(operation(result.last(), it)) }
         return result
