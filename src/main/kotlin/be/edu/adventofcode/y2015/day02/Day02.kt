@@ -14,8 +14,13 @@ class Day02 {
     }
 
     fun part2(): Int {
-        val input = File(this.javaClass.getResource("Day02.txt").toURI()).readLines()
-        return input.size;
+        return File(this.javaClass.getResource("Day02.txt").toURI()).readLines()
+                .map {
+                    val split = it.split("x").map { it.toInt() }
+                    Present(split.first(), split.elementAt(1), split.last())
+                }
+                .map { it.shortestDistance() + it.volume() }
+                .sum()
     }
 
     private fun <T : Any, R : Any> Iterable<T>.scanLeft(initial: R, operation: (R, T) -> R): List<R> {
@@ -29,4 +34,10 @@ data class Present(val length: Int, val width: Int, val height: Int) {
     fun surfaceArea(): Int = 2 * length * width + 2 * width * height + 2 * height * length
 
     fun smallestSideArea(): Int = minOf(length * width, width * height, height * length)
+
+    fun shortestDistance(): Int {
+        return listOf(length, width, height).sorted().take(2).map { it + it }.sum()
+    }
+
+    fun volume(): Int = length * width * height
 }
