@@ -11,15 +11,15 @@ cat_main() {
 	cat >src/main/kotlin/be/edu/adventofcode/y${year}/day${day}/Day${day}.kt <<EOL
 package be.edu.adventofcode.y${year}.day${day}
 
-import java.io.File
+import be.edu.adventofcode.DayInput
 
 class Day${day} {
     fun part1(): Int {
-        return File(this.javaClass.getResource("Day${day}.txt").toURI()).readLines().count()
+        return DayInput().lines(this).count()
     }
 
 	fun part2(): Int {
-        return File(this.javaClass.getResource("Day${day}.txt").toURI()).readLines().count()
+        return DayInput().lines(this).count()
     }
 }
 EOL
