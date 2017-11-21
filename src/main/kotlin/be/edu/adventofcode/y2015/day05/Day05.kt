@@ -11,20 +11,23 @@ class Day05 {
         val doubleLetters = CharRange('a', 'z').map {
             it.toString() + it
         }
-        println(doubleLetters)
         val forbidden = listOf("ab", "cd", "pq", "xy")
-        println(forbidden)
         val vowels = "aeiou".toList()
-        println(vowels)
         val letterPairs = this.sliding(2)
-        println(letterPairs.toList())
         return letterPairs.none { forbidden.contains(it) }
                 && letterPairs.any { doubleLetters.contains(it) }
                 && this.count { vowels.contains(it) } > 2
     }
 
     private fun String.nice2(): Boolean {
-        return false;
+        val pairs = this.sliding(2).groupBy { it }.filter { it.value.size > 1 }
+        val repeatingTriples = this.sliding(3)
+                .filter { it.length == 3 }
+                .filter { it.first() == it.last() }
+
+        val overlappingTriples = repeatingTriples.filter { it.take(2) == it.drop(1) }
+        return pairs.isNotEmpty() && repeatingTriples.count() > 0 &&
+                (overlappingTriples.count() == 0 || overlappingTriples.all { pairs[it.take(2)].orEmpty().count() > 2 })
     }
 
     private fun String.sliding(size: Int): Sequence<String> = this.sliding(sequenceOf<String>(), size)

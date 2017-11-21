@@ -45,7 +45,7 @@ object Day05Spec : Spek({
                 assertEquals(0, day05.part2(LinesFromArray("ieodomkazucvgmuy")))
             }
             it("should answer How many strings are nice under these new rules?") {
-                assertEquals(0, day05.part2(DayInput().lines(day05)))
+                assertEquals(51, day05.part2(DayInput().lines(day05)))
             }
         }
     }
