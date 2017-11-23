@@ -26,11 +26,14 @@ object Day06Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day06.part2(LinesFromArray("line")))
+            it("turn on 0,0 through 0,0 would increase the total brightness by 1") {
+                assertEquals(1, day06.part2(LinesFromArray("turn on 0,0 through 0,0")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day06.part2(DayInput().lines(day06)))
+            it("toggle 0,0 through 999,999 would increase the total brightness by 2000000") {
+                assertEquals(2000000, day06.part2(LinesFromArray("toggle 0,0 through 999,999")))
+            }
+            it("should answer What is the total brightness of all lights combined?") {
+                assertEquals(15343601, day06.part2(DayInput().lines(day06)))
             }
         }
     }

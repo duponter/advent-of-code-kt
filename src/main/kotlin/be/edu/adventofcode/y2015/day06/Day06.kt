@@ -5,12 +5,14 @@ import be.edu.adventofcode.Lines
 class Day06 {
     fun part1(input: Lines): Int {
         val grid = Grid()
-        input.get().mapNotNull { toInstruction(it) }.forEach({ it.applyTo(grid) })
+        input.get().mapNotNull { toInstruction(it) }.forEach({ it.forEach { row, col, operation -> grid.apply(row, col, operation::light) } })
         return grid.countLit()
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val grid = Grid()
+        input.get().mapNotNull { toInstruction(it) }.forEach({ it.forEach { row, col, operation -> grid.apply(row, col, operation::increase) } })
+        return grid.totalBrightness()
     }
 
     private fun toInstruction(input: String): Instruction? = Instruction.REGEX.matchEntire(input)?.destructured?.let { destructured ->
@@ -26,15 +28,17 @@ class Day06 {
 }
 
 class Grid(rows: Int, private val cols: Int) {
-    private val grid = Array(rows, { Array<Boolean>(cols, { false }) })
+    private val grid = Array(rows, { Array<Int>(cols, { 0 }) })
 
     constructor() : this(1000, 1000)
 
-    fun apply(row: Int, col: Int, operation: Operation) {
-        grid[row][col] = operation.apply(grid[row][col])
+    fun apply(row: Int, col: Int, operation: (Int) -> Int) {
+        grid[row][col] = operation(grid[row][col])
     }
 
-    fun countLit(): Int = grid.flatMap { it -> it.toList() }.filter { it }.count()
+    fun countLit(): Int = grid.flatMap { it -> it.toList() }.filter { it > 0 }.count()
+
+    fun totalBrightness(): Int = grid.flatMap { it -> it.toList() }.sum()
 }
 
 data class Coordinates(val row: Int, val col: Int)
@@ -44,23 +48,31 @@ data class Instruction(private val operation: Operation, private val upperLeft: 
         val REGEX = Regex("([\\w ]+) (\\d+),(\\d+) through (\\d+),(\\d+)")
     }
 
-    fun applyTo(grid: Grid) {
-        (upperLeft.row..lowerRight.row).forEach { row -> (upperLeft.col..lowerRight.col).forEach { col -> grid.apply(row, col, operation) } }
+    fun forEach(function: (Int, Int, Operation) -> Unit) {
+        (upperLeft.row..lowerRight.row).forEach { row -> (upperLeft.col..lowerRight.col).forEach { col -> function(row, col, operation) } }
     }
 }
 
 sealed class Operation {
-    abstract fun apply(current: Boolean): Boolean
+    abstract fun light(current: Int): Int
+
+    abstract fun increase(current: Int): Int
 }
 
 class TurnOn : Operation() {
-    override fun apply(current: Boolean): Boolean = true
+    override fun light(current: Int): Int = 1
+
+    override fun increase(current: Int): Int = current + 1
 }
 
 class TurnOff : Operation() {
-    override fun apply(current: Boolean): Boolean = false
+    override fun light(current: Int): Int = 0
+
+    override fun increase(current: Int): Int = maxOf(current - 1, 0)
 }
 
 class Toggle : Operation() {
-    override fun apply(current: Boolean): Boolean = !current
+    override fun light(current: Int): Int = if (current == 0) 1 else 0
+
+    override fun increase(current: Int): Int = current + 2
 }
