@@ -9,7 +9,10 @@ class Day07 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val instructions = input.get().plus("46065 -> b").map { parseInstruction(it) }.toMap().mapValues { CachingGate(it.value) }
+        println(instructions.size)
+        println(instructions["b"])
+        return instructions["a"]!!.connect { instructions[it]!! }
     }
 
     fun parseLines(input: Lines): Map<String, Gate> = input.get().map { parseInstruction(it) }.toMap();

@@ -38,11 +38,8 @@ object Day07Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day07.part2(LinesFromArray("line")))
-            }
-            it("should answer Part2") {
-                assertEquals(0, day07.part2(DayInput().lines(day07)))
+            it("should answer What new signal is ultimately provided to wire a?") {
+                assertEquals(14134, day07.part2(DayInput().lines(day07)))
             }
         }
     }
