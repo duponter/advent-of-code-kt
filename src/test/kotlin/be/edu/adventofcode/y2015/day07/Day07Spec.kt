@@ -13,7 +13,7 @@ object Day07Spec : Spek({
         val day07 = Day07();
         on("part 1") {
             it("testcase") {
-                assertEquals(1, day07.part1(LinesFromArray(
+                assertEquals(8, day07.part1(LinesFromArray(
                         "123 -> x",
                         "456 -> y",
                         "x AND y -> d",
@@ -25,7 +25,7 @@ object Day07Spec : Spek({
                 )))
             }
             it("should answer What signal is ultimately provided to wire a?") {
-                assertEquals(0, day07.part1(DayInput().lines(day07)))
+                assertEquals(339, day07.part1(DayInput().lines(day07)))
             }
         }
         on("part 2") {
