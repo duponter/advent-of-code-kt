@@ -12,21 +12,23 @@ object Day09Spec : Spek({
     given("day 09") {
         val day09 = Day09();
         on("part 1") {
-            it("testcase") {
+            it("The shortest of these is London -> Dublin -> Belfast = 605") {
                 assertEquals(605, day09.part1(LinesFromArray("London to Dublin = 464",
                         "London to Belfast = 518",
                         "Dublin to Belfast = 141")))
             }
             it("should answer What is the distance of the shortest route?") {
-                assertEquals(0, day09.part1(DayInput().lines(day09)))
+                assertEquals(141, day09.part1(DayInput().lines(day09)))
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day09.part2(LinesFromArray("line")))
+            it("The longest of these is Dublin -> London -> Belfast = 982") {
+                assertEquals(982, day09.part2(LinesFromArray("London to Dublin = 464",
+                        "London to Belfast = 518",
+                        "Dublin to Belfast = 141")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day09.part2(DayInput().lines(day09)))
+            it("should answer What is the distance of the longest route?") {
+                assertEquals(736, day09.part2(DayInput().lines(day09)))
             }
         }
     }
