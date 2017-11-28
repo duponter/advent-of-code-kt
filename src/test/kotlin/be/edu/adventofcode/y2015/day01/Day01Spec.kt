@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 
 object Day01Spec : Spek({
     given("day 01") {
-        val day01 = Day01();
+        val day01 = Day01()
         on("part 1") {
             val floor = day01.part1()
             it("should answer To what floor do the instructions take Santa?") {

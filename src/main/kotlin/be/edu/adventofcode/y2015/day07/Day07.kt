@@ -13,7 +13,7 @@ class Day07 {
         return instructions["a"]!!.connect { instructions[it]!! }
     }
 
-    fun parseLines(input: Lines): Map<String, Gate> = input.get().map { parseInstruction(it) }.toMap();
+    fun parseLines(input: Lines): Map<String, Gate> = input.get().map { parseInstruction(it) }.toMap()
 
     private fun parseInstruction(input: String): Pair<String, Gate> = when {
         input.startsWith("NOT ") -> parseNot(input)

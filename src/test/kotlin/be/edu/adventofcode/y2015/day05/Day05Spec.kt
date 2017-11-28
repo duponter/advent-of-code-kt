@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 object Day05Spec : Spek({
     given("day 05") {
-        val day05 = Day05();
+        val day05 = Day05()
         on("part 1") {
             it("ugknbfddgicrmopn is nice") {
                 assertEquals(1, day05.part1(LinesFromArray("ugknbfddgicrmopn")))

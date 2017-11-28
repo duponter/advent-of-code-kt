@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 
 object Day04Spec : Spek({
     given("day 04") {
-        val day04 = Day04();
+        val day04 = Day04()
         on("part 1") {
             xit("If your secret key is abcdef, the lowest positive number is 609043") {
                 assertEquals(609043, day04.part1(TextFromString("abcdef")))

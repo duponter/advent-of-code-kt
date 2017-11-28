@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 object Day06Spec : Spek({
     given("day 06") {
-        val day06 = Day06();
+        val day06 = Day06()
         on("part 1") {
             it("turn on 0,0 through 999,999 would turn on (or leave on) every light") {
                 assertEquals(1000000, day06.part1(LinesFromArray("turn on 0,0 through 999,999")))

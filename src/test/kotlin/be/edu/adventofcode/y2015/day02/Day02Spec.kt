@@ -20,7 +20,7 @@ object Day02Spec : Spek({
         assertEquals(10, Present(1, 1, 10).volume())
     }
     given("day 02") {
-        val day02 = Day02();
+        val day02 = Day02()
         on("part 1") {
             val squareFeet = day02.part1()
             it("should answer How many total square feet of wrapping paper should they order?") {

@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 object Day07Spec : Spek({
     given("day 07") {
-        val day07 = Day07();
+        val day07 = Day07()
         on("part 1") {
             it("signals on the wires of a simple circuit") {
                 val map = day07.parseLines(LinesFromArray(

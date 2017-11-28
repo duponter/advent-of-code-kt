@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 object Day03Spec : Spek({
     given("day 03") {
-        val day03 = Day03();
+        val day03 = Day03()
         on("part 1") {
             it("> delivers presents to 2 houses") {
                 assertEquals(2, day03.part1(TextFromString(">")))

@@ -41,7 +41,7 @@ import kotlin.test.assertEquals
 
 object Day${day}Spec : Spek({
     given("day ${day}") {
-        val day${day} = Day${day}();
+        val day${day} = Day${day}()
         on("part 1") {
             it("testcase") {
                 assertEquals(1, day${day}.part1(LinesFromArray("line")))

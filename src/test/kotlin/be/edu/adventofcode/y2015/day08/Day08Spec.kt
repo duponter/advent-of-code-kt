@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 object Day08Spec : Spek({
     given("day 08") {
-        val day08 = Day08();
+        val day08 = Day08()
         on("part 1") {
 
             it("\"\" is 2 characters of code (the two double quotes), but the string contains zero characters.") {

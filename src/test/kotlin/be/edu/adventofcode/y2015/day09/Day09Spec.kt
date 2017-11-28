@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 object Day09Spec : Spek({
     given("day 09") {
-        val day09 = Day09();
+        val day09 = Day09()
         on("part 1") {
             it("The shortest of these is London -> Dublin -> Belfast = 605") {
                 assertEquals(605, day09.part1(LinesFromArray("London to Dublin = 464",
