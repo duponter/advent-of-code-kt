@@ -4,7 +4,7 @@ import be.edu.adventofcode.Lines
 
 class Day08 {
     fun part1(input: Lines): Int {
-        return input.get().map { Pair(it.length, it.replace("\\\"", "\"").replace("\\\\", "\\").replace(Regex("\\\\[xX]([0-9a-fA-F]+)"), { String(it.destructured.component1().hexStringToByteArray()) }).length) }
+        return input.get().map { Pair(it.length, it.trim('"').replace("\\\"", "\"").replace("\\\\", "\\").replace(Regex("\\\\[xX]([0-9a-fA-F]{2})"), { String(it.destructured.component1().hexStringToByteArray()) }).length) }
                 .map { it.first - it.second }
                 .sum()
     }
@@ -17,7 +17,6 @@ class Day08 {
 private const val HEX_CHARS = "0123456789ABCDEF"
 
 fun String.hexStringToByteArray(): ByteArray {
-
     val result = ByteArray(length / 2)
 
     for (i in 0 until length step 2) {

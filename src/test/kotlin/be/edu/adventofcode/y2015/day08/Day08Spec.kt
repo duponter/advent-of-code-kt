@@ -26,7 +26,7 @@ object Day08Spec : Spek({
                 assertEquals(5, day08.part1(LinesFromArray("\"\\x27\"")))
             }
             it("should answer What is the number of characters of code for string literals minus the number of characters in memory for the values of the strings?") {
-                assertEquals(0, day08.part1(DayInput().lines(day08)))
+                assertEquals(1333, day08.part1(DayInput().lines(day08)))
             }
         }
         on("part 2") {
