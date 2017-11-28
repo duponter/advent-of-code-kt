@@ -1,6 +1,6 @@
 // setup the plugin
 buildscript {
-    ext.kotlin_version = '1.1.60'
+    ext.kotlin_version = '1.1.61'
 
     repositories {
         mavenCentral()
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.60'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.61'
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.1'
     }
 }
