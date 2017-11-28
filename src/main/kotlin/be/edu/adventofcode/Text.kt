@@ -10,7 +10,7 @@ interface Text {
 
 class TextFromFile(private val file: File) : Text {
 
-    override fun get(): String = file.reader().readText()
+    override fun get(): String = file.readText()
 
 }
 
