@@ -10,7 +10,9 @@ class Day08 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        return input.get().map { Pair("\"".plus(it.replace("\\", "\\\\").replace("\"", "\\\"").plus("\"")).length, it.length) }
+                .map { it.first - it.second }
+                .sum()
     }
 }
 

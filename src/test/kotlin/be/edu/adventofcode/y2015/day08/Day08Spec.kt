@@ -31,19 +31,19 @@ object Day08Spec : Spek({
         }
         on("part 2") {
             it("\"\" encodes to \"\\\"\\\"\", an increase from 2 characters to 6.") {
-                assertEquals(4, day08.part1(LinesFromArray("\"\"")))
+                assertEquals(4, day08.part2(LinesFromArray("\"\"")))
             }
             it("\"abc\" encodes to \"\\\"abc\\\"\", an increase from 5 characters to 9.") {
-                assertEquals(4, day08.part1(LinesFromArray("\"abc\"")))
+                assertEquals(4, day08.part2(LinesFromArray("\"abc\"")))
             }
             it("\"aaa\\\"aaa\" encodes to \"\\\"aaa\\\\\\\"aaa\\\"\", an increase from 10 characters to 16.") {
-                assertEquals(6, day08.part1(LinesFromArray("\"aaa\\\"aaa\"")))
+                assertEquals(6, day08.part2(LinesFromArray("\"aaa\\\"aaa\"")))
             }
             it("\"\\x27\" encodes to \"\\\"\\\\x27\\\"\", an increase from 6 characters to 11.") {
-                assertEquals(5, day08.part1(LinesFromArray("\"\\x27\"")))
+                assertEquals(5, day08.part2(LinesFromArray("\"\\x27\"")))
             }
             it("should answer What is the total number of characters to represent the newly encoded strings minus the number of characters of code in each original string literal?") {
-                assertEquals(0, day08.part2(DayInput().lines(day08)))
+                assertEquals(2046, day08.part2(DayInput().lines(day08)))
             }
         }
     }
