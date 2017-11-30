@@ -63,10 +63,12 @@ object Day${day}Spec : Spek({
 EOL
 }
 
-for arg in "$@"
+year=$1
+for arg in "${@:2}"
 do
-    year='2015'
 	day=$(printf "%02d" ${arg})
+
+	echo "Generating ${day} of ${year}"
 
 	touch_file src/main/kotlin/be/edu/adventofcode/y${year}/day${day}/Day${day}.kt
 	touch_file src/main/resources/be/edu/adventofcode/y${year}/day${day}/Day${day}.txt
