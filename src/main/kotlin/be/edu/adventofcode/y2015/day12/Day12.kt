@@ -1,13 +1,13 @@
 package be.edu.adventofcode.y2015.day12
 
-import be.edu.adventofcode.Lines
+import be.edu.adventofcode.Text
 
 class Day12 {
-    fun part1(input: Lines): Int {
+    fun part1(input: Text): Int {
         return input.get().count()
     }
 
-    fun part2(input: Lines): Int {
+    fun part2(input: Text): Int {
         return input.get().count()
     }
 }
