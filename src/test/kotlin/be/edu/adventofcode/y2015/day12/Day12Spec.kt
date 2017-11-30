@@ -33,10 +33,22 @@ object Day12Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day12.part2(TextFromString("line")))
+            it("[1,2,3] still has a sum of 6.") {
+                assertEquals(6, day12.part2(TextFromString("[1,2,3]")))
             }
-            it("should answer Part2") {
+            it("[1,{\"c\":\"red\",\"b\":2},3] now has a sum of 4, because the middle object is ignored.") {
+                assertEquals(4, day12.part2(TextFromString("[1,{\"c\":\"red\",\"b\":2},3]")))
+            }
+            it("{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5} now has a sum of 0, because the entire structure is ignored.") {
+                assertEquals(0, day12.part2(TextFromString("{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5}")))
+            }
+            it("[1,\"red\",5]") {
+                assertEquals(6, day12.part2(TextFromString("[1,\"red\",5]")))
+            }
+            it("{\"e\":126,\"c\":39,\"a\":[\"violet\",94,\"orange\",102,\"blue\"],\"b\":55,\"d\":\"yellow\",\"f\":\"yellow\"},146,{\"c\":169,\"a\":\"red\",\"b\":\"red\"}") {
+                assertEquals(562, day12.part2(TextFromString("{\"e\":126,\"c\":39,\"a\":[\"violet\",94,\"orange\",102,\"blue\"],\"b\":55,\"d\":\"yellow\",\"f\":\"yellow\"},146,{\"c\":169,\"a\":\"red\",\"b\":\"red\"}")))
+            }
+            it("should answer What is the sum of all numbers in the document, ignoring objects which has any property with the value \"red\"?") {
                 assertEquals(0, day12.part2(DayInput().text(day12)))
             }
         }
