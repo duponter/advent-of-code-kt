@@ -29,7 +29,7 @@ object Day12Spec : Spek({
                 assertEquals(0, day12.part1(TextFromString("{}")))
             }
             it("should answer What is the sum of all numbers in the document?") {
-                assertEquals(0, day12.part1(DayInput().text(day12)))
+                assertEquals(191164, day12.part1(DayInput().text(day12)))
             }
         }
         on("part 2") {
