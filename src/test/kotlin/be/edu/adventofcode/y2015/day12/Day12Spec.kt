@@ -6,12 +6,15 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.jetbrains.spek.api.dsl.xon
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 object Day12Spec : Spek({
     given("day 12") {
         val day12 = Day12()
-        on("part 1") {
+        xon("part 1") {
             it("[1,2,3] and {\"a\":2,\"b\":4} both have a sum of 6.") {
                 assertEquals(6, day12.part1(TextFromString("[1,2,3]")))
                 assertEquals(6, day12.part1(TextFromString("{\"a\":2,\"b\":4}")))
@@ -48,7 +51,13 @@ object Day12Spec : Spek({
             it("{\"e\":126,\"c\":39,\"a\":[\"violet\",94,\"orange\",102,\"blue\"],\"b\":55,\"d\":\"yellow\",\"f\":\"yellow\"},146,{\"c\":169,\"a\":\"red\",\"b\":\"red\"}") {
                 assertEquals(562, day12.part2(TextFromString("{\"e\":126,\"c\":39,\"a\":[\"violet\",94,\"orange\",102,\"blue\"],\"b\":55,\"d\":\"yellow\",\"f\":\"yellow\"},146,{\"c\":169,\"a\":\"red\",\"b\":\"red\"}")))
             }
+            it("{\"c\": [\"red\", 1], \"c\":1}") {
+                assertEquals(2, day12.part2(TextFromString("{\"c\": [\"red\", 1], \"c\":1}")))
+            }
             it("should answer What is the sum of all numbers in the document, ignoring objects which has any property with the value \"red\"?") {
+                assertNotEquals(168745, day12.part2(DayInput().text(day12)))
+                assertTrue { day12.part2(DayInput().text(day12)) > 87529 }
+//                assertTrue {  day12.part2(DayInput().text(day12)) < 148671 }
                 assertEquals(0, day12.part2(DayInput().text(day12)))
             }
         }
