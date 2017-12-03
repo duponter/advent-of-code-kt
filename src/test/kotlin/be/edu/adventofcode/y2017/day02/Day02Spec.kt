@@ -12,10 +12,10 @@ object Day02Spec : Spek({
     given("day 02") {
         val day02 = Day02()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day02.part1(LinesFromArray("line")))
+            it("the spreadsheet's checksum would be 8 + 4 + 6 = 18") {
+                assertEquals(18, day02.part1(LinesFromArray("5 1 9 5", "7 5 3", "2 4 6 8")))
             }
-            it("should answer Part1") {
+            it("should answer What is the checksum for the spreadsheet in your puzzle input?") {
                 assertEquals(0, day02.part1(DayInput().lines(day02)))
             }
         }
