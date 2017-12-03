@@ -16,15 +16,15 @@ object Day02Spec : Spek({
                 assertEquals(18, day02.part1(LinesFromArray("5 1 9 5", "7 5 3", "2 4 6 8")))
             }
             it("should answer What is the checksum for the spreadsheet in your puzzle input?") {
-                assertEquals(0, day02.part1(DayInput().lines(day02)))
+                assertEquals(53460, day02.part1(DayInput().lines(day02)))
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day02.part2(LinesFromArray("line")))
+            it("the sum of the results would be 4 + 3 + 2 = 9") {
+                assertEquals(9, day02.part2(LinesFromArray("5 9 2 8", "9 4 7 3", "3 8 6 5")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day02.part2(DayInput().lines(day02)))
+            it("should answer What is the sum of each row's result in your puzzle input?") {
+                assertEquals(282, day02.part2(DayInput().lines(day02)))
             }
         }
     }
