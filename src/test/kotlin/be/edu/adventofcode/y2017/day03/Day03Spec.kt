@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 object Day03Spec : Spek({
     given("day 03") {
         val day03 = Day03()
-        on("part 1") {
+        xon("part 1") {
             it("Data from square 1 is carried 0 steps, since it's at the access port.") {
                 assertEquals(0, day03.part1(1))
             }
@@ -27,12 +27,24 @@ object Day03Spec : Spek({
                 assertEquals(430, day03.part1(312051))
             }
         }
-        xon("part 2") {
-            it("testcase") {
-                //                assertEquals(1, day03.part2(TextFromString("line")))
+        on("part 2") {
+            it("Square 1 starts with the value 1.") {
+                assertEquals(1, day03.part2(1))
             }
-            it("should answer Part2") {
-                //                assertEquals(0, day03.part2(DayInput().lines(day03)))
+            it("Square 2 has only one adjacent filled square (with value 1), so it also stores 1.") {
+                assertEquals(1, day03.part2(2))
+            }
+            it("Square 3 has both of the above squares as neighbors and stores the sum of their values, 2.") {
+                assertEquals(2, day03.part2(3))
+            }
+            it("Square 4 has all three of the aforementioned squares as neighbors and stores the sum of their values, 4.") {
+                assertEquals(4, day03.part2(4))
+            }
+            it("Square 5 only has the first and fourth squares as neighbors, so it gets the value 5.") {
+                assertEquals(5, day03.part2(5))
+            }
+            it("should answer What is the first value written that is larger than your puzzle input?") {
+                assertEquals(0, day03.part2(312051))
             }
         }
     }
