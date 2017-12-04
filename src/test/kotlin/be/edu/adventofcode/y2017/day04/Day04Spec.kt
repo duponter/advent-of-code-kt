@@ -26,11 +26,23 @@ object Day04Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day04.part2(LinesFromArray("line")))
+            it("abcde fghij is a valid passphrase.") {
+                assertEquals(1, day04.part2(LinesFromArray("abcde fghij")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day04.part2(DayInput().lines(day04)))
+            it("abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.") {
+                assertEquals(0, day04.part2(LinesFromArray("abcde xyz ecdab")))
+            }
+            it("a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.") {
+                assertEquals(1, day04.part2(LinesFromArray("a ab abc abd abf abj")))
+            }
+            it("iiii oiii ooii oooi oooo is valid.") {
+                assertEquals(1, day04.part2(LinesFromArray("iiii oiii ooii oooi oooo")))
+            }
+            it("oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.") {
+                assertEquals(0, day04.part2(LinesFromArray("oiii ioii iioi iiio")))
+            }
+            it("should answer Under this new system policy, how many passphrases are valid?") {
+                assertEquals(167, day04.part2(DayInput().lines(day04)))
             }
         }
     }
