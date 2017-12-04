@@ -12,11 +12,17 @@ object Day04Spec : Spek({
     given("day 04") {
         val day04 = Day04()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day04.part1(LinesFromArray("line")))
+            it("aa bb cc dd ee is valid.") {
+                assertEquals(1, day04.part1(LinesFromArray("aa bb cc dd ee")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day04.part1(DayInput().lines(day04)))
+            it("aa bb cc dd aa is not valid - the word aa appears more than once.") {
+                assertEquals(0, day04.part1(LinesFromArray("aa bb cc dd aa")))
+            }
+            it("aa bb cc dd aaa is valid - aa and aaa count as different words.") {
+                assertEquals(1, day04.part1(LinesFromArray("aa bb cc dd aaa")))
+            }
+            it("should answer How many passphrases are valid?") {
+                assertEquals(477, day04.part1(DayInput().lines(day04)))
             }
         }
         on("part 2") {
