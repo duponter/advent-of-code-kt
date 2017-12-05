@@ -12,18 +12,18 @@ object Day05Spec : Spek({
     given("day 05") {
         val day05 = Day05()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day05.part1(LinesFromArray("line")))
+            it("the exit is reached in 5 steps.") {
+                assertEquals(5, day05.part1(LinesFromArray("0", "3", "0", "1", "-3")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day05.part1(DayInput().lines(day05)))
+            it("should answer How many steps does it take to reach the exit?") {
+                assertEquals(388611, day05.part1(DayInput().lines(day05)))
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day05.part2(LinesFromArray("line")))
+            it("Using this rule with the above example, the process now takes 10 steps") {
+                assertEquals(10, day05.part2(LinesFromArray("0", "3", "0", "1", "-3")))
             }
-            it("should answer Part2") {
+            it("should answer How many steps does it now take to reach the exit?") {
                 assertEquals(0, day05.part2(DayInput().lines(day05)))
             }
         }
