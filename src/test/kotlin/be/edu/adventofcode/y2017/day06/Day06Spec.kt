@@ -7,7 +7,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
 
 object Day06Spec : Spek({
     given("day 06") {
@@ -25,8 +24,7 @@ object Day06Spec : Spek({
                 assertEquals(4, day06.part2(TextFromString("0 2 7 0")))
             }
             it("should answer How many cycles are in the infinite loop that arises from the configuration in your puzzle input?") {
-                assertNotEquals(10, day06.part2(DayInput().text(day06)))
-                assertEquals(0, day06.part2(DayInput().text(day06)))
+                assertEquals(2765, day06.part2(DayInput().text(day06)))
             }
         }
     }

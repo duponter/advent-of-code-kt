@@ -14,7 +14,6 @@ class Day06 {
         var configurations = listOf<String>()
         var configuration = blocks.map(Pair<Int, Int>::second).joinToString(",")
         var count = 0
-        var cycles = 0
 
         do {
             configurations = configurations.plus(configuration)
@@ -24,7 +23,6 @@ class Day06 {
 
             (max.first + 1..max.first + max.second).forEach {
                 val index = if (it < blocks.size) it else it % blocks.size
-                if (index == max.first) cycles++
                 blocks[index] = Pair(blocks[index].first, blocks[index].second + 1)
             }
 
@@ -33,7 +31,8 @@ class Day06 {
             configuration = blocks.map(Pair<Int, Int>::second).joinToString(",")
         } while (!configurations.contains(configuration))
 
-        return Pair(count, cycles)
+        configurations = configurations.plus(configuration)
+        return Pair(count, configurations.size - (configurations.indexOf(configuration) + 1))
     }
 }
 
