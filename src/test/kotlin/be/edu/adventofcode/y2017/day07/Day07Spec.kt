@@ -12,11 +12,23 @@ object Day07Spec : Spek({
     given("day 07") {
         val day07 = Day07()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day07.part1(LinesFromArray("line")))
+            it("tknk is at the bottom of the tower (the bottom program)") {
+                assertEquals("tknk", day07.part1(LinesFromArray("pbga (66)",
+                        "xhth (57)",
+                        "ebii (61)",
+                        "havc (66)",
+                        "ktlj (57)",
+                        "fwft (72) -> ktlj, cntj, xhth",
+                        "qoyq (66)",
+                        "padx (45) -> pbga, havc, qoyq",
+                        "tknk (41) -> ugml, padx, fwft",
+                        "jptl (61)",
+                        "ugml (68) -> gyxo, ebii, jptl",
+                        "gyxo (61)",
+                        "cntj (57)")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day07.part1(DayInput().lines(day07)))
+            it("should answer  What is the name of the bottom program?") {
+                assertEquals("qibuqqg", day07.part1(DayInput().lines(day07)))
             }
         }
         on("part 2") {
