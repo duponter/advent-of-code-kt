@@ -32,10 +32,22 @@ object Day07Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day07.part2(LinesFromArray("line")))
+            it("tknk's disc is unbalanced: ugml's weight would be 60.") {
+                assertEquals(60, day07.part2(LinesFromArray("pbga (66)",
+                        "xhth (57)",
+                        "ebii (61)",
+                        "havc (66)",
+                        "ktlj (57)",
+                        "fwft (72) -> ktlj, cntj, xhth",
+                        "qoyq (66)",
+                        "padx (45) -> pbga, havc, qoyq",
+                        "tknk (41) -> ugml, padx, fwft",
+                        "jptl (61)",
+                        "ugml (68) -> gyxo, ebii, jptl",
+                        "gyxo (61)",
+                        "cntj (57)")))
             }
-            it("should answer Part2") {
+            it("should answer What would its weight need to be to balance the entire tower?") {
                 assertEquals(0, day07.part2(DayInput().lines(day07)))
             }
         }
