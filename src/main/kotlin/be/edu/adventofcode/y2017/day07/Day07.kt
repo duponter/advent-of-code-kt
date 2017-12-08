@@ -13,10 +13,9 @@ class Day07 {
     fun part2(input: Lines): Int {
         val programs = input.get().map(this::parseProgram).groupBy(Program::name, { it }).mapValues { it.value.single() }
 
-        val tmp = programs.map { it.value.toDisc(programs).unbalancedNode() }
-        println(tmp.filter { it != null }.map { Pair(it!!.first.program.name, it.second) })
-//        return programs.map { Pair(it.value, it.value.unbalancedNode(programs)) }.single { it.second != null }.first.weight
-        return tmp.filter { it != null }.minBy { it!!.second }!!.second
+        val unbalanced = programs.map { it.value.toDisc(programs).unbalancedNode() }.filterNotNull()
+
+        return unbalanced.single { it.first.program.disc.none { unbalanced.map { it.first.program.name }.contains(it) } }.second
     }
 
     private fun parseProgram(input: String): Program {
@@ -40,8 +39,7 @@ data class Disc(val program: Program, val weight: Int, private val disc: List<Di
         return when {
             countWeights.size == 1 -> null
             countWeights.size == 2 -> {
-                println("${this.program.name} = ${countWeights.mapValues { it.value.size }}")
-                val unbalanced = countWeights.filterValues { it.size == 1 }.mapValues { it.value.singleOrNull() }.values.first()!!
+                val unbalanced = countWeights.filterValues { it.size == 1 }.mapValues { it.value.single() }.values.first()
                 val balancedWeight = countWeights.filterValues { it.size != 1 }.keys.single()
                 Pair(unbalanced, unbalanced.program.weight + balancedWeight - unbalanced.weight)
             }

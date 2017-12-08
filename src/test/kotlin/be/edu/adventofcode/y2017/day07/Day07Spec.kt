@@ -50,7 +50,7 @@ object Day07Spec : Spek({
             }
             it("should answer What would its weight need to be to balance the entire tower?") {
                 assertNotEquals(71, day07.part2(DayInput().lines(day07)))
-                assertEquals(0, day07.part2(DayInput().lines(day07)))
+                assertEquals(1079, day07.part2(DayInput().lines(day07)))
             }
         }
     }
