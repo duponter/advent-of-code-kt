@@ -7,6 +7,7 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 object Day07Spec : Spek({
     given("day 07") {
@@ -48,6 +49,7 @@ object Day07Spec : Spek({
                         "cntj (57)")))
             }
             it("should answer What would its weight need to be to balance the entire tower?") {
+                assertNotEquals(71, day07.part2(DayInput().lines(day07)))
                 assertEquals(0, day07.part2(DayInput().lines(day07)))
             }
         }
