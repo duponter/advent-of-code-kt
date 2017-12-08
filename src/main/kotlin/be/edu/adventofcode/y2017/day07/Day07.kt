@@ -13,9 +13,7 @@ class Day07 {
     fun part2(input: Lines): Int {
         val programs = input.get().map(this::parseProgram).groupBy(Program::name, { it }).mapValues { it.value.single() }
 
-        val tmp = programs.map { it.value.unbalancedNode(programs) }
-        println(tmp)
-        return programs.map { Pair(it.value, it.value.unbalancedNode(programs)) }.single { it.second != null }.first.weight
+        return programs.map { it.value.toDisc(programs).unbalancedNode() }.single { it != null }!!.second
     }
 
     private fun parseProgram(input: String): Program {
@@ -25,15 +23,26 @@ class Day07 {
 }
 
 data class Program(val name: String, val weight: Int, val disc: List<String>) {
-    fun unbalancedNode(programs: Map<String, Program>): Pair<Program, Int>? {
+    fun toDisc(programs: Map<String, Program>): Disc {
+        val discPrograms = disc.map { programs[it]!!.toDisc(programs) }
+        return Disc(this, weight + discPrograms.map(Disc::weight).sum(), discPrograms)
+    }
+}
+
+data class Disc(private val program: Program, val weight: Int, private val disc: List<Disc>) {
+    fun unbalancedNode(): Pair<Disc, Int>? {
         if (disc.isEmpty()) return null
 
-        val withDiscWeights = programs.filterKeys { disc.contains(it) }.map { Pair(it.value, it.value.discWeight(programs)) }.groupBy { it.second }
-        println("$this has following disc weights $withDiscWeights with keys ${withDiscWeights.keys}")
-        return withDiscWeights.filterValues { it.size == 1 }.mapValues { it.value.singleOrNull() }.values.firstOrNull()
+        val countWeights = disc.groupBy(Disc::weight)
+        return when {
+            countWeights.size == 1 -> null
+            countWeights.size == 2 -> {
+                val unbalanced = countWeights.filterValues { it.size == 1 }.mapValues { it.value.singleOrNull() }.values.first()!!
+                val balancedWeight = countWeights.filterValues { it.size == 2 }.keys.single()
+                Pair(unbalanced, unbalanced.program.weight + balancedWeight - unbalanced.weight)
+            }
+            else -> throw IllegalStateException("Expected 1 or 2 entries: $countWeights")
+        }
     }
 
-    fun discWeight(programs: Map<String, Program>): Int {
-        return weight + disc.map { programs.getValue(it).weight }.sum()
-    }
 }
