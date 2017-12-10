@@ -7,6 +7,7 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 object Day10Spec : Spek({
     given("day 10") {
@@ -16,6 +17,7 @@ object Day10Spec : Spek({
                 assertEquals(12, day10.part1(TextFromString("3, 4, 1, 5"), 5))
             }
             it("should answer What is the result of multiplying the first two numbers in the list?") {
+                assertTrue { day10.part1(DayInput().text(day10), 256) < 9135 }
                 assertEquals(0, day10.part1(DayInput().text(day10), 256))
             }
         }
