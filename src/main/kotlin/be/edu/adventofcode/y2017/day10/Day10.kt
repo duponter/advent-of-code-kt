@@ -13,21 +13,26 @@ class Day10 {
 
     private fun hash(current: Pair<List<Int>, Int>, skipSize: Int, length: Int): Pair<List<Int>, Int> {
         val numbers = current.first
-        val next = current.second + length + skipSize
-        println("reversing $length elements from list ${numbers.size} | skipSize $skipSize | position ${current.second} --> $next")
         if (length > numbers.size) throw IllegalStateException("Length $length > Number list size ${numbers.size}")
         return Pair(numbers.reverseCycled(current.second, length), (current.second + length + skipSize) % numbers.size)
     }
 
-    fun part2(input: Text, size: Int): Int {
-        return input.get().count()
+    fun part2(input: Text, size: Int): String {
+        val numbers = (0 until size).toList()
+        return input.chars().map(Char::toInt) // every char of input to ASCII
+                .plus(listOf(17, 31, 73, 47, 23))   // + ,17, 31, 73, 47, 23
+                .repeat(64) // repeat new input 64 times ==> sparse hash
+                .foldIndexed(Pair(numbers, 0), { index, acc, length -> hash(acc, index, length) })
+                .first
+                .chunked(16, { it.reduce { acc: Int, i: Int -> acc xor i } })
+                .joinToString("") { it.toString(16).padStart(2, '0') }
     }
 }
 
 fun <T> List<T>.reverseCycled(index: Int, length: Int): List<T> {
     val initialSplit = this.split(index)
-    val result = if (initialSplit.second.size >= length) {
-        val finalSplit = initialSplit.second.split(index + length)
+    return if (initialSplit.second.size >= length) {
+        val finalSplit = initialSplit.second.split(length)
         initialSplit.first.plus(finalSplit.first.reversed()).plus(finalSplit.second)
     } else {
         val start = length - initialSplit.second.size
@@ -36,8 +41,6 @@ fun <T> List<T>.reverseCycled(index: Int, length: Int): List<T> {
         val reversedSplit = reversed.split(initialSplit.second.size)
         reversedSplit.second.plus(finalSplit.second).plus(reversedSplit.first)
     }
-//    println("reversing $this from index $index for a length of $length yielding $result")
-    return result
 }
 
 fun <T> List<T>.split(index: Int): Pair<List<T>, List<T>> {
@@ -45,3 +48,5 @@ fun <T> List<T>.split(index: Int): Pair<List<T>, List<T>> {
     if (pair.first.size + pair.second.size != this.size) throw IllegalStateException("Split list sizes (${pair.first.size} and ${pair.second.size}) don't match original size ${this.size}")
     return pair
 }
+
+fun <T> List<T>.repeat(times: Int): List<T> = (1..times).fold(listOf(), { acc, _ -> acc.plus(this) })

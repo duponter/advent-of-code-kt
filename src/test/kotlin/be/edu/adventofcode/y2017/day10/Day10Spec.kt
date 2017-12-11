@@ -7,7 +7,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 object Day10Spec : Spek({
     given("day 10") {
@@ -17,16 +16,24 @@ object Day10Spec : Spek({
                 assertEquals(12, day10.part1(TextFromString("3, 4, 1, 5"), 5))
             }
             it("should answer What is the result of multiplying the first two numbers in the list?") {
-                assertTrue { day10.part1(DayInput().text(day10), 256) < 9135 }
-                assertEquals(0, day10.part1(DayInput().text(day10), 256))
+                assertEquals(2928, day10.part1(DayInput().text(day10), 256))
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day10.part2(TextFromString("line"), 5))
+            it("The empty string becomes a2582a3a0e66e6e86e3812dcb672a272.") {
+                assertEquals("a2582a3a0e66e6e86e3812dcb672a272", day10.part2(TextFromString(""), 256))
             }
-            it("should answer Part2") {
-                assertEquals(0, day10.part2(DayInput().text(day10), 256))
+            it("AoC 2017 becomes 33efeb34ea91902bb2f59c9920caa6cd.") {
+                assertEquals("33efeb34ea91902bb2f59c9920caa6cd", day10.part2(TextFromString("AoC 2017"), 256))
+            }
+            it("1,2,3 becomes 3efbe78a8d82f29979031a4aa0b16a9d.") {
+                assertEquals("3efbe78a8d82f29979031a4aa0b16a9d", day10.part2(TextFromString("1,2,3"), 256))
+            }
+            it("1,2,4 becomes 63960835bcdc130f0b66d7ff4f6a5a8e.") {
+                assertEquals("63960835bcdc130f0b66d7ff4f6a5a8e", day10.part2(TextFromString("1,2,4"), 256))
+            }
+            it("should answer What is the Knot Hash of your puzzle input?") {
+                assertEquals("0c2f794b2eb555f7830766bf8fb65a16", day10.part2(DayInput().text(day10), 256))
             }
         }
     }
