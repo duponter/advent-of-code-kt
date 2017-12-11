@@ -13,7 +13,11 @@ class Day11 {
     }
 
     fun part2(input: Text): Int {
-        return input.get().count()
+        val start = Hex()
+        return input.get().split(Regex(",\\s*"))
+                .map { Direction.valueOf(it.toUpperCase()) }
+                .fold(Pair(start, 0), { acc, dir -> Pair(dir.apply(acc.first), maxOf(acc.second, dir.apply(acc.first).distance(start))) })
+                .second
     }
 }
 
@@ -37,21 +41,17 @@ enum class Direction {
         override fun apply(start: Hex): Hex = start.sw()
     };
 
-    abstract fun apply(start: Hex): Hex;
+    abstract fun apply(start: Hex): Hex
 }
 
-// https://www.redblobgames.com/grids/hexagons/
-data class Hex(private val row: Int = 0, private val column: Int = 0) {
-    fun distance(other: Hex): Int {
-        return (abs(this.column - other.column)
-                + abs(this.column + this.row - other.column - other.row)
-                + abs(this.row - other.row)) / 2
-    }
+// http://3dmdesign.com/development/hexmap-coordinates-the-easy-way
+data class Hex(private val x: Int = 0, private val y: Int = 0) {
+    fun distance(other: Hex): Int = maxOf(maxOf(abs(this.x - other.x), abs(this.y - other.y)), abs((this.x - other.x) - (this.y - other.y)))
 
-    fun nw(): Hex = Hex(if (column % 2 == 0) row - 1 else row, column - 1)
-    fun n(): Hex = Hex(row - 1, column)
-    fun ne(): Hex = Hex(if (column % 2 == 0) row - 1 else row, column + 1)
-    fun se(): Hex = Hex(if (column % 2 == 1) row + 1 else row, column + 1)
-    fun s(): Hex = Hex(row + 1, column)
-    fun sw(): Hex = Hex(if (column % 2 == 1) row + 1 else row, column - 1)
+    fun nw(): Hex = Hex(x - 1, y)
+    fun n(): Hex = Hex(x, y + 1)
+    fun ne(): Hex = Hex(x + 1, y + 1)
+    fun se(): Hex = Hex(x + 1, y)
+    fun s(): Hex = Hex(x, y - 1)
+    fun sw(): Hex = Hex(x - 1, y - 1)
 }

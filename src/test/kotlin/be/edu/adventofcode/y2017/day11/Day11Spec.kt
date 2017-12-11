@@ -24,15 +24,12 @@ object Day11Spec : Spek({
             it("se,sw,se,sw,sw is 3 steps away (s,s,sw).") {
                 assertEquals(3, day11.part1(TextFromString("se,sw,se,sw,sw")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day11.part1(DayInput().text(day11)))
+            it("should answer How many steps away is he from his starting position?") {
+                assertEquals(773, day11.part1(DayInput().text(day11)))
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day11.part2(TextFromString("line")))
-            }
-            it("should answer Part2") {
+            it("should answer How many steps away is the furthest he ever got from his starting position?") {
                 assertEquals(0, day11.part2(DayInput().text(day11)))
             }
         }
