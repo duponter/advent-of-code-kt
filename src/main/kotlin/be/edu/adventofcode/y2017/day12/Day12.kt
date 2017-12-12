@@ -3,25 +3,33 @@ package be.edu.adventofcode.y2017.day12
 import be.edu.adventofcode.Lines
 
 class Day12 {
-    fun part1(input: Lines): Int {
-        var map = input.get().map { split(it) }.toMap()
-        var collected = setOf(0)
-
-        do {
-            val size = collected.size
-            val split = map.split(collected)
-            collected = collected.plus(split.first.values.flatMap { it })
-            map = split.second
-        } while (size < collected.size)
-
-        return collected.size
-    }
+    fun part1(input: Lines): Int = group(input.get().map { split(it) }.toMap(), 0).first.size
 
     private fun split(input: String): Pair<Int, List<Int>> = input.split(" <-> ")
             .let { Pair(it.first().toInt(), it.last().split(Regex(",\\s*")).map(String::toInt)) }
 
-    fun part2(input: Lines): Int {
-        return input.get().count()
+    private fun group(programs: Map<Int, List<Int>>, id: Int): Pair<Set<Int>, Map<Int, List<Int>>> {
+        var collected = setOf(id)
+        var remaining = programs
+
+        do {
+            val size = collected.size
+            val split = remaining.split(collected)
+            collected = collected.plus(split.first.values.flatMap { it })
+            remaining = split.second
+        } while (size < collected.size)
+
+        return Pair(collected, remaining)
+    }
+
+    fun part2(input: Lines): Int = count(input.get().map { split(it) }.toMap())
+
+    private fun count(programs: Map<Int, List<Int>>): Int {
+        if (programs.isEmpty()) {
+            return 1
+        }
+        val group = group(programs, programs.keys.first())
+        return 1 + count(group.second)
     }
 }
 
