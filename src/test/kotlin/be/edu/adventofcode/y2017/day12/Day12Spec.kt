@@ -7,7 +7,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 object Day12Spec : Spek({
     given("day 12") {
@@ -28,8 +27,7 @@ object Day12Spec : Spek({
         }
         on("part 2") {
             it("should answer How many groups are there in total?") {
-                assertTrue { day12.part2(DayInput().lines(day12)) < 208 }
-                assertEquals(0, day12.part2(DayInput().lines(day12)))
+                assertEquals(207, day12.part2(DayInput().lines(day12)))
             }
         }
     }

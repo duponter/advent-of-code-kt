@@ -8,8 +8,8 @@ class Day12 {
     private fun split(input: String): Pair<Int, List<Int>> = input.split(" <-> ")
             .let { Pair(it.first().toInt(), it.last().split(Regex(",\\s*")).map(String::toInt)) }
 
-    private fun group(programs: Map<Int, List<Int>>, id: Int): Pair<Set<Int>, Map<Int, List<Int>>> {
-        var collected = setOf(id)
+    private fun group(programs: Map<Int, List<Int>>, key: Int): Pair<Set<Int>, Map<Int, List<Int>>> {
+        var collected = setOf(key)
         var remaining = programs
 
         do {
@@ -24,13 +24,8 @@ class Day12 {
 
     fun part2(input: Lines): Int = count(input.get().map { split(it) }.toMap())
 
-    private fun count(programs: Map<Int, List<Int>>): Int {
-        if (programs.isEmpty()) {
-            return 1
-        }
-        val group = group(programs, programs.keys.first())
-        return 1 + count(group.second)
-    }
+    private fun count(programs: Map<Int, List<Int>>): Int =
+            if (programs.isEmpty()) 0 else 1 + count(group(programs, programs.keys.first()).second)
 }
 
 private fun <K, V> Map<K, V>.split(keys: Iterable<K>): Pair<Map<K, V>, Map<K, V>> = Pair(this.filterKeys(keys::contains), this.minus(keys))
