@@ -12,11 +12,17 @@ object Day12Spec : Spek({
     given("day 12") {
         val day12 = Day12()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day12.part1(LinesFromArray("line")))
+            it("a total of 6 programs are in this group; all but program 1") {
+                assertEquals(6, day12.part1(LinesFromArray("0 <-> 2",
+                        "1 <-> 1",
+                        "2 <-> 0, 3, 4",
+                        "3 <-> 2, 4",
+                        "4 <-> 2, 3, 6",
+                        "5 <-> 6",
+                        "6 <-> 4, 5")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day12.part1(DayInput().lines(day12)))
+            it("should answer How many programs are in the group that contains program ID 0?") {
+                assertEquals(145, day12.part1(DayInput().lines(day12)))
             }
         }
         on("part 2") {
