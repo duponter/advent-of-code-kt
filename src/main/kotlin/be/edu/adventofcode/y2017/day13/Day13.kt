@@ -18,26 +18,21 @@ class Day13 {
     private fun severity(scanners: Iterable<Scanner>): Int =
             scanners.foldIndexed(0, { index, severity, scanner -> severity + scanner.penalty(index) })
 
-    fun part2(input: Lines): Int {
-        val scanners = scanners(input)
-        return delay(scanners) - scanners.count()
-    }
+    fun part2(input: Lines): Int = delay(scanners(input).withIndex(), 0)
 
-    private tailrec fun delay(scanners: Iterable<Scanner>): Int =
-            if (!caught(scanners)) scanners.count() else delay(listOf(Scanner(scanners.first().depth - 1)).plus(scanners))
+    private tailrec fun delay(scanners: Iterable<IndexedValue<Scanner>>, initialDelay: Int): Int =
+            if (!caught(scanners, initialDelay)) initialDelay else delay(scanners, initialDelay + 1)
 
-    private fun caught(scanners: Iterable<Scanner>): Boolean =
-            scanners.withIndex().filterNot { it.value.dummy() }.any { it.value.caught(it.index) }
+    private fun caught(scanners: Iterable<IndexedValue<Scanner>>, delay: Int): Boolean =
+            scanners.any { it.value.caught(it.index + delay) }
 }
 
 data class Scanner(val depth: Int, private val range: Int = 0) {
     fun penalty(picosecond: Int): Int = if (caught(picosecond)) severity() else 0
 
-    fun dummy(): Boolean = range == 0
-
     fun caught(picosecond: Int) = positionAt(picosecond) == 0
 
     private fun severity(): Int = depth * range
 
-    private fun positionAt(picosecond: Int): Int = if (dummy()) -1 else picosecond % ((range - 1) * 2)
+    private fun positionAt(picosecond: Int): Int = if (range == 0) -1 else picosecond % ((range - 1) * 2)
 }

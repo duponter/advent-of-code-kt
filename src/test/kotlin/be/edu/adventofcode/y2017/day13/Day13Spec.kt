@@ -7,7 +7,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 object Day13Spec : Spek({
     given("day 13") {
@@ -31,9 +30,7 @@ object Day13Spec : Spek({
                         "6: 4")))
             }
             it("should answer What is the fewest number of picoseconds that you need to delay the packet to pass through the firewall without being caught?") {
-                val part2 = day13.part2(DayInput().lines(day13));
-                assertTrue { part2 > 34124 }
-                assertEquals(0, part2)
+                assertEquals(3907994, day13.part2(DayInput().lines(day13)))
             }
         }
     }
