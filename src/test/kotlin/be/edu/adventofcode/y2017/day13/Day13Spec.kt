@@ -24,9 +24,16 @@ object Day13Spec : Spek({
             }
         }
         on("part 2") {
+            it("The fewest number of picoseconds you would need to delay to get through safely is 10.") {
+                assertEquals(10, day13.part2(LinesFromArray("0: 3",
+                        "1: 2",
+                        "4: 4",
+                        "6: 4")))
+            }
             it("should answer What is the fewest number of picoseconds that you need to delay the packet to pass through the firewall without being caught?") {
-                assertTrue { day13.part2(DayInput().lines(day13)) > 34124 }
-                assertEquals(0, day13.part2(DayInput().lines(day13)))
+                val part2 = day13.part2(DayInput().lines(day13));
+                assertTrue { part2 > 34124 }
+                assertEquals(0, part2)
             }
         }
     }
