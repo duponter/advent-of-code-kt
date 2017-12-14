@@ -21,17 +21,15 @@ class Day14 {
                 .flatMap { it }
 
         var groups = 0
-
         do {
             squares = assembleGroup(squares.drop(1), squares.take(1))
             groups++
         } while (squares.isNotEmpty())
-
         return groups
     }
 
     private tailrec fun assembleGroup(all: List<UsedSquare>, neighbours: List<UsedSquare>): List<UsedSquare> {
-        val candidates = neighbours.flatMap { it.candidateNeighbours() }
+        val candidates = neighbours.flatMap(UsedSquare::adjacent)
         val partition = all.partition(candidates::contains)
         return if (partition.first.isEmpty()) partition.second else assembleGroup(partition.second, partition.first)
     }
@@ -43,6 +41,6 @@ class Day14 {
 }
 
 data class UsedSquare(private val row: Int, private val col: Int) {
-    fun candidateNeighbours(): List<UsedSquare> =
-            listOf(UsedSquare(row + 1, col), UsedSquare(row - 1, col), UsedSquare(row, col + 1), UsedSquare(row, col + 1))
+    fun adjacent(): List<UsedSquare> =
+            listOf(UsedSquare(row + 1, col), UsedSquare(row - 1, col), UsedSquare(row, col + 1), UsedSquare(row, col - 1))
 }
