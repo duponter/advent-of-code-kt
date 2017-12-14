@@ -5,28 +5,14 @@ import be.edu.adventofcode.Text
 class Day10 {
     fun part1(input: Text, size: Int): Int {
         val numbers = (0 until size).toList()
+        val hash = KnotHash()
         return input.get().split(Regex(",\\s*")).map(String::toInt)
-                .foldIndexed(Pair(numbers, 0), { index, acc, length -> hash(acc, index, length) })
+                .foldIndexed(Pair(numbers, 0), { index, acc, length -> hash.singleRound(acc, index, length) })
                 .first.take(2)
                 .fold(1, { acc, i -> acc * i })
     }
 
-    private fun hash(current: Pair<List<Int>, Int>, skipSize: Int, length: Int): Pair<List<Int>, Int> {
-        val numbers = current.first
-        if (length > numbers.size) throw IllegalStateException("Length $length > Number list size ${numbers.size}")
-        return Pair(numbers.reverseCycled(current.second, length), (current.second + length + skipSize) % numbers.size)
-    }
-
-    fun part2(input: Text, size: Int): String {
-        val numbers = (0 until size).toList()
-        return input.chars().map(Char::toInt) // every char of input to ASCII
-                .plus(listOf(17, 31, 73, 47, 23))   // + ,17, 31, 73, 47, 23
-                .repeat(64) // repeat new input 64 times ==> sparse hash
-                .foldIndexed(Pair(numbers, 0), { index, acc, length -> hash(acc, index, length) })
-                .first
-                .chunked(16, { it.reduce { acc: Int, i: Int -> acc xor i } })
-                .joinToString("") { it.toString(16).padStart(2, '0') }
-    }
+    fun part2(input: Text, size: Int): String = KnotHash().calculate(input.get(), size)
 }
 
 fun <T> List<T>.reverseCycled(index: Int, length: Int): List<T> {
