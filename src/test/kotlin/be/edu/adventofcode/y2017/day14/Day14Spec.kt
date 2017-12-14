@@ -5,12 +5,13 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.jetbrains.spek.api.dsl.xon
 import kotlin.test.assertEquals
 
 object Day14Spec : Spek({
     given("day 14") {
         val day14 = Day14()
-        on("part 1") {
+        xon("part 1") {
             it("In this example, 8108 squares are used across the entire 128x128 grid.") {
                 assertEquals(8108, day14.part1(TextFromString("flqrgnkx")))
             }
@@ -19,10 +20,10 @@ object Day14Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day14.part2(TextFromString("line")))
+            it("In total, in this example, 1242 regions are present.") {
+                assertEquals(1242, day14.part2(TextFromString("flqrgnkx")))
             }
-            it("should answer Part2") {
+            it("should answer How many regions are present given your key string?") {
                 assertEquals(0, day14.part2(TextFromString("ljoxqyyw")))
             }
         }
