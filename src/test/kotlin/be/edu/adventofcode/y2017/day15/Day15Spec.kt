@@ -1,7 +1,5 @@
 package be.edu.adventofcode.y2017.day15
 
-import be.edu.adventofcode.DayInput
-import be.edu.adventofcode.LinesFromArray
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
@@ -12,19 +10,22 @@ object Day15Spec : Spek({
     given("day 15") {
         val day15 = Day15()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day15.part1(LinesFromArray("line")))
+            it("After processing these five pairs, the judge would have added only 1 to its total.") {
+                assertEquals(1, day15.part1(Pair(65, 8921), 5))
             }
-            it("should answer Part1") {
-                assertEquals(0, day15.part1(DayInput().lines(day15)))
+            it("The judge would eventually find a total of 588 pairs that match in their lowest 16 bits") {
+                assertEquals(588, day15.part1(Pair(65, 8921), 40000000))
+            }
+            it("should answer After 40 million pairs, what is the judge's final count?") {
+                assertEquals(573, day15.part1(Pair(634, 301), 40000000))
             }
         }
         on("part 2") {
             it("testcase") {
-                assertEquals(1, day15.part2(LinesFromArray("line")))
+                assertEquals(1, day15.part2(Pair(0, 0)))
             }
             it("should answer Part2") {
-                assertEquals(0, day15.part2(DayInput().lines(day15)))
+                assertEquals(0, day15.part2(Pair(0, 0)))
             }
         }
     }
