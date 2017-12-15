@@ -21,11 +21,11 @@ object Day15Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day15.part2(Pair(0, 0)))
+            it("After five million pairs, the judge would eventually find a total of 309 pairs that match in their lowest 16 bits.") {
+                assertEquals(309, day15.part2(Pair(65, 8921), 5000000))
             }
-            it("should answer Part2") {
-                assertEquals(0, day15.part2(Pair(0, 0)))
+            it("should answer After 5 million pairs, but using this new generator logic, what is the judge's final count?") {
+                assertEquals(294, day15.part2(Pair(634, 301), 5000000))
             }
         }
     }
