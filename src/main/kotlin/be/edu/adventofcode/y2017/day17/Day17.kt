@@ -15,7 +15,14 @@ class Day17 {
     }
 
     fun part2(input: Int): Int {
-        return input
+        val values = spinlock2(listOf(0), 0, input)
+        return values[values.indexOf(0) + 1]
+    }
+
+    private tailrec fun spinlock2(values: List<Int>, current: Int, forward: Int): List<Int> {
+        val next = values.forward(current, forward)
+        val afterInsert = values.insert(values.size, next)
+        return if (afterInsert.size == 50000000) afterInsert else spinlock2(afterInsert, next, forward)
     }
 }
 
