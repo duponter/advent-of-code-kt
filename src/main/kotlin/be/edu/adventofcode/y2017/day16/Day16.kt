@@ -9,8 +9,23 @@ class Day16 {
                 .fold(programs, { acc, danceMove -> danceMove.perform(acc) })
     }
 
-    fun part2(input: Text): Int {
-        return input.get().count()
+    fun part2(input: Text): String {
+        val moves = input.get().split(",").map { DanceMove.parse(it) }
+
+        val programs = CharRange('a', 'p')
+        val firstDance = moves.fold(programs.joinToString(""), { acc, danceMove -> danceMove.perform(acc) })
+
+        val placeSwitches = programs.asIterable().withIndex()
+                .map { indexedValue -> Pair(indexedValue.index, firstDance.indexOf(indexedValue.value)) }
+                .toMap()
+
+        println(placeSwitches)
+
+        val oneBillion = programs.asIterable()
+                .map { ch -> (0 until 1000000000).fold(programs.indexOf(ch), { acc: Int, _ -> placeSwitches[acc]!! }).let { Pair(ch, it) } }
+                .sortedWith(Comparator { o1, o2 -> o1.second - o2.second })
+        println(oneBillion)
+        return oneBillion.map { it.first }.joinToString("")
     }
 }
 

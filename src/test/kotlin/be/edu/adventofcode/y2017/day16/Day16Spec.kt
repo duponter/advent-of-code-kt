@@ -7,6 +7,7 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 object Day16Spec : Spek({
     given("day 16") {
@@ -21,7 +22,10 @@ object Day16Spec : Spek({
         }
         on("part 2") {
             it("should answer In what order are the programs standing after their billion dances?") {
-                assertEquals(0, day16.part2(DayInput().text(day16)))
+                val part2 = day16.part2(DayInput().text(day16))
+                assertNotEquals("gbnacfhedjklmiop", part2)
+                assertNotEquals("afcdekghilmbpnoj", part2)
+                assertEquals("", part2)
             }
         }
     }
