@@ -30,7 +30,7 @@ object Day11Spec : Spek({
         }
         on("part 2") {
             it("should answer How many steps away is the furthest he ever got from his starting position?") {
-                assertEquals(0, day11.part2(DayInput().text(day11)))
+                assertEquals(1560, day11.part2(DayInput().text(day11)))
             }
         }
     }
