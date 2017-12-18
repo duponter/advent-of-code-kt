@@ -19,7 +19,7 @@ object Day17Spec : Spek({
         }
         on("part 2") {
             it("should answer What is the value after 0 the moment 50000000 is inserted?") {
-                assertEquals(0, day17.part2(356))
+                assertEquals(47465686, day17.part2(356))
             }
         }
     }

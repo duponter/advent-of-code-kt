@@ -9,26 +9,29 @@ class Day17 {
     }
 
     private tailrec fun spinlock(values: List<Int>, current: Int, forward: Int): List<Int> {
-        val next = values.forward(current, forward)
+        val next = forward(current, forward, values.size)
         val afterInsert = values.insert(values.size, next)
         return if (afterInsert.size == 2018) afterInsert else spinlock(afterInsert, next, forward)
     }
 
     fun part2(input: Int): Int {
-        val values = spinlock2(listOf(0), 0, input)
-        return values[values.indexOf(0) + 1]
+        return spinlock2(Pair(0, 1), 1, input, 2).second
     }
 
-    private tailrec fun spinlock2(values: List<Int>, current: Int, forward: Int): List<Int> {
-        val next = values.forward(current, forward)
-        val afterInsert = values.insert(values.size, next)
-        return if (afterInsert.size == 50000000) afterInsert else spinlock2(afterInsert, next, forward)
+    private tailrec fun spinlock2(values: Pair<Int, Int>, current: Int, forward: Int, size: Int): Pair<Int, Int> {
+        val next = forward(current, forward, size)
+        val afterInsert = when {
+            next == values.first + 1 -> Pair(values.first, size)
+            next <= values.first -> Pair(values.first + 1, values.second)
+            else -> values
+        }
+        return if (size + 1 == 50000000) afterInsert else spinlock2(afterInsert, next, forward, size + 1)
     }
-}
 
-private fun <T> List<T>.forward(current: Int, forward: Int): Int {
-    val next = current + forward
-    return 1 + if (next < this.size) next else (next % this.size)
+    private fun forward(current: Int, forward: Int, size: Int): Int {
+        val next = current + forward
+        return 1 + if (next < size) next else (next % size)
+    }
 }
 
 private fun <T> List<T>.insert(element: T, index: Int): List<T> {
