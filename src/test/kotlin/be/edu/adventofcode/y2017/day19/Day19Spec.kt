@@ -12,11 +12,16 @@ object Day19Spec : Spek({
     given("day 19") {
         val day19 = Day19()
         on("part 1") {
-            it("testcase") {
-                assertEquals(1, day19.part1(LinesFromArray("line")))
+            it("Following the path to the end, the letters it sees on its path are ABCDEF.") {
+                assertEquals("ABCDEF", day19.part1(LinesFromArray("     |         ",
+                        "     |  +--+   ",
+                        "     A  |  C   ",
+                        " F---|----E|--+",
+                        "     |  |  |  D",
+                        "     +B-+  +--+")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day19.part1(DayInput().lines(day19)))
+            it("should answer What letters will it see (in the order it would see them) if it follows the path?") {
+                assertEquals("", day19.part1(DayInput().lines(day19)))
             }
         }
         on("part 2") {
