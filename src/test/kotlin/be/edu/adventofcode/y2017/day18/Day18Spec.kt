@@ -7,6 +7,7 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 object Day18Spec : Spek({
     given("day 18") {
@@ -25,7 +26,9 @@ object Day18Spec : Spek({
                         "jgz a -2")))
             }
             it("should answer What is the value of the recovered frequency (the value of the most recently played sound) the first time a rcv instruction is executed with a non-zero value?") {
-                assertEquals(0, day18.part1(DayInput().lines(day18)))
+                val part1 = day18.part1(DayInput().lines(day18))
+                assertTrue(part1 > 7481)
+                assertEquals(0, part1)
             }
         }
         on("part 2") {
