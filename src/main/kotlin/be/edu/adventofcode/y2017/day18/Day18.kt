@@ -4,8 +4,8 @@ import be.edu.adventofcode.Lines
 
 class Day18 {
     fun part1(input: Lines): Int {
-        input.get().map { Instruction.parse(it) }.forEach { println(it) }
-        return input.get().count()
+        val instructions = input.get().map { Instruction.parse(it) }
+        return instructions.first().apply(mutableMapOf(), instructions)
     }
 
     fun part2(input: Lines): Int {
@@ -33,6 +33,9 @@ sealed class Instruction {
     }
 
     abstract fun apply(registers: MutableMap<Char, Int>, instructions: List<Instruction>): Int
+
+    fun next(instructions: List<Instruction>): Instruction? =
+            if (instructions.last() != this) instructions[instructions.indexOf(this) + 1] else null
 }
 
 data class Constant(val value: Int) : Instruction() {
@@ -46,7 +49,8 @@ data class Lookup(private val register: Char) : Instruction() {
 data class Sound(private val register: Char) : Instruction() {
     override fun apply(registers: MutableMap<Char, Int>, instructions: List<Instruction>): Int {
         //snd X plays a sound with a frequency equal to the value of X.
-        return Lookup(register).apply(registers, instructions)
+        val value = Assign('!', Constant(Lookup(register).apply(registers, instructions))).apply(registers, instructions)
+        return this.next(instructions)?.apply(registers, instructions) ?: value
     }
 }
 
@@ -55,7 +59,7 @@ data class Assign(private val register: Char, private val instruction: Instructi
         //set X Y sets register X to the value of Y.
         val value = instruction.apply(registers, instructions)
         registers[register] = value
-        return value
+        return this.next(instructions)?.apply(registers, instructions) ?: value
     }
 }
 
@@ -64,7 +68,7 @@ data class Increase(private val register: Char, private val instruction: Instruc
         //add X Y increases register X by the value of Y.
         val value = Lookup(register).apply(registers, instructions) + instruction.apply(registers, instructions)
         registers[register] = value
-        return value
+        return this.next(instructions)?.apply(registers, instructions) ?: value
     }
 }
 
@@ -73,7 +77,7 @@ data class Multiplication(private val register: Char, private val instruction: I
         //mul X Y sets register X to the result of multiplying the value contained in register X by the value of Y.
         val value = Lookup(register).apply(registers, instructions) * instruction.apply(registers, instructions)
         registers[register] = value
-        return value
+        return this.next(instructions)?.apply(registers, instructions) ?: value
     }
 }
 
@@ -82,7 +86,7 @@ data class Modulo(private val register: Char, private val instruction: Instructi
         //mod X Y sets register X to the remainder of dividing the value contained in register X by the value of Y (that is, it sets X to the result of X modulo Y).
         val value = Lookup(register).apply(registers, instructions) % instruction.apply(registers, instructions)
         registers[register] = value
-        return value
+        return this.next(instructions)?.apply(registers, instructions) ?: value
     }
 }
 
@@ -90,11 +94,10 @@ data class Recover(private val register: Char) : Instruction() {
     override fun apply(registers: MutableMap<Char, Int>, instructions: List<Instruction>): Int {
         //rcv X recovers the frequency of the last sound played, but only when the value of X is not zero. (If it is zero, the command does nothing.)
         return if (Lookup(register).apply(registers, instructions) != 0) {
-//            instructions.takeWhile { it != this }.filter { it. }
-//                    .filterIsInstance(Sound.class)
-            0
-        } else 0
-
+            Lookup('!').apply(registers, instructions)
+        } else {
+            this.next(instructions)?.apply(registers, instructions) ?: 0
+        }
     }
 }
 
@@ -102,8 +105,10 @@ data class Jump(private val register: Char, private val instruction: Instruction
     override fun apply(registers: MutableMap<Char, Int>, instructions: List<Instruction>): Int {
         //jgz X Y jumps with an offset of the value of Y, but only if the value of X is greater than zero. (An offset of 2 skips the next instruction, an offset of -1 jumps to the previous instruction, and so on.)
         return if (Lookup(register).apply(registers, instructions) > 0) {
-            instructions[instructions.indexOf(this) + instruction.apply(registers, instructions)].apply(registers, instructions)
-        } else 0
+            val index = instructions.indexOf(this) + instruction.apply(registers, instructions)
+            if (index < 0 || index >= instructions.size) this.next(instructions)?.apply(registers, instructions) ?: 0
+            else instructions[index].apply(registers, instructions)
+        } else this.next(instructions)?.apply(registers, instructions) ?: 0
 
     }
 }
