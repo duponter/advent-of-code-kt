@@ -34,7 +34,7 @@ object Day19Spec : Spek({
                         "     +B-+  +--+")))
             }
             it("should answer How many steps does the packet need to go?") {
-                assertEquals(0, day19.part2(DayInput().lines(day19)))
+                assertEquals(17264, day19.part2(DayInput().lines(day19)))
             }
         }
     }

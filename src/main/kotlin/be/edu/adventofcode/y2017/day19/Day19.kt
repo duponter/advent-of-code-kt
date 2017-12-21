@@ -23,7 +23,14 @@ class Day19 {
     private fun go(current: Triple<Pair<Int, Int>, Direction, String>, points: Map<Pair<Int, Int>, Char>): Triple<Pair<Int, Int>, Direction, String>? {
         val instruction = points[current.first] ?: return null
         return when {
-            instruction == '+' -> go(Triple(current.second.turnLeft().next(current.first), current.second.turnLeft(), current.third), points) ?: go(Triple(current.second.turnRight().next(current.first), current.second.turnRight(), current.third), points)
+            instruction == '+' -> {
+                val nextLeft = current.second.turnLeft().next(current.first)
+                if (points[nextLeft] != null) {
+                    Triple(nextLeft, current.second.turnLeft(), current.third)
+                } else {
+                    Triple(current.second.turnRight().next(current.first), current.second.turnRight(), current.third)
+                }
+            }
             instruction.isLetter() -> Triple(current.second.next(current.first), current.second, current.third.plus(instruction))
             else -> Triple(current.second.next(current.first), current.second, current.third)
         }
@@ -37,19 +44,17 @@ class Day19 {
         val lines = input.get().mapIndexed { r, row -> row.mapIndexed { c, cell -> parse(r, c, cell) } }
                 .flatMap { it }
                 .filterNotNull()
-        println("Lines = ${lines.size}")
         val start = lines.first().first
         val map = lines.toMap()
 
         var count = 0
         var current: Triple<Pair<Int, Int>, Direction, String>? = Triple(start, Direction.DOWN, "")
         while (current != null) {
-            println("$current")
             count++
             current = go(current, map)
         }
 
-        return count
+        return count - 1
     }
 }
 
