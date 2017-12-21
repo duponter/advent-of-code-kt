@@ -21,7 +21,7 @@ object Day19Spec : Spek({
                         "     +B-+  +--+")))
             }
             it("should answer What letters will it see (in the order it would see them) if it follows the path?") {
-                assertEquals("", day19.part1(DayInput().lines(day19)))
+                assertEquals("RUEDAHWKSM", day19.part1(DayInput().lines(day19)))
             }
         }
         on("part 2") {
