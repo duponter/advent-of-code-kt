@@ -34,7 +34,22 @@ class Day19 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val lines = input.get().mapIndexed { r, row -> row.mapIndexed { c, cell -> parse(r, c, cell) } }
+                .flatMap { it }
+                .filterNotNull()
+        println("Lines = ${lines.size}")
+        val start = lines.first().first
+        val map = lines.toMap()
+
+        var count = 0
+        var current: Triple<Pair<Int, Int>, Direction, String>? = Triple(start, Direction.DOWN, "")
+        while (current != null) {
+            println("$current")
+            count++
+            current = go(current, map)
+        }
+
+        return count
     }
 }
 

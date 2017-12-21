@@ -25,10 +25,15 @@ object Day19Spec : Spek({
             }
         }
         on("part 2") {
-            it("testcase") {
-                assertEquals(1, day19.part2(LinesFromArray("line")))
+            it("This would result in a total of 38 steps.") {
+                assertEquals(38, day19.part2(LinesFromArray("     |         ",
+                        "     |  +--+   ",
+                        "     A  |  C   ",
+                        " F---|----E|--+",
+                        "     |  |  |  D",
+                        "     +B-+  +--+")))
             }
-            it("should answer Part2") {
+            it("should answer How many steps does the packet need to go?") {
                 assertEquals(0, day19.part2(DayInput().lines(day19)))
             }
         }
