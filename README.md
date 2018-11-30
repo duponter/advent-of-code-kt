@@ -3,6 +3,7 @@
 * Year [2015](http://adventofcode.com/2015)
 * ~~Year [2016](http://adventofcode.com/2016)~~ is written in Java, go to [this](https://github.com/duponter/advent-of-code) repository.
 * Year [2017](http://adventofcode.com/2017)
+* Year [2018](http://adventofcode.com/2018)
 
 # Kotlin Resources
 
