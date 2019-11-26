@@ -10,6 +10,7 @@ class Day01 {
     }
 
 	fun part2(input: Lines): Int {
+        println("implementation = incomplete")
         val list = input.get()
                 .map { it.toInt() }
                 .asSequence()
