@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2017.day01
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.TextFromString
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day01Spec : Spek({
-    given("day 01") {
+    describe("day 01") {
         val day01 = Day01()
-        on("part 1") {
+        context("part 1") {
             it("1122 produces a sum of 3 (1 + 2)") {
                 assertEquals(3, day01.part1(TextFromString("1122")))
             }
@@ -28,7 +26,7 @@ object Day01Spec : Spek({
                 assertEquals(1069, day01.part1(DayInput().text(day01)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("1212 produces 6: the list contains 4 items, and all four digits match the digit 2 items ahead.") {
                 assertEquals(6, day01.part2(TextFromString("1212")))
             }

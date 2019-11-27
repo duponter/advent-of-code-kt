@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2015.day08
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day08Spec : Spek({
-    given("day 08") {
+    describe("day 08") {
         val day08 = Day08()
-        on("part 1") {
+        context("part 1") {
 
             it("\"\" is 2 characters of code (the two double quotes), but the string contains zero characters.") {
                 assertEquals(2, day08.part1(LinesFromArray("\"\"")))
@@ -29,7 +27,7 @@ object Day08Spec : Spek({
                 assertEquals(1333, day08.part1(DayInput().lines(day08)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("\"\" encodes to \"\\\"\\\"\", an increase from 2 characters to 6.") {
                 assertEquals(4, day08.part2(LinesFromArray("\"\"")))
             }

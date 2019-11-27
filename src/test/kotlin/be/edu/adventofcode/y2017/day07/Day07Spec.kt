@@ -2,17 +2,15 @@ package be.edu.adventofcode.y2017.day07
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 object Day07Spec : Spek({
-    given("day 07") {
+    describe("day 07") {
         val day07 = Day07()
-        on("part 1") {
+        context("part 1") {
             it("tknk is at the bottom of the tower (the bottom program)") {
                 assertEquals("tknk", day07.part1(LinesFromArray("pbga (66)",
                         "xhth (57)",
@@ -32,7 +30,7 @@ object Day07Spec : Spek({
                 assertEquals("qibuqqg", day07.part1(DayInput().lines(day07)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("tknk's disc is unbalanced: ugml's weight would be 60.") {
                 assertEquals(60, day07.part2(LinesFromArray("pbga (66)",
                         "xhth (57)",

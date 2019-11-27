@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2017.day11
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.TextFromString
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day11Spec : Spek({
-    given("day 11") {
+    describe("day 11") {
         val day11 = Day11()
-        on("part 1") {
+        context("part 1") {
             it("ne,ne,ne is 3 steps away.") {
                 assertEquals(3, day11.part1(TextFromString("ne,ne,ne")))
             }
@@ -28,7 +26,7 @@ object Day11Spec : Spek({
                 assertEquals(773, day11.part1(DayInput().text(day11)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("should answer How many steps away is the furthest he ever got from his starting position?") {
                 assertEquals(1560, day11.part2(DayInput().text(day11)))
             }

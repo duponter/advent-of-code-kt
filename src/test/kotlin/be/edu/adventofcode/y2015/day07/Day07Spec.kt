@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2015.day07
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day07Spec : Spek({
-    given("day 07") {
+    describe("day 07") {
         val day07 = Day07()
-        on("part 1") {
+        context("part 1") {
             it("signals on the wires of a simple circuit") {
                 val map = day07.parseLines(LinesFromArray(
                         "123 -> x",
@@ -37,7 +35,7 @@ object Day07Spec : Spek({
                 assertEquals(46065, day07.part1(DayInput().lines(day07)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("should answer What new signal is ultimately provided to wire a?") {
                 assertEquals(14134, day07.part2(DayInput().lines(day07)))
             }

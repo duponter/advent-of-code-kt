@@ -1,16 +1,13 @@
 package be.edu.adventofcode.y2017.day03
 
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
-import org.jetbrains.spek.api.dsl.xit
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day03Spec : Spek({
-    given("day 03") {
+    describe("day 03") {
         val day03 = Day03()
-        on("part 1") {
+        context("part 1") {
             it("Data from square 1 is carried 0 steps, since it's at the access port.") {
                 assertEquals(0, day03.part1(1))
             }
@@ -27,7 +24,7 @@ object Day03Spec : Spek({
                 assertEquals(430, day03.part1(312051))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("Square 1 starts with the value 1.") {
                 assertEquals(2, day03.part2(1))
             }

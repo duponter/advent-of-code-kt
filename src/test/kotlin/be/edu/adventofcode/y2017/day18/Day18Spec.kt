@@ -2,17 +2,15 @@ package be.edu.adventofcode.y2017.day18
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.xon
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 object Day18Spec : Spek({
-    given("day 18") {
+    describe("day 18") {
         val day18 = Day18()
-        xon("part 1") {
+        xcontext("part 1") {
             it("At the time the recover operation is executed, the frequency of the last sound played is 4.") {
                 assertEquals(4, day18.part1(LinesFromArray("set a 1",
                         "add a 2",
@@ -31,7 +29,7 @@ object Day18Spec : Spek({
                 assertEquals(0, part1)
             }
         }
-        xon("part 2") {
+        xcontext("part 2") {
             it("testcase") {
                 assertEquals(1, day18.part2(LinesFromArray("line")))
             }

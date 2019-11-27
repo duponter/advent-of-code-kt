@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2018.day01
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day01Spec : Spek({
-    given("day 01") {
+    describe("day 01") {
         val day01 = Day01()
-        on("part 1") {
+        context("part 1") {
             it("testcase") {
                 assertEquals(3, day01.part1(LinesFromArray("+1", "-2", "+3", "+1")))
                 assertEquals(3, day01.part1(LinesFromArray("+1", "+1", "+1")))
@@ -22,7 +20,7 @@ object Day01Spec : Spek({
                 assertEquals(474, day01.part1(DayInput().lines(day01)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("testcase") {
                 assertEquals(0, day01.part2(LinesFromArray("+1", "-1")))
 //                assertEquals(10, day01.part2(LinesFromArray("+3", "+3", "+4", "-2", "-4")))

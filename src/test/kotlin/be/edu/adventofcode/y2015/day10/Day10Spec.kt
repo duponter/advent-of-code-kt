@@ -1,16 +1,14 @@
 package be.edu.adventofcode.y2015.day10
 
 import be.edu.adventofcode.TextFromString
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day10Spec : Spek({
-    given("day 10") {
+    describe("day 10") {
         val day10 = Day10()
-        on("part 1") {
+        context("part 1") {
             it("1 becomes 11 (1 copy of digit 1).") {
                 assertEquals("11", day10.lookAndSay("1"))
             }
@@ -30,7 +28,7 @@ object Day10Spec : Spek({
                 assertEquals(252594, day10.part1(TextFromString("1113222113")))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("should answer Apply look-and-say 40 times. What is the length of the result?") {
                 assertEquals(3579328, day10.part2(TextFromString("1113222113")))
             }

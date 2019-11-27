@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2017.day10
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.TextFromString
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day10Spec : Spek({
-    given("day 10") {
+    describe("day 10") {
         val day10 = Day10()
-        on("part 1") {
+        context("part 1") {
             it("The first two numbers in the list end up being 3 and 4; to check the process, you can multiply them together to produce 12.") {
                 assertEquals(12, day10.part1(TextFromString("3, 4, 1, 5"), 5))
             }
@@ -19,7 +17,7 @@ object Day10Spec : Spek({
                 assertEquals(2928, day10.part1(DayInput().text(day10), 256))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("The empty string becomes a2582a3a0e66e6e86e3812dcb672a272.") {
                 assertEquals("a2582a3a0e66e6e86e3812dcb672a272", day10.part2(TextFromString(""), 256))
             }

@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2015.day06
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day06Spec : Spek({
-    given("day 06") {
+    describe("day 06") {
         val day06 = Day06()
-        on("part 1") {
+        context("part 1") {
             it("turn on 0,0 through 999,999 would turn on (or leave on) every light") {
                 assertEquals(1000000, day06.part1(LinesFromArray("turn on 0,0 through 999,999")))
             }
@@ -25,7 +23,7 @@ object Day06Spec : Spek({
                 assertEquals(400410, day06.part1(DayInput().lines(day06)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("turn on 0,0 through 0,0 would increase the total brightness by 1") {
                 assertEquals(1, day06.part2(LinesFromArray("turn on 0,0 through 0,0")))
             }

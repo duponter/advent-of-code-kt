@@ -2,16 +2,14 @@ package be.edu.adventofcode.y2017.day12
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day12Spec : Spek({
-    given("day 12") {
+    describe("day 12") {
         val day12 = Day12()
-        on("part 1") {
+        context("part 1") {
             it("a total of 6 programs are in this group; all but program 1") {
                 assertEquals(6, day12.part1(LinesFromArray("0 <-> 2",
                         "1 <-> 1",
@@ -25,7 +23,7 @@ object Day12Spec : Spek({
                 assertEquals(145, day12.part1(DayInput().lines(day12)))
             }
         }
-        on("part 2") {
+        context("part 2") {
             it("should answer How many groups are there in total?") {
                 assertEquals(207, day12.part2(DayInput().lines(day12)))
             }
