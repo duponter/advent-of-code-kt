@@ -5,14 +5,14 @@ import be.edu.adventofcode.LinesFromArray
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.jetbrains.spek.api.dsl.xon
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 object Day18Spec : Spek({
     given("day 18") {
         val day18 = Day18()
-        on("part 1") {
+        xon("part 1") {
             it("At the time the recover operation is executed, the frequency of the last sound played is 4.") {
                 assertEquals(4, day18.part1(LinesFromArray("set a 1",
                         "add a 2",
@@ -31,7 +31,7 @@ object Day18Spec : Spek({
                 assertEquals(0, part1)
             }
         }
-        on("part 2") {
+        xon("part 2") {
             it("testcase") {
                 assertEquals(1, day18.part2(LinesFromArray("line")))
             }
