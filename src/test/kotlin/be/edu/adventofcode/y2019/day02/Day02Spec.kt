@@ -1,7 +1,6 @@
 package be.edu.adventofcode.y2019.day02
 
 import be.edu.adventofcode.DayInput
-import be.edu.adventofcode.TextFromString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
@@ -20,12 +19,12 @@ object Day02Spec : Spek({
                 assertEquals(4930687, day02.part1(DayInput().text(day02)))
             }
         }
-        xcontext("part 2") {
+        context("part 2") {
             it("testcase") {
-                assertEquals(1, day02.part2(TextFromString("line")))
+                assertEquals(19690720, day02.execute(DayInput().text(day02), 53, 35))
             }
             it("should answer Part2") {
-                assertEquals(0, day02.part2(DayInput().text(day02)))
+                assertEquals(5335, day02.part2(DayInput().text(day02)))
             }
         }
     }

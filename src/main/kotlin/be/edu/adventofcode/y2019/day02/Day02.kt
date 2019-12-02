@@ -3,12 +3,14 @@ package be.edu.adventofcode.y2019.day02
 import be.edu.adventofcode.Text
 
 class Day02 {
-    fun part1(input: Text): Int {
+    fun part1(input: Text): Int = execute(input, 12, 2)
+
+    fun execute(input: Text, noun: Int, verb: Int): Int {
         val mutableList = input.get().split(',')
                 .map { it.toInt() }
                 .toMutableList()
-        mutableList[1] = 12
-        mutableList[2] = 2
+        mutableList[1] = noun
+        mutableList[2] = verb
 
         return performOperations(mutableList)[0]
     }
@@ -22,7 +24,10 @@ class Day02 {
     }
 
     fun part2(input: Text): Int {
-        return input.get().count()
+        return IntRange(0, 99)
+                .flatMap { noun -> IntRange(0, 99).map { verb -> Pair(noun, verb) } }
+                .first { execute(input, it.first, it.second) == 19690720 }
+                .let { it.first * 100 + it.second }
     }
 
     class Operation(private val opCode: Int, private val posInput1: Int, private val posInput2: Int, private val posResult: Int) {
