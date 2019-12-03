@@ -1,6 +1,7 @@
 package be.edu.adventofcode.y2019.day03
 
 import be.edu.adventofcode.Lines
+import java.lang.Integer.sum
 import kotlin.math.abs
 
 class Day03 {
@@ -8,7 +9,7 @@ class Day03 {
         return wirePath(input.get().first())
                 .intersect(wirePath(input.get().last()))
                 .map { it.distance() }
-                .min() ?: 0
+                .min()!!
     }
 
     private fun wirePath(wire: String): List<Point> {
@@ -19,14 +20,19 @@ class Day03 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val firstWire = wirePath(input.get().first())
+        val secondWire = wirePath(input.get().last())
+
+        return firstWire.intersect(secondWire)
+                .map { sum(firstWire.indexOf(it) + 1, secondWire.indexOf(it) + 1) }
+                .min()!!
     }
 }
 
 data class Point(val x: Int = 0, val y: Int = 0) {
     fun distance(): Int = distance(Point())
 
-    fun distance(other: Point): Int = abs(x - other.x) + abs(y - other.y)
+    private fun distance(other: Point): Int = abs(x - other.x) + abs(y - other.y)
 
     fun up(): Point = Point(x, y + 1)
 
