@@ -1,7 +1,5 @@
 package be.edu.adventofcode.y2019.day04
 
-import be.edu.adventofcode.DayInput
-import be.edu.adventofcode.LinesFromArray
 import be.edu.adventofcode.TextFromString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -22,12 +20,14 @@ object Day04Spec : Spek({
                 assertEquals(1716, day04.part1(TextFromString("165432-707912")))
             }
         }
-        xcontext("part 2") {
+        context("part 2") {
             it("testcase") {
-                assertEquals(1, day04.part2(LinesFromArray("line")))
+                assertTrue(day04.validNoLargerGroup("112233"))
+                assertFalse(day04.validNoLargerGroup("123444"))
+                assertTrue(day04.validNoLargerGroup("111122"))
             }
             it("should answer Part2") {
-                assertEquals(0, day04.part2(DayInput().lines(day04)))
+                assertEquals(1163, day04.part2(TextFromString("165432-707912")))
             }
         }
     }
