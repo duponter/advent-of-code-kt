@@ -11,18 +11,22 @@ object Day05Spec : Spek({
         val day05 = Day05()
         context("part 1") {
             it("testcase") {
-                assertEquals(88, day05.part1(TextFromString("3,0,4,0,99"), 88))
+                assertEquals(88, day05.bothParts(TextFromString("3,0,4,0,99"), 88))
             }
             it("should answer Part1") {
-                assertEquals(15314507, day05.part1(DayInput().text(day05), 1))
+                assertEquals(15314507, day05.bothParts(DayInput().text(day05), 1))
             }
         }
         context("part 2") {
             it("testcase") {
-                assertEquals(1, day05.part2(TextFromString("line")))
+                assertEquals(999, day05.bothParts(TextFromString("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"), 6))
+                assertEquals(999, day05.bothParts(TextFromString("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"), 7))
+                assertEquals(1000, day05.bothParts(TextFromString("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"), 8))
+                assertEquals(1001, day05.bothParts(TextFromString("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"), 9))
+                assertEquals(1001, day05.bothParts(TextFromString("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"), 10))
             }
             it("should answer Part2") {
-                assertEquals(0, day05.part2(DayInput().text(day05)))
+                assertEquals(652726, day05.bothParts(DayInput().text(day05), 5))
             }
         }
     }
