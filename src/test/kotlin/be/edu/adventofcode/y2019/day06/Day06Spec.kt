@@ -19,12 +19,12 @@ object Day06Spec : Spek({
                 assertEquals(106065, day06.part1(DayInput().lines(day06)))
             }
         }
-        xcontext("part 2") {
+        context("part 2") {
             it("testcase") {
-                assertEquals(1, day06.part2(LinesFromArray("line")))
+                assertEquals(4, day06.part2(LinesFromArray("COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","K)YOU","I)SAN")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day06.part2(DayInput().lines(day06)))
+            it("What is the minimum number of orbital transfers required?") {
+                assertEquals(253, day06.part2(DayInput().lines(day06)))
             }
         }
     }

@@ -23,11 +23,22 @@ class Day06 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val orbitMap = input.get()
+                .map { it.split(')') }
+                .groupBy( { it.first() }, { it.last() } )
+
+        val orbits: Map<String, SpaceObject> = listOrbits(orbitMap, SpaceObject("COM"))
+
+        val you = orbits.getValue("YOU").orbits()
+        val santa = orbits.getValue("SAN").orbits()
+
+        return you.minus(santa).count() + santa.minus(you).count() - 2
     }
 }
 
 class SpaceObject(val name: String, private val orbitAround: SpaceObject? = null) {
     fun orbitCount(): Int = if (orbitAround == null) 0 else orbitAround.orbitCount() + 1
+
+    fun orbits(): List<SpaceObject> = if (orbitAround == null) listOf(this) else listOf(this).plus(orbitAround.orbits())
 }
 
