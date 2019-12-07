@@ -8,17 +8,16 @@ class Day05 {
                 .map { it.toInt() }
                 .toMutableList()
 
-        println("$mutableList")
-        var operation = Operation(0, -1)
+        var operation = Operation(0, IO(inputInstruction, 0))
         while (operation.index != -1) {
-            operation = operation.apply(mutableList, inputInstruction)
+            operation = operation.apply(mutableList)
         }
-        return operation.output
+        return operation.io.output
     }
 }
 
-class Operation(val index: Int, val output: Int) {
-    fun apply(values: MutableList<Int>, input: Int): Operation {
+class Operation(val index: Int, val io: IO<Int, Int>) {
+    fun apply(values: MutableList<Int>): Operation {
         val opCode = OpCode(values[index])
         val param1 = opCode.parameter(1)
         val param2 = opCode.parameter(2)
@@ -26,37 +25,43 @@ class Operation(val index: Int, val output: Int) {
         when (opCode.intCode()) {
             1 -> {
                 values[param3.immediate(values, index)] = param1.position(values, index) + param2.position(values, index)
-                return Operation(index + 4, output)
+                return Operation(index + 4, io)
             }
             2 -> {
                 values[param3.immediate(values, index)] = param1.position(values, index) * param2.position(values, index)
-                return Operation(index + 4, output)
+                return Operation(index + 4, io)
             }
             3 -> {
-                values[param1.immediate(values, index)] = input
-                return Operation(index + 2, output)
+                values[param1.immediate(values, index)] = io.input
+                return Operation(index + 2, io)
             }
             4 -> {
-                return Operation(index + 2, param1.position(values, index))
+                return Operation(index + 2, io.newOutput(param1.position(values, index)))
             }
             5 -> {
-                return if (values[param1.immediate(values, index)] != 0) Operation(values[param2.immediate(values, index)], output) else Operation(index + 3, output)
+                return if (values[param1.immediate(values, index)] != 0) Operation(values[param2.immediate(values, index)], io) else Operation(index + 3, io)
             }
             6 -> {
-                return if (values[param1.immediate(values, index)] == 0) Operation(values[param2.immediate(values, index)], output) else Operation(index + 3, output)
+                return if (values[param1.immediate(values, index)] == 0) Operation(values[param2.immediate(values, index)], io) else Operation(index + 3, io)
             }
             7 -> {
                 values[param3.immediate(values, index)] = if (values[param1.immediate(values, index)] < values[param2.immediate(values, index)]) 1 else 0
-                return Operation(index + 4, output)
+                return Operation(index + 4, io)
             }
             8 -> {
                 values[param3.immediate(values, index)] = if (values[param1.immediate(values, index)] == values[param2.immediate(values, index)]) 1 else 0
-                return Operation(index + 4, output)
+                return Operation(index + 4, io)
             }
-            99 -> return Operation(-1, output)
+            99 -> return Operation(-1, io)
             else -> throw IllegalArgumentException("Invalid OpCode $opCode")
         }
     }
+}
+
+data class IO<I, O>(val input: I, val output: O) {
+    fun <T> newInput(input: T): IO<T, O> = IO(input, output)
+
+    fun <T> newOutput(output: T): IO<I, T> = IO(input, output)
 }
 
 data class Parameter(val order: Int, val mode: ParameterMode) {
