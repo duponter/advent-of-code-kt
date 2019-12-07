@@ -33,7 +33,7 @@ class Operation(val index: Int, val io: IO<Int, Int>) {
             }
             3 -> {
                 values[param1.immediate(values, index)] = io.input
-                return Operation(index + 2, io)
+                return Operation(index + 2, io.newInput(io.output))
             }
             4 -> {
                 return Operation(index + 2, io.newOutput(param1.position(values, index)))
