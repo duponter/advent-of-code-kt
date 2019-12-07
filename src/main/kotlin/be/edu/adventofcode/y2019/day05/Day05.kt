@@ -9,55 +9,62 @@ class Day05 {
                 .toMutableList()
 
         println("$mutableList")
-        var pair = Pair(0, -1)
-        while (pair.first != -1) {
-            pair = Operation(pair).apply(mutableList, inputInstruction)
+        var operation = Operation(0, -1)
+        while (operation.index != -1) {
+            operation = operation.apply(mutableList, inputInstruction)
         }
-        return pair.second
+        return operation.output
     }
 }
 
-class Operation(private val pair: Pair<Int, Int>) {
-    fun apply(values: MutableList<Int>, input: Int): Pair<Int, Int> {
-        val index = pair.first
-        val opCode = values[index].toString().padStart(5, '0')
-        val mode1 = ParameterMode.fromValue(opCode.drop(2).take(1).toInt())
-        val mode2 = ParameterMode.fromValue(opCode.drop(1).take(1).toInt())
-        val mode3 = ParameterMode.fromValue(opCode.take(1).toInt())
-        when (opCode.takeLast(2).toInt()) {
+class Operation(val index: Int, val output: Int) {
+    fun apply(values: MutableList<Int>, input: Int): Operation {
+        val opCode = OpCode(values[index])
+        val mode1 = opCode.parameterMode(1)
+        val mode2 = opCode.parameterMode(2)
+        val mode3 = opCode.parameterMode(3)
+        when (opCode.intCode()) {
             1 -> {
                 values[mode3.resolve(values, index + 3)] = mode1.resolve(values, values[index + 1]) + mode2.resolve(values, values[index + 2])
-                return Pair(index + 4, pair.second)
+                return Operation(index + 4, output)
             }
             2 -> {
                 values[mode3.resolve(values, index + 3)] = mode1.resolve(values, values[index + 1]) * mode2.resolve(values, values[index + 2])
-                return Pair(index + 4, pair.second)
+                return Operation(index + 4, output)
             }
             3 -> {
                 values[mode1.resolve(values, index + 1)] = input
-                return Pair(index + 2, pair.second)
+                return Operation(index + 2, output)
             }
             4 -> {
-                return Pair(index + 2, mode1.resolve(values, values[index + 1]))
+                return Operation(index + 2, mode1.resolve(values, values[index + 1]))
             }
             5 -> {
-                return if (values[mode1.resolve(values, index + 1)] != 0) Pair(values[mode2.resolve(values, index + 2)], pair.second) else Pair(index + 3, pair.second)
+                return if (values[mode1.resolve(values, index + 1)] != 0) Operation(values[mode2.resolve(values, index + 2)], output) else Operation(index + 3, output)
             }
             6 -> {
-                return if (values[mode1.resolve(values, index + 1)] == 0) Pair(values[mode2.resolve(values, index + 2)], pair.second) else Pair(index + 3, pair.second)
+                return if (values[mode1.resolve(values, index + 1)] == 0) Operation(values[mode2.resolve(values, index + 2)], output) else Operation(index + 3, output)
             }
             7 -> {
                 values[mode3.resolve(values, index + 3)] = if (values[mode1.resolve(values, index + 1)] < values[mode2.resolve(values, index + 2)]) 1 else 0
-                return Pair(index + 4, pair.second)
+                return Operation(index + 4, output)
             }
             8 -> {
                 values[mode3.resolve(values, index + 3)] = if (values[mode1.resolve(values, index + 1)] == values[mode2.resolve(values, index + 2)]) 1 else 0
-                return Pair(index + 4, pair.second)
+                return Operation(index + 4, output)
             }
-            99 -> return Pair(-1, pair.second)
+            99 -> return Operation(-1, output)
             else -> throw IllegalArgumentException("Invalid OpCode $opCode")
         }
     }
+}
+
+data class OpCode(val value: String) {
+    constructor(intValue: Int) : this(intValue.toString().padStart(5, '0'))
+
+    fun intCode(): Int = value.takeLast(2).toInt()
+
+    fun parameterMode(order: Int): ParameterMode = ParameterMode.fromValue(value.drop(3 - order).take(1).toInt())
 }
 
 enum class ParameterMode {
