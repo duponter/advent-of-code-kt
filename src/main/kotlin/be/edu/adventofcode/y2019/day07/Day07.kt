@@ -26,7 +26,11 @@ class Day07 {
     }
 
     fun part1(input: Text, phaseSetting: List<Int>): Int {
-        return execute(AmplifierControllerSoftware(input), phaseSetting).io.output
+        return execute(AmplifierControllerSoftware(input), Operation(0, IO(0, 0)), phaseSetting).io.output
+    }
+
+    private fun execute(acs: AmplifierControllerSoftware, start: Operation, phaseSetting: List<Int>): Operation {
+        return phaseSetting.fold(start) { op, phase -> acs.execute(Operation(0, op.io.newInput(phase))) }
     }
 
     fun part2(input: Text): Int {
@@ -36,18 +40,42 @@ class Day07 {
     }
 
     fun part2(input: Text, phaseSetting: List<Int>): Int {
-        var result: Operation
-        do {
-            result = execute(AmplifierControllerSoftware(input), phaseSetting)
-        } while (result.index != -1)
-        return result.io.output
-    }
+        val amplifiers = generateSequence { phaseSetting }.flatten().iterator()
 
-    private fun execute(acs: AmplifierControllerSoftware, phaseSetting: List<Int>): Operation {
-        return phaseSetting.fold(Operation(0, IO(0, 0))) { op, phase -> acs.execute(Operation(0, op.io.newInput(phase))) }
-    }
+        val nextAmplifier = { io: IO<Int, Int> -> val tmp = io.newInput(amplifiers.next()); println("AMPL $tmp"); tmp  }
+        val nextOutput = { io: IO<Int, Int> -> val tmp = io.newInput(io.output); println("OI $tmp"); tmp }
+        val switcher = Switcher(nextAmplifier, nextOutput)
 
-    //generateSequence { it }.flatten()
+        return AmplifierControllerSoftware(input)
+                .execute(Operation(0, IO(0, 0))) { switcher.apply(it) }
+                .io.output
+    }
+}
+
+class Switcher<T>(val first: (T) -> T, val second: (T) -> T) {
+    var chooser = Chooser.FIRST
+
+    fun apply(input: T): T {
+        chooser = chooser.inverse()
+        return chooser.inverse().delegate(first, second)(input)
+    }
+}
+
+enum class Chooser {
+    FIRST {
+        override fun <T> delegate(first: T, second: T): T = first
+
+        override fun inverse(): Chooser = SECOND
+    },
+    SECOND {
+        override fun <T> delegate(first: T, second: T): T = second
+
+        override fun inverse(): Chooser = FIRST
+    };
+
+    abstract fun <T> delegate(first: T, second: T): T
+
+    abstract fun inverse(): Chooser
 }
 
 class AmplifierControllerSoftware(private val instructions: MutableList<Int>) {
@@ -55,10 +83,12 @@ class AmplifierControllerSoftware(private val instructions: MutableList<Int>) {
             .map { it.toInt() }
             .toMutableList())
 
-    fun execute(start: Operation): Operation {
+    fun execute(start: Operation): Operation = execute(start) { it.newInput(it.output) }
+
+    fun execute(start: Operation, nextInput: (IO<Int, Int>) -> IO<Int, Int>): Operation {
         var operation = start
         while (operation.index != -1) {
-            operation = operation.apply(instructions)
+            operation = operation.apply(instructions, nextInput)
         }
         return operation
     }

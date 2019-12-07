@@ -16,8 +16,10 @@ class Day05 {
     }
 }
 
-class Operation(val index: Int, val io: IO<Int, Int>) {
-    fun apply(values: MutableList<Int>): Operation {
+data class Operation(val index: Int, val io: IO<Int, Int>) {
+    fun apply(values: MutableList<Int>): Operation = apply(values) { it.newInput(it.output) }
+
+    fun apply(values: MutableList<Int>, nextInput: (IO<Int, Int>) -> IO<Int, Int>): Operation {
         val opCode = OpCode(values[index])
         val param1 = opCode.parameter(1)
         val param2 = opCode.parameter(2)
@@ -32,11 +34,15 @@ class Operation(val index: Int, val io: IO<Int, Int>) {
                 return Operation(index + 4, io)
             }
             3 -> {
-                values[param1.immediate(values, index)] = io.input
-                return Operation(index + 2, io.newInput(io.output))
+                val next = nextInput(io)
+                values[param1.immediate(values, index)] = next.input
+                println("input set to $next")
+                return Operation(index + 2, next)
             }
             4 -> {
-                return Operation(index + 2, io.newOutput(param1.position(values, index)))
+                val newOutput = io.newOutput(param1.position(values, index))
+                println("new output: $newOutput")
+                return Operation(index + 2, newOutput)
             }
             5 -> {
                 return if (values[param1.immediate(values, index)] != 0) Operation(values[param2.immediate(values, index)], io) else Operation(index + 3, io)
