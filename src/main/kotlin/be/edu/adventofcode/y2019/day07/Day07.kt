@@ -26,22 +26,30 @@ class Day07 {
     }
 
     fun part1(input: Text, phaseSetting: List<Int>): Int {
-        return phaseSetting.fold(0) { output, phase -> program(input, IO(phase, output)) }
+        return execute(AmplifierControllerSoftware(input), phaseSetting)
     }
 
-    fun program(input: Text, io: IO<Int, Int>): Int {
-        val mutableList = input.get().split(',')
-                .map { it.toInt() }
-                .toMutableList()
-
-        var operation = Operation(0, io)
-        while (operation.index != -1) {
-            operation = operation.apply(mutableList)
-        }
-        return operation.io.output
+    private fun execute(acs: AmplifierControllerSoftware, phaseSetting: List<Int>): Int {
+        return phaseSetting.fold(0) { output, phase -> acs.execute(Operation(0, IO(phase, output))).io.output }
     }
 
     fun part2(input: Text): Int {
         return input.get().count()
+    }
+
+    //generateSequence { it }.flatten()
+}
+
+class AmplifierControllerSoftware(private val instructions: MutableList<Int>) {
+    constructor(input: Text): this(input.get().split(',')
+            .map { it.toInt() }
+            .toMutableList())
+
+    fun execute(start: Operation): Operation {
+        var operation = start
+        while (operation.index != -1) {
+            operation = operation.apply(instructions)
+        }
+        return operation
     }
 }
