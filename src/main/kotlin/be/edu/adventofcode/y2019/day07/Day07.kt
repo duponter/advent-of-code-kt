@@ -26,11 +26,7 @@ class Day07 {
     }
 
     fun part1(input: Text, phaseSetting: List<Int>): Int {
-        return execute(AmplifierControllerSoftware(input), phaseSetting)
-    }
-
-    private fun execute(acs: AmplifierControllerSoftware, phaseSetting: List<Int>): Int {
-        return phaseSetting.fold(0) { output, phase -> acs.execute(Operation(0, IO(phase, output))).io.output }
+        return execute(AmplifierControllerSoftware(input), phaseSetting).io.output
     }
 
     fun part2(input: Text): Int {
@@ -40,14 +36,22 @@ class Day07 {
     }
 
     fun part2(input: Text, phaseSetting: List<Int>): Int {
-        return execute(AmplifierControllerSoftware(input), phaseSetting)
+        var result: Operation
+        do {
+            result = execute(AmplifierControllerSoftware(input), phaseSetting)
+        } while (result.index != -1)
+        return result.io.output
+    }
+
+    private fun execute(acs: AmplifierControllerSoftware, phaseSetting: List<Int>): Operation {
+        return phaseSetting.fold(Operation(0, IO(0, 0))) { op, phase -> acs.execute(Operation(0, op.io.newInput(phase))) }
     }
 
     //generateSequence { it }.flatten()
 }
 
 class AmplifierControllerSoftware(private val instructions: MutableList<Int>) {
-    constructor(input: Text): this(input.get().split(',')
+    constructor(input: Text) : this(input.get().split(',')
             .map { it.toInt() }
             .toMutableList())
 
