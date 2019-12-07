@@ -34,7 +34,13 @@ class Day07 {
     }
 
     fun part2(input: Text): Int {
-        return input.get().count()
+        return permutations((5..9).toList())
+                .map { part2(input, it) }
+                .max()!!
+    }
+
+    fun part2(input: Text, phaseSetting: List<Int>): Int {
+        return execute(AmplifierControllerSoftware(input), phaseSetting)
     }
 
     //generateSequence { it }.flatten()
