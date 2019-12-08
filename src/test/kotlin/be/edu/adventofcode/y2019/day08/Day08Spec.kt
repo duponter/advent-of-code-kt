@@ -1,7 +1,6 @@
 package be.edu.adventofcode.y2019.day08
 
 import be.edu.adventofcode.DayInput
-import be.edu.adventofcode.TextFromString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
@@ -14,12 +13,12 @@ object Day08Spec : Spek({
                 assertEquals(2032, day08.part1(DayInput().text(day08)))
             }
         }
-        xcontext("part 2") {
+        context("part 2") {
             it("testcase") {
-                assertEquals(1, day08.part2(TextFromString("line")))
+                assertEquals("0110", Image(2, 2).flatten("0222112222120000".map { it.toString().toInt() }).content())
             }
-            it("should answer Part2") {
-                assertEquals(0, day08.part2(DayInput().text(day08)))
+            it("What message is produced after decoding your image?") {
+                assertEquals(150, day08.part2(DayInput().text(day08)))
             }
         }
     }
