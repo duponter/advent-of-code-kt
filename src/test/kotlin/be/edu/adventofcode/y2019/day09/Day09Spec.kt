@@ -13,7 +13,7 @@ object Day09Spec : Spek({
             it("testcase") {
                 assertEquals(1, day09.part1(LinesFromArray("line")))
             }
-            it("should answer Part1") {
+            it("What BOOST keycode does it produce?") {
                 assertEquals(0, day09.part1(DayInput().lines(day09)))
             }
         }
