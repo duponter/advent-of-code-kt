@@ -25,11 +25,7 @@ class Day07 {
     }
 
     fun part1(input: Text, phaseSetting: List<Int>): Int {
-        return execute(AmplifierControllerSoftware(input), Operation(0, IO(0, 0)), phaseSetting).io.output
-    }
-
-    private fun execute(acs: AmplifierControllerSoftware, start: Operation, phaseSetting: List<Int>): Operation {
-        return phaseSetting.fold(start) { op, phase -> acs.execute(Operation(0, op.io.newInput(phase))) }
+        return be.edu.adventofcode.y2019.intcode.AmplifierControllerSoftware(input.get(), phaseSetting).execute(0)
     }
 
     fun part2(input: Text): Int {
@@ -39,20 +35,22 @@ class Day07 {
     }
 
     fun part2(input: Text, phaseSetting: List<Int>): Int {
-        val amplifiers = generateSequence { phaseSetting }.flatten().iterator()
-
-        val nextAmplifier = { io: IO<Int, Int> -> val tmp = io.newInput(amplifiers.next()); println("AMPL $tmp"); tmp  }
-        val nextOutput = { io: IO<Int, Int> -> val tmp = io.newInput(io.output); println("OI $tmp"); tmp }
-        val switcher = Switcher(nextAmplifier, nextOutput)
-
-        return AmplifierControllerSoftware(input)
-                .execute(Operation(0, IO(0, 0))) { switcher.apply(it) }
-                .io.output
+        return be.edu.adventofcode.y2019.intcode.AmplifierControllerSoftware(input.get(), phaseSetting).execute(0)
+//
+//        val amplifiers = generateSequence { phaseSetting }.flatten().iterator()
+//
+//        val nextAmplifier = { io: IO<Int, Int> -> val tmp = io.newInput(amplifiers.next()); println("AMPL $tmp"); tmp  }
+//        val nextOutput = { io: IO<Int, Int> -> val tmp = io.newInput(io.output); println("OI $tmp"); tmp }
+//        val switcher = Switcher(nextAmplifier, nextOutput)
+//
+//        return AmplifierControllerSoftware(input)
+//                .execute(Operation(0, IO(0, 0))) { switcher.apply(it) }
+//                .io.output
     }
 }
 
 class Switcher<T>(val first: (T) -> T, val second: (T) -> T) {
-    var chooser = Chooser.FIRST
+    private var chooser = Chooser.FIRST
 
     fun apply(input: T): T {
         chooser = chooser.inverse()
