@@ -8,34 +8,34 @@ data class Operation(val index: Int) : Instruction {
         val param3 = opCode.parameter(3)
         when (opCode.intCode()) {
             1 -> {
-                program.values[param3.immediate(program.values, index)] = param1.position(program.values, index) + param2.position(program.values, index)
+                program.values[param3.immediate(program.values, index).toInt()] = param1.position(program.values, index) + param2.position(program.values, index)
                 return Operation(index + 4).execute(program, input)
             }
             2 -> {
-                program.values[param3.immediate(program.values, index)] = param1.position(program.values, index) * param2.position(program.values, index)
+                program.values[param3.immediate(program.values, index).toInt()] = param1.position(program.values, index) * param2.position(program.values, index)
                 return Operation(index + 4).execute(program, input)
             }
             3 -> {
-                program.values[param1.immediate(program.values, index)] = input.next()
+                program.values[param1.immediate(program.values, index).toInt()] = input.next()
                 return Operation(index + 2).execute(program, input)
             }
             4 -> {
                 return IntermediateOutput(param1.position(program.values, index), index + 2)
             }
             5 -> {
-                val nextOp = if (program.values[param1.immediate(program.values, index)] != 0) Operation(program.values[param2.immediate(program.values, index)]) else Operation(index + 3)
+                val nextOp = if (program.values[param1.immediate(program.values, index).toInt()] != 0L) Operation(program.values[param2.immediate(program.values, index).toInt()].toInt()) else Operation(index + 3)
                 return nextOp.execute(program, input)
             }
             6 -> {
-                val nextOp = if (program.values[param1.immediate(program.values, index)] == 0) Operation(program.values[param2.immediate(program.values, index)]) else Operation(index + 3)
+                val nextOp = if (program.values[param1.immediate(program.values, index).toInt()] == 0L) Operation(program.values[param2.immediate(program.values, index).toInt()].toInt()) else Operation(index + 3)
                 return nextOp.execute(program, input)
             }
             7 -> {
-                program.values[param3.immediate(program.values, index)] = if (program.values[param1.immediate(program.values, index)] < program.values[param2.immediate(program.values, index)]) 1 else 0
+                program.values[param3.immediate(program.values, index).toInt()] = if (program.values[param1.immediate(program.values, index).toInt()] < program.values[param2.immediate(program.values, index).toInt()]) 1 else 0
                 return Operation(index + 4).execute(program, input)
             }
             8 -> {
-                program.values[param3.immediate(program.values, index)] = if (program.values[param1.immediate(program.values, index)] == program.values[param2.immediate(program.values, index)]) 1 else 0
+                program.values[param3.immediate(program.values, index).toInt()] = if (program.values[param1.immediate(program.values, index).toInt()] == program.values[param2.immediate(program.values, index).toInt()]) 1 else 0
                 return Operation(index + 4).execute(program, input)
             }
             99 -> return FinalOutput(input.next())
@@ -45,13 +45,13 @@ data class Operation(val index: Int) : Instruction {
 }
 
 data class Parameter(val order: Int, val mode: ParameterMode) {
-    fun position(values: List<Int>, baseIndex: Int): Int = mode.resolve(values, values[baseIndex + order])
+    fun position(values: List<Long>, baseIndex: Int): Long = mode.resolve(values, values[baseIndex + order])
 
-    fun immediate(values: List<Int>, baseIndex: Int): Int = mode.resolve(values, baseIndex + order)
+    fun immediate(values: List<Long>, baseIndex: Int): Long = mode.resolve(values, (baseIndex + order).toLong())
 }
 
 data class OpCode(val value: String) {
-    constructor(intValue: Int) : this(intValue.toString().padStart(5, '0'))
+    constructor(code: Long) : this(code.toString().padStart(5, '0'))
 
     fun intCode(): Int = value.takeLast(2).toInt()
 
@@ -60,13 +60,13 @@ data class OpCode(val value: String) {
 
 enum class ParameterMode {
     POSITION {
-        override fun resolve(values: List<Int>, parameter: Int): Int = values[parameter]
+        override fun resolve(values: List<Long>, parameter: Long): Long = values[parameter.toInt()]
     },
     IMMEDIATE {
-        override fun resolve(values: List<Int>, parameter: Int): Int = parameter
+        override fun resolve(values: List<Long>, parameter: Long): Long = parameter
     };
 
-    abstract fun resolve(values: List<Int>, parameter: Int): Int
+    abstract fun resolve(values: List<Long>, parameter: Long): Long
 
     companion object {
         fun fromValue(value: Int): ParameterMode = when (value) {
