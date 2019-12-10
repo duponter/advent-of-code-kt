@@ -1,8 +1,7 @@
 package be.edu.adventofcode.y2019.day07
 
 import be.edu.adventofcode.Text
-import be.edu.adventofcode.y2019.day05.IO
-import be.edu.adventofcode.y2019.day05.Operation
+import be.edu.adventofcode.y2019.intcode.OpCode
 
 class Day07 {
     fun part1(input: Text): Int {
@@ -92,4 +91,58 @@ class AmplifierControllerSoftware(private val instructions: MutableList<Int>) {
         }
         return operation
     }
+}
+
+data class Operation(val index: Int, val io: IO<Int, Int>) {
+    fun apply(values: MutableList<Int>): Operation = apply(values) { it.newInput(it.output) }
+
+    fun apply(values: MutableList<Int>, nextInput: (IO<Int, Int>) -> IO<Int, Int>): Operation {
+        val opCode = OpCode(values[index])
+        val param1 = opCode.parameter(1)
+        val param2 = opCode.parameter(2)
+        val param3 = opCode.parameter(3)
+        when (opCode.intCode()) {
+            1 -> {
+                values[param3.immediate(values, index)] = param1.position(values, index) + param2.position(values, index)
+                return Operation(index + 4, io)
+            }
+            2 -> {
+                values[param3.immediate(values, index)] = param1.position(values, index) * param2.position(values, index)
+                return Operation(index + 4, io)
+            }
+            3 -> {
+                val next = nextInput(io)
+                values[param1.immediate(values, index)] = next.input
+                println("input set to $next")
+                return Operation(index + 2, next)
+            }
+            4 -> {
+                val newOutput = io.newOutput(param1.position(values, index))
+                println("new output: $newOutput")
+                return Operation(index + 2, newOutput)
+            }
+            5 -> {
+                return if (values[param1.immediate(values, index)] != 0) Operation(values[param2.immediate(values, index)], io) else Operation(index + 3, io)
+            }
+            6 -> {
+                return if (values[param1.immediate(values, index)] == 0) Operation(values[param2.immediate(values, index)], io) else Operation(index + 3, io)
+            }
+            7 -> {
+                values[param3.immediate(values, index)] = if (values[param1.immediate(values, index)] < values[param2.immediate(values, index)]) 1 else 0
+                return Operation(index + 4, io)
+            }
+            8 -> {
+                values[param3.immediate(values, index)] = if (values[param1.immediate(values, index)] == values[param2.immediate(values, index)]) 1 else 0
+                return Operation(index + 4, io)
+            }
+            99 -> return Operation(-1, io)
+            else -> throw IllegalArgumentException("Invalid OpCode $opCode")
+        }
+    }
+}
+
+data class IO<I, O>(val input: I, val output: O) {
+    fun <T> newInput(input: T): IO<T, O> = IO(input, output)
+
+    fun <T> newOutput(output: T): IO<I, T> = IO(input, output)
 }
