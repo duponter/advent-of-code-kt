@@ -1,6 +1,7 @@
 package be.edu.adventofcode.y2019.day07
 
 import be.edu.adventofcode.Text
+import be.edu.adventofcode.y2019.intcode.AmplifierControllerSoftware
 
 class Day07 {
     fun part1(input: Text): Long {
@@ -24,7 +25,7 @@ class Day07 {
     }
 
     fun part1(input: Text, phaseSetting: List<Int>): Long {
-        return be.edu.adventofcode.y2019.intcode.AmplifierControllerSoftware(input.get(), phaseSetting).execute(0)
+        return AmplifierControllerSoftware(input.get(), phaseSetting).execute(0)
     }
 
     fun part2(input: Text): Long {
@@ -34,17 +35,12 @@ class Day07 {
     }
 
     fun part2(input: Text, phaseSetting: List<Int>): Long {
-        return be.edu.adventofcode.y2019.intcode.AmplifierControllerSoftware(input.get(), phaseSetting).execute(0)
-//
-//        val amplifiers = generateSequence { phaseSetting }.flatten().iterator()
-//
-//        val nextAmplifier = { io: IO<Int, Int> -> val tmp = io.newInput(amplifiers.next()); println("AMPL $tmp"); tmp  }
-//        val nextOutput = { io: IO<Int, Int> -> val tmp = io.newInput(io.output); println("OI $tmp"); tmp }
-//        val switcher = Switcher(nextAmplifier, nextOutput)
-//
-//        return AmplifierControllerSoftware(input)
-//                .execute(Operation(0, IO(0, 0))) { switcher.apply(it) }
-//                .io.output
+        var output = 0L
+        val amplifierControllerSoftware = AmplifierControllerSoftware(input.get(), phaseSetting)
+        for(i in 1..5) {
+            output = amplifierControllerSoftware.execute(output)
+        }
+        return output
     }
 }
 

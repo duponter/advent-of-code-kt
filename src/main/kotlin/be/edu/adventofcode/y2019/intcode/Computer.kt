@@ -26,7 +26,7 @@ class AmplifierControllerSoftware(input: String, val phaseSettings: List<Int>): 
 //    private val phaseIterator: Iterator<Int> = phaseSettings.iterator()
 
     override fun execute(startingInput: Long): Long {
-        return phaseSettings.fold(0L) { input, phase -> restartOnExecution(Input(listOf(phase.toLong(), input))) }
+        return phaseSettings.fold(startingInput) { input, phase -> restartOnExecution(Input(listOf(phase.toLong(), input))) }
     }
 
     private fun restartOnExecution(input: Input): Long {
@@ -50,10 +50,8 @@ interface Instruction {
 
 data class Input(var values: List<Long>) {
     fun next(): Long {
-        println("before $values")
         val next = values.first()
         values = values.drop(1)
-        println("after $values, returning $next")
         return next
     }
 }
