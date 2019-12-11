@@ -10,14 +10,20 @@ open class Program(val values: MutableList<Long>) {
             .toMutableList())
 
     open fun execute(startingInput: Long): Long {
-        return execute(IntermediateOutput(startingInput, 0))
+        return execute(IntermediateOutput(startingInput, 0, 0))
     }
 
     private tailrec fun execute(output: Output): Long {
         return when(output) {
-            is IntermediateOutput -> execute(Operation(output.index).execute(this, Input(listOf(output.intermediate))))
+            is IntermediateOutput -> execute(Operation(output.index).execute(this, Input(listOf(output.intermediate)), output.relativeBase))
             is FinalOutput -> output.final
         }
+    }
+
+    fun safeGet(parameter: Long): Long = values[if (parameter < 0L || parameter >= values.size) 0 else parameter.toInt()]
+
+    fun safeSet(parameter: Long, value: Long) {
+        values[if (parameter < 0L || parameter >= values.size) 0 else parameter.toInt()] = value
     }
 }
 
@@ -45,7 +51,9 @@ class AmplifierControllerSoftware(input: String, val phaseSettings: List<Int>): 
 }
 
 interface Instruction {
-    fun execute(program: Program, input: Input): Output
+    fun execute(program: Program, input: Input): Output = this.execute(program, input, 0)
+
+    fun execute(program: Program, input: Input, relativeBase: Int): Output
 }
 
 data class Input(var values: List<Long>) {
@@ -57,6 +65,6 @@ data class Input(var values: List<Long>) {
 }
 
 sealed class Output(val value: Long)
-data class IntermediateOutput(val intermediate: Long, val index: Int) : Output(intermediate)
+data class IntermediateOutput(val intermediate: Long, val index: Int, val relativeBase: Int) : Output(intermediate)
 data class FinalOutput(val final: Long) : Output(final)
 
