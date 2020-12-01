@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.3.61"
+    id("org.jetbrains.kotlin.jvm") version "1.4.20"
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -25,9 +25,9 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.8")
+    testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.9")
 
-    testImplementation("org.spekframework.spek2:spek-runner-junit5:2.0.8")
+    testImplementation("org.spekframework.spek2:spek-runner-junit5:2.0.9")
 
 }
 

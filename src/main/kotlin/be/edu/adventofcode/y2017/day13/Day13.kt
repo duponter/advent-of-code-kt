@@ -10,7 +10,7 @@ class Day13 {
                 .map { Scanner(it.first().toInt(), it.last().toInt()) }
                 .groupBy(Scanner::depth)
                 .mapValues { it.value.single() }
-        return (0..defined.keys.max()!!).minus(defined.keys).map { Scanner(it) }
+        return (0..defined.keys.maxOrNull()!!).minus(defined.keys).map { Scanner(it) }
                 .plus(defined.values)
                 .toSortedSet(Comparator { o1, o2 -> o1.depth - o2.depth })
     }

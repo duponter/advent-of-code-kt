@@ -9,7 +9,7 @@ class Day03 {
         return wirePath(input.get().first())
                 .intersect(wirePath(input.get().last()))
                 .map { it.distance() }
-                .min()!!
+                .minOrNull()!!
     }
 
     private fun wirePath(wire: String): List<Point> {
@@ -25,7 +25,7 @@ class Day03 {
 
         return firstWire.intersect(secondWire)
                 .map { sum(firstWire.indexOf(it) + 1, secondWire.indexOf(it) + 1) }
-                .min()!!
+                .minOrNull()!!
     }
 }
 

@@ -6,7 +6,7 @@ class Day08 {
     fun part1(input: Text): Int {
         val image = Image(25, 6)
         val layer = image.asLayers(input.get().map { it.toString().toInt() })
-                .minBy { it.countDigit(0) }!!
+                .minByOrNull { it.countDigit(0) }!!
         return layer.countDigit(1) * layer.countDigit(2)
     }
 

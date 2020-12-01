@@ -7,7 +7,7 @@ class Day07 {
     fun part1(input: Text): Long {
         return permutations((0..4).toList())
                 .map { part1(input, it) }
-                .max()!!
+                .maxOrNull()!!
     }
 
     private fun <T> permutations(input: List<T>): List<List<T>> {
@@ -31,7 +31,7 @@ class Day07 {
     fun part2(input: Text): Long {
         return permutations((5..9).toList())
                 .map { part2(input, it) }
-                .max()!!
+                .maxOrNull()!!
     }
 
     fun part2(input: Text, phaseSetting: List<Int>): Long {

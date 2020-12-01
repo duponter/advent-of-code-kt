@@ -11,7 +11,7 @@ class Day09 {
                 .toMap()
         return map.keys.flatMap { it.toList() }.toSet().toList().permutations()
                 .map { it.fold(Pair("", 0), { prev, current -> Pair(current, prev.second + (map[Pair(prev.first, current)] ?: (map[Pair(current, prev.first)] ?: 0))) }).second }
-                .min() ?: 0
+                .minOrNull() ?: 0
     }
 
     fun part2(input: Lines): Int {
@@ -22,7 +22,7 @@ class Day09 {
                 .toMap()
         return map.keys.flatMap { it.toList() }.toSet().toList().permutations()
                 .map { it.fold(Pair("", 0), { prev, current -> Pair(current, prev.second + (map[Pair(prev.first, current)] ?: (map[Pair(current, prev.first)] ?: 0))) }).second }
-                .max() ?: 0
+                .maxOrNull() ?: 0
     }
 }
 

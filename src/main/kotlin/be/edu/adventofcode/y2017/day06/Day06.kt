@@ -18,7 +18,7 @@ class Day06 {
         do {
             configurations = configurations.plus(configuration)
 
-            val max = blocks.maxWith(IntPairComparator())!!
+            val max = blocks.maxWithOrNull(IntPairComparator())!!
             blocks[max.first] = Pair(max.first, 0)
 
             (max.first + 1..max.first + max.second).forEach {

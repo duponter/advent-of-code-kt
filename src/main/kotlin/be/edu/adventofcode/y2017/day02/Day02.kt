@@ -11,7 +11,7 @@ class Day02 {
 
     private fun stringToDifference(input: String): Int {
         val values = input.split(Regex("\\s+")).map(String::toInt)
-        return values.max()!! - values.min()!!
+        return values.maxOrNull()!! - values.minOrNull()!!
     }
 
     fun part2(input: Lines): Int {

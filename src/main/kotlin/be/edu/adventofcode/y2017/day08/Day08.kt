@@ -10,7 +10,7 @@ class Day08 {
         val tokens = input.get().map { regex.matchEntire(it) }.map { it!!.groupValues }
         val registers = tokens.flatMap { listOf(it[1], it[4]) }.toSet().groupBy({ it }, { Register(it) }).mapValues { it.value.single() }
         tokens.map { toInstruction(it, registers) }.map(Instruction::execute)
-        return registers.maxBy { it.value.value }!!.value.value
+        return registers.maxByOrNull { it.value.value }!!.value.value
     }
 
     private fun toInstruction(tokens: List<String>, registers: Map<String, Register>): Instruction {
