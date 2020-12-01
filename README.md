@@ -1,5 +1,8 @@
 # Advent of Code using Kotlin
 
+Login with Github credentials
+
+* Year [2020](http://adventofcode.com/2020)
 * Year [2019](http://adventofcode.com/2019)
 * Year [2018](http://adventofcode.com/2018)
 * Year [2017](http://adventofcode.com/2017)
