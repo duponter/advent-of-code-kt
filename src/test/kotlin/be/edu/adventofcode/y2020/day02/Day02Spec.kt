@@ -11,10 +11,12 @@ object Day02Spec : Spek({
         val day02 = Day02()
         context("part 1") {
             it("testcase") {
-                assertEquals(1, day02.part1(LinesFromArray("line")))
+                assertEquals(1, day02.part1(LinesFromArray("1-3 a: abcde")))
+                assertEquals(0, day02.part1(LinesFromArray("1-3 b: cdefg")))
+                assertEquals(1, day02.part1(LinesFromArray("2-9 c: ccccccccc")))
             }
-            it("should answer Part1") {
-                assertEquals(0, day02.part1(DayInput().lines(day02)))
+            it("How many passwords are valid according to their policies?") {
+                assertEquals(378, day02.part1(DayInput().lines(day02)))
             }
         }
         context("part 2") {
