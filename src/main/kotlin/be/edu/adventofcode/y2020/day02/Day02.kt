@@ -6,7 +6,13 @@ class Day02 {
     fun part1(input: Lines): Int {
         return input.get()
                 .map { parse(it) }
-                .count { it.isValid() }
+                .count { it.isValidPart1() }
+    }
+
+    fun part2(input: Lines): Int {
+        return input.get()
+                .map { parse(it) }
+                .count { it.isValidPart2() }
     }
 
     private fun parse(policy: String): PasswordEntry {
@@ -16,11 +22,9 @@ class Day02 {
     }
 
     class PasswordEntry(private val lower: Int, private val upper: Int, private val letter: Char, private val pw: String) {
-        fun isValid(): Boolean = pw.count { it == letter } in lower..upper
-    }
 
+        fun isValidPart1(): Boolean = pw.count { it == letter } in lower..upper
 
-    fun part2(input: Lines): Int {
-        return input.get().count()
+        fun isValidPart2(): Boolean = (pw[lower-1] == letter) xor (pw[upper-1] == letter)
     }
 }
