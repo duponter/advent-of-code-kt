@@ -5,6 +5,7 @@ import be.edu.adventofcode.LinesFromArray
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 object Day05Spec : Spek({
     describe("day 05") {
@@ -20,12 +21,10 @@ object Day05Spec : Spek({
                 assertEquals(878, day05.part1(DayInput().lines(day05)))
             }
         }
-        xcontext("part 2") {
-            it("testcase") {
-                assertEquals(1, day05.part2(LinesFromArray("line")))
-            }
-            it("should answer Part2") {
-                assertEquals(0, day05.part2(DayInput().lines(day05)))
+        context("part 2") {
+            it("Part 2 - What is the ID of your seat?") {
+                assertNotEquals(55, day05.part2(DayInput().lines(day05)))
+                assertEquals(504, day05.part2(DayInput().lines(day05)))
             }
         }
     }
