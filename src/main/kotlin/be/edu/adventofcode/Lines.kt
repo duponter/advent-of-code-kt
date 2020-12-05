@@ -4,6 +4,8 @@ import java.io.File
 
 interface Lines {
     fun get(): List<String>
+
+    fun asSequence(): Sequence<String> = get().asSequence()
 }
 
 class LinesFromFile(private val file: File) : Lines {
