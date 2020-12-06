@@ -1,6 +1,7 @@
 package be.edu.adventofcode.y2020.day02
 
 import be.edu.adventofcode.Lines
+import be.edu.adventofcode.StringDestructure
 
 class Day02 {
     fun part1(input: Lines): Int {
@@ -16,9 +17,8 @@ class Day02 {
     }
 
     private fun parse(policy: String): PasswordEntry {
-        return Regex("(\\d+)-(\\d+) ([a-z]): ([a-z]+)").matchEntire(policy)!!.destructured.let {
-            PasswordEntry(it.component1().toInt(), it.component2().toInt(), it.component3().first(), it.component4())
-        }
+        return StringDestructure("(\\d+)-(\\d+) ([a-z]): ([a-z]+)").many(policy)
+            .let { PasswordEntry(it[0].toInt(), it[1].toInt(), it[2].first(), it[3]) }
     }
 
     class PasswordEntry(private val lower: Int, private val upper: Int, private val letter: Char, private val pw: String) {

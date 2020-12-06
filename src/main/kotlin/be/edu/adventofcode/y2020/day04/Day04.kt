@@ -1,5 +1,6 @@
 package be.edu.adventofcode.y2020.day04
 
+import be.edu.adventofcode.StringDestructure
 import be.edu.adventofcode.Text
 
 class Day04 {
@@ -51,9 +52,9 @@ class Day04 {
 
         private fun isHeightValid(): Boolean {
             val hgt = fields["hgt"]!!
-            return Regex("(\\d+)(cm|in)").matchEntire(hgt)?.destructured
-                .let { (it?.component1()?.toInt() ?: 0) to it?.component2() }
-                .let { if (it.second == "cm") it.first in 150..193 else it.first in 59..76 }
+            return StringDestructure("(\\d+)(cm|in)").pairOrNull(hgt)
+                ?.let { if (it.second == "cm") it.first.toInt() in 150..193 else it.first.toInt() in 59..76 }
+                ?: false
         }
 
         private fun isHairColorValid(): Boolean {
@@ -71,10 +72,7 @@ class Day04 {
             return Regex("(\\d{9})").matches(pid)
         }
 
-        private fun parseYear(year: String): Int {
-            return Regex("(\\d{4})").matchEntire(year)?.destructured
-                .let { it!!.component1().toInt() }
-        }
+        private fun parseYear(year: String): Int = StringDestructure("(\\d{4})").single(year).toInt()
     }
 
 }
