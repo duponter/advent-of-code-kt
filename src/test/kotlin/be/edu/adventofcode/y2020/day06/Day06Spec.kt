@@ -17,12 +17,12 @@ object Day06Spec : Spek({
                 assertEquals(6532, day06.part1(DayInput().text(day06)))
             }
         }
-        xcontext("part 2") {
-            it("testcase") {
-                assertEquals(1, day06.part2(TextFromString("line")))
+        context("part 2") {
+            it("Same questions answered") {
+                assertEquals(6, day06.part2(TextFromString("abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day06.part2(DayInput().text(day06)))
+            it("Part 2 - What is the sum of those counts?") {
+                assertEquals(3427, day06.part2(DayInput().text(day06)))
             }
         }
     }

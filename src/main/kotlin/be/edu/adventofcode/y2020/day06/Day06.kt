@@ -11,6 +11,9 @@ class Day06 {
     }
 
     fun part2(input: Text): Int {
-        return input.get().count()
+        return input.get().split("\n\n")
+            .map { it.filter { ch -> it.count { ch1 -> ch1 == ch } == it.count { ch1 -> ch1 == '\n' } + 1 } }
+            .map { it.chars().distinct().count() }
+            .sum().toInt()
     }
 }
