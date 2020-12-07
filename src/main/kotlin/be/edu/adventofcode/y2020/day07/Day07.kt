@@ -6,15 +6,18 @@ import java.lang.IllegalArgumentException
 
 class Day07 {
     fun part1(input: Lines): Int {
-        val regulations = input.asSequence()
-            .map { parse(it) }
-            .associateBy { it.type }
+        val regulations = parseRegulations(input)
         return regulations.values.count { it.contains("shiny gold", regulations) }
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val regulations = parseRegulations(input)
+        return regulations["shiny gold"]!!.count(regulations) - 1
     }
+
+    private fun parseRegulations(input: Lines) = input.asSequence()
+        .map { parse(it) }
+        .associateBy { it.type }
 
     private fun parse(line: String): Bag {
         val (bag, content) = StringDestructure("([\\w ]+) contain ([\\w ,]+).").pair(line)
@@ -35,6 +38,13 @@ class Day07 {
             return content.keys
                 .map { regulations[it] ?: throw IllegalArgumentException("Bag $it not found in regulations") }
                 .any { it.contains(type, regulations) }
+        }
+
+        fun count(regulations: Map<String, Bag>): Int {
+            return 1 + content.entries
+                .map { (regulations[it.key] ?: throw IllegalArgumentException("Bag $it not found in regulations")) to it.value }
+                .map { it.second * it.first.count(regulations) }
+                .sum()
         }
     }
 }
