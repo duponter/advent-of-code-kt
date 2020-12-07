@@ -27,8 +27,8 @@ object Day07Spec : Spek({
                     )
                 )
             }
-            xit("Part 1 - How many bag colors can eventually contain at least one shiny gold bag?") {
-                assertEquals(0, day07.part1(DayInput().lines(day07)))
+            it("Part 1 - How many bag colors can eventually contain at least one shiny gold bag?") {
+                assertEquals(248, day07.part1(DayInput().lines(day07)))
             }
         }
         xcontext("part 2") {
