@@ -17,12 +17,12 @@ object Day08Spec : Spek({
                 assertEquals(1810, day08.part1(DayInput().lines(day08)))
             }
         }
-        xcontext("part 2") {
-            it("testcase") {
-                assertEquals(1, day08.part2(LinesFromArray("line")))
+        context("part 2") {
+            it("Testcase - what value is in the accumulator?") {
+                assertEquals(8, day08.part2(LinesFromArray("nop +0", "acc +1", "jmp +4", "acc +3", "jmp -3", "acc -99", "acc +1", "jmp -4", "acc +6")))
             }
-            it("should answer Part2") {
-                assertEquals(0, day08.part2(DayInput().lines(day08)))
+            it("Solution - what value is in the accumulator?") {
+                assertEquals(969, day08.part2(DayInput().lines(day08)))
             }
         }
     }
