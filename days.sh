@@ -41,18 +41,18 @@ object Day${day}Spec : Spek({
     describe("day ${day}") {
         val day${day} = Day${day}()
         context("part 1") {
-            it("testcase") {
+            it("Part 1 - Testcase - ") {
                 assertEquals(1, day${day}.part1(LinesFromArray("line")))
             }
-            it("should answer Part1") {
+            it("Part 1 - Solution - ") {
                 assertEquals(0, day${day}.part1(DayInput().lines(day${day})))
             }
         }
         context("part 2") {
-            it("testcase") {
+            it("Part 2 - Testcase - ") {
                 assertEquals(1, day${day}.part2(LinesFromArray("line")))
             }
-            it("should answer Part2") {
+            it("Part 2 - Solution - ") {
                 assertEquals(0, day${day}.part2(DayInput().lines(day${day})))
             }
         }
