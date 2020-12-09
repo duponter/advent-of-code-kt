@@ -17,12 +17,12 @@ object Day09Spec : Spek({
                 assertEquals(3199139634, day09.part1(DayInput().lines(day09), 25))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day09.part2(LinesFromArray("line")))
+        context("part 2") {
+            it("Part 2 - Testcase - What is the encryption weakness in your XMAS-encrypted list of numbers?") {
+                assertEquals(62, day09.part2(LinesFromArray("35", "20", "15", "25", "47", "40", "62", "55", "65", "95", "102", "117", "150", "182", "127", "219", "299", "277", "309", "576"), 5))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day09.part2(DayInput().lines(day09)))
+            it("Part 2 - Solution - What is the encryption weakness in your XMAS-encrypted list of numbers?") {
+                assertEquals(438559930, day09.part2(DayInput().lines(day09), 25))
             }
         }
     }

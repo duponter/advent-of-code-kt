@@ -1,7 +1,6 @@
 package be.edu.adventofcode.y2020.day09
 
 import be.edu.adventofcode.Lines
-import be.edu.adventofcode.LinesFromArray
 import be.edu.adventofcode.calculations.CartesianProduct
 
 class Day09 {
@@ -21,7 +20,18 @@ class Day09 {
             .contains(numbers.last())
     }
 
-    fun part2(input: Lines): Int {
-        return input.get().count()
+    fun part2(input: Lines, preambleLength: Int): Long {
+        val invalidNumber = this.part1(input, preambleLength)
+        val numbers = input.get().map { it.toLong() }.dropLastWhile { it > invalidNumber }
+
+        var maxSize = 0
+        for (setSize in 2 until numbers.size) {
+            if (numbers.windowed(setSize).firstOrNull { it.sum() == invalidNumber } != null) {
+                maxSize = setSize
+            }
+        }
+        return numbers.windowed(maxSize)
+            .first { it.sum() == invalidNumber }
+            .let { it.minOrNull()!! + it.maxOrNull()!! }
     }
 }
