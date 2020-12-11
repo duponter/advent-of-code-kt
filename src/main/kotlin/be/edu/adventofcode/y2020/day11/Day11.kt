@@ -21,7 +21,17 @@ class Day11 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        var seatLayout = SeatLayout(input.get())
+
+        var countOccupied = 0
+        var tmp: Int
+        do {
+            tmp = countOccupied
+            seatLayout = seatLayout.round2()
+            countOccupied = seatLayout.countOccupied()
+        } while (tmp != countOccupied)
+
+        return countOccupied
     }
 
     class SeatLayout(private val grid: List<String>) {
@@ -48,6 +58,18 @@ class Day11 {
                 }
             }
             return this
+        }
+
+        fun round2(): SeatLayout {
+            var changed = this
+            for (row in grid.indices) {
+                for (col in grid[row].indices) {
+                    val center = row to col
+                    val tmp = this.switchSeat(center)
+                    changed = changed.set(center, tmp.seat(center))
+                }
+            }
+            return changed
         }
 
         fun adjacentSeats(center: Pair<Int, Int>): CharSequence {
