@@ -23,6 +23,8 @@ class Day10 {
     }
 
     fun part2(input: Lines): Int {
+        println(fibonacci().take(10).toList()) // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
         val outputJoltages: Set<Int> = input.get().map { it.toInt() }.toSortedSet()
         println("# adapters = ${outputJoltages.size}")
         println("# max output joltage = ${outputJoltages.maxOrNull()}")
@@ -39,6 +41,12 @@ class Day10 {
         val combinations = (1..steps).map { combo(toMutableMap, it) }
         println(combinations)
         return combinations.reduce { product, next -> product * next }
+    }
+
+    fun fibonacci(): Sequence<Int> {
+        // fibonacci terms
+        // 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, ...
+        return generateSequence(Pair(0, 1), { Pair(it.second, it.first + it.second) }).map { it.first }
     }
 
     private fun combo(groupByQuotient: Map<Int, List<Int>>, index: Int): Int {
