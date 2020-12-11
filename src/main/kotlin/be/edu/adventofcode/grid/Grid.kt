@@ -12,8 +12,10 @@ class Grid<T>(private val layout: List<List<T>>) {
         return row >= 0 && col >= 0 && row < this.layout.size && col < this.layout[row].size
     }
 
-    fun value(point: Point): T? {
-        val (row, col) = toCell(point)
+    fun value(point: Point): T? = value(toCell(point))
+
+    fun value(cell: Pair<Int, Int>): T? {
+        val (row, col) = cell
         return if (contains(row, col)) this.layout[row][col] else null
     }
 
