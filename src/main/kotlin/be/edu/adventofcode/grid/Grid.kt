@@ -3,6 +3,8 @@ package be.edu.adventofcode.grid
 import kotlin.math.abs
 
 class Grid<T>(private val layout: List<List<T>>) {
+    fun dimensions(): Pair<Int, Int> = layout.size to layout[0].size
+
     fun contains(point: Point): Boolean {
         val (row, col) = toCell(point)
         return contains(row, col)
@@ -19,12 +21,26 @@ class Grid<T>(private val layout: List<List<T>>) {
         return if (contains(row, col)) this.layout[row][col] else null
     }
 
-    fun cells(): List<Triple<Int, Int, T>> {
-        return layout.flatMapIndexed { rowIdx, row -> row.mapIndexed { colIdx, value -> Triple(rowIdx, colIdx, value )} }
+    fun raw(row: Int, col: Int): T = this.layout[row][col]
+
+    fun cells(): List<T> {
+        return this.cells { _, _, value -> value!! }
+    }
+
+    fun <R> cells(mapper: (Int, Int, T) -> R): List<R> {
+        return this.map(mapper).layout.flatten()
+    }
+
+    fun <R> map(mapper: (Int, Int, T) -> R): Grid<R> {
+        return Grid(layout.mapIndexed { rowIdx, row -> row.mapIndexed { colIdx, value -> mapper(rowIdx, colIdx, value) } })
     }
 
     fun replace(point: Point, newValue: T): Pair<Grid<T>, T?> {
         val (rowIndex, colIndex) = toCell(point)
+        return this.replace(rowIndex, colIndex, newValue)
+    }
+
+    fun replace(rowIndex: Int, colIndex: Int, newValue: T): Pair<Grid<T>, T?> {
         if (contains(rowIndex, colIndex)) {
             val row = this.layout[rowIndex].toMutableList()
             val oldValue = row[colIndex]
@@ -36,7 +52,7 @@ class Grid<T>(private val layout: List<List<T>>) {
         return this to null
     }
 
-    fun print(formatter: (T) -> String = { it.toString() }) {
+    fun print(formatter: (T?) -> String = { it.toString() }) {
         this.layout.forEach { it.forEach { value -> print(formatter(value)) }; println() }
     }
 
