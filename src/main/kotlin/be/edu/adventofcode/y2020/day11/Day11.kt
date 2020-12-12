@@ -1,7 +1,6 @@
 package be.edu.adventofcode.y2020.day11
 
 import be.edu.adventofcode.Lines
-import be.edu.adventofcode.LinesFromArray
 import be.edu.adventofcode.grid.*
 
 class Day11 {
@@ -23,7 +22,23 @@ class Day11 {
         }
     }
 
-    fun part2(input: Lines): Int = rounds(SeatLayout(cellGridFactory1(Grid(input.get().map { it.toCharArray().toList() })))) { it::switchSeat1 }
+    fun part2(input: Lines): Int = rounds(SeatLayout(cellGridFactory2(Grid(input.get().map { it.toCharArray().toList() })))) { it::switchSeat2 }
+
+    private fun cellGridFactory2(grid: Grid<Char>): Grid<Cell<Char>> {
+        val (rows, cols) = grid.dimensions()
+        return grid.map { row, col, value ->
+            var cell: Cell<Char> = if (value == '.') SkippingCell(row, col, value) else BasicCell(row, col, value)
+            if (row == 0)
+                cell = NorthBorderCell(cell)
+            if (row == rows - 1)
+                cell = SouthBorderCell(cell)
+            if (col == 0)
+                cell = WestBorderCell(cell)
+            if (col == cols - 1)
+                cell = EastBorderCell(cell)
+            cell
+        }
+    }
 
     private fun rounds(input: SeatLayout, switchSeat: (SeatLayout) -> (Cell<Char>) -> Char?): Int {
         var seatLayout = input
@@ -33,6 +48,7 @@ class Day11 {
         do {
             counter++
             tmp = countOccupied
+            println("Starting round $counter")
             seatLayout = seatLayout.round(switchSeat(seatLayout))
             countOccupied = seatLayout.countOccupied()
         } while (tmp != countOccupied)
@@ -42,8 +58,8 @@ class Day11 {
 
     class SeatLayout(private val grid: Grid<Cell<Char>>) {
         fun round(switchSeat: (Cell<Char>) -> Char?): SeatLayout {
-//            println("Starting new round")
 //            grid.print { it?.value()?.toString() ?: "" }
+//            grid.print { "$it\n" }
             return SeatLayout(grid.cells().fold(grid, { acc, next -> gridUpdate(acc, next, switchSeat) }))
         }
 
@@ -65,21 +81,16 @@ class Day11 {
             return null
         }
 
-        fun switchSeat2(cell: Triple<Int, Int, Char>): Char? {
-            val seat: Char = cell.third
+        fun switchSeat2(cell: Cell<Char>): Char? {
+            val seat: Char = cell.value()!!
             if (!floor(seat)) {
-                val start = Point(cell.first to cell.second)
-
-                val count = listOfNotNull(
-                    firstInDirection(start) { it.up().left() },
-                    firstInDirection(start, Point::up),
-                    firstInDirection(start) { it.up().right() },
-                    firstInDirection(start, Point::right),
-                    firstInDirection(start) { it.down().right() },
-                    firstInDirection(start, Point::down),
-                    firstInDirection(start) { it.down().left() },
-                    firstInDirection(start, Point::left)
-                ).mapNotNull { grid.value(it.coordinates()) }.count { occupied(it.value() ?: '-') }
+//                cell.map { row, col, _ ->
+//                    if (row == 0 && col == 2) {println("--- Adjacents $cell ---"); cell.adjacents(this.grid).forEach { println(it) } ; println("--- Adjacents End ---")}
+//                }
+//                println("--- Adjacents $cell ---"); cell.adjacents(this.grid).forEach { println(it) } ; println("--- Adjacents End ---")
+                val count = cell.adjacents(this.grid).count { occupied(it.value() ?: '-') }
+//                println("$cell has $count occupied")
+//                println("$cell has ${cell.adjacents(this.grid).count { empty(it.value() ?: '-') }} empty")
                 if (empty(seat) && count == 0) {
                     return '#'
                 } else if (occupied(seat) && count > 4) {
@@ -87,11 +98,6 @@ class Day11 {
                 }
             }
             return null
-        }
-
-        private fun firstInDirection(start: Point, direction: (Point) -> Point?): Point? {
-            return generateSequence(start) { direction(it) }
-                .firstOrNull { grid.value(it.coordinates())?.let { ch -> !floor(ch.value() ?: '-') } ?: true }
         }
 
         fun countOccupied(): Int = grid.cells { _, _, value -> value }.count { occupied(it.value() ?: '-') }
@@ -105,6 +111,10 @@ class Day11 {
 }
 
 fun main() {
-    println("part 1 = " + Day11().part1(LinesFromArray("L.LL.LL.LL", "LLLLLLL.LL", "L.L.L..L..", "LLLL.LL.LL", "L.LL.LL.LL", "L.LLLLL.LL", "..L.L.....", "LLLLLLLLLL", "L.LLLLLL.L", "L.LLLLL.LL")))
-    println("part 2 = " + Day11().part2(LinesFromArray("L.LL.LL.LL", "LLLLLLL.LL", "L.L.L..L..", "LLLL.LL.LL", "L.LL.LL.LL", "L.LLLLL.LL", "..L.L.....", "LLLLLLLLLL", "L.LLLLLL.L", "L.LLLLL.LL")))
+//    println("part 1 = " + Day11().part1(LinesFromArray("L.LL.LL.LL", "LLLLLLL.LL", "L.L.L..L..", "LLLL.LL.LL", "L.LL.LL.LL", "L.LLLLL.LL", "..L.L.....", "LLLLLLLLLL", "L.LLLLLL.L", "L.LLLLL.LL")))
+//    println("8 occupied = " + Day11().part2(LinesFromArray(".......#.", "...#.....", ".#.......", ".........", "..#L....#", "....#....", ".........", "#........", "...#.....")))
+//    println("0 occupied = " + Day11().part2(LinesFromArray(".##.##.", "#.#.#.#", "##...##", "...L...", "##...##", "#.#.#.#", ".##.##.")))
+//    println("only 1 empty = " + Day11().part2(LinesFromArray(".............", ".L.L.#.#.#.#.", ".............")))
+//    println("part 2 = " + Day11().part2(LinesFromArray("L.LL.LL.LL", "LLLLLLL.LL")))
+//    println("part 2 = " + Day11().part2(LinesFromArray("L.LL.LL.LL", "LLLLLLL.LL", "L.L.L..L..", "LLLL.LL.LL", "L.LL.LL.LL", "L.LLLLL.LL", "..L.L.....", "LLLLLLLLLL", "L.LLLLLL.L", "L.LLLLL.LL")))
 }
