@@ -4,30 +4,18 @@ import be.edu.adventofcode.Lines
 import be.edu.adventofcode.grid.*
 
 class Day11 {
-    fun part1(input: Lines): Int = rounds(SeatLayout(cellGridFactory1(Grid(input.get().map { it.toCharArray().toList() })))) { { cell: Cell<Char> -> it.switchSeat(cell, 3) } }
+    fun part1(input: Lines): Int = rounds(
+        SeatLayout(cellGridFactory(Grid(input.get().map { it.toCharArray().toList() })) { row, col, value -> BasicCell(row, col, value) })
+    ) { { cell: Cell<Char> -> it.switchSeat(cell, 3) } }
 
-    private fun cellGridFactory1(grid: Grid<Char>): Grid<Cell<Char>> {
+    fun part2(input: Lines): Int = rounds(
+        SeatLayout(cellGridFactory(Grid(input.get().map { it.toCharArray().toList() })) { row, col, value -> if (value == '.') SkippingCell(row, col, value) else BasicCell(row, col, value) })
+    ) { { cell: Cell<Char> -> it.switchSeat(cell, 4) } }
+
+    private fun cellGridFactory(grid: Grid<Char>, baseCellCreation: (Int, Int, Char) -> Cell<Char>): Grid<Cell<Char>> {
         val (rows, cols) = grid.dimensions()
         return grid.map { row, col, value ->
-            var cell: Cell<Char> = BasicCell(row, col, value)
-            if (row == 0)
-                cell = NorthBorderCell(cell)
-            if (row == rows - 1)
-                cell = SouthBorderCell(cell)
-            if (col == 0)
-                cell = WestBorderCell(cell)
-            if (col == cols - 1)
-                cell = EastBorderCell(cell)
-            cell
-        }
-    }
-
-    fun part2(input: Lines): Int = rounds(SeatLayout(cellGridFactory2(Grid(input.get().map { it.toCharArray().toList() })))) { { cell: Cell<Char> -> it.switchSeat(cell, 4) } }
-
-    private fun cellGridFactory2(grid: Grid<Char>): Grid<Cell<Char>> {
-        val (rows, cols) = grid.dimensions()
-        return grid.map { row, col, value ->
-            var cell: Cell<Char> = if (value == '.') SkippingCell(row, col, value) else BasicCell(row, col, value)
+            var cell: Cell<Char> = baseCellCreation(row, col, value)
             if (row == 0)
                 cell = NorthBorderCell(cell)
             if (row == rows - 1)
