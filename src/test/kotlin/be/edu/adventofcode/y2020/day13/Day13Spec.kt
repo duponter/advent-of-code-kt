@@ -14,7 +14,7 @@ object Day13Spec : Spek({
                 assertEquals(295, day13.part1(LinesFromArray("939", "7,13,x,x,59,x,31,19")))
             }
             it("Part 1 - Solution - What is the ID of the earliest bus you can take to the airport multiplied by the number of minutes you'll need to wait for that bus?") {
-                assertEquals(0, day13.part1(DayInput().lines(day13)))
+                assertEquals(2165, day13.part1(DayInput().lines(day13)))
             }
         }
         xcontext("part 2") {
