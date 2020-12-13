@@ -17,7 +17,7 @@ data class Point(private val x: Int, private val y: Int) {
 
     fun left(steps: Int = 1): Point = Point(x, y - steps)
 
-    fun west(steps: Int = 1): Point = west(steps)
+    fun west(steps: Int = 1): Point = left(steps)
 
     fun right(steps: Int = 1): Point = Point(x, y + steps)
 
@@ -26,6 +26,8 @@ data class Point(private val x: Int, private val y: Int) {
     fun coordinates(): Pair<Int, Int> = x to y
 
     fun distance(other: Point): Int = abs(this.x - other.x) + abs(this.y - other.y)
+
+    fun manhattanDistance(): Int = distance(Point())
 
     fun adjacentPoints(): List<Point> {
         val up = this.up()

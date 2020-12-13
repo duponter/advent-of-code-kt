@@ -14,10 +14,10 @@ object Day12Spec : Spek({
                 assertEquals(25, day12.part1(LinesFromArray("F10", "N3", "F7", "R90", "F11")))
             }
             it("Part 1 - Solution - What is the Manhattan distance between that location and the ship's starting position?") {
-                assertEquals(0, day12.part1(DayInput().lines(day12)))
+                assertEquals(1133, day12.part1(DayInput().lines(day12)))
             }
         }
-        context("part 2") {
+        xcontext("part 2") {
             it("Part 2 - Testcase - ") {
                 assertEquals(1, day12.part2(LinesFromArray("line")))
             }
