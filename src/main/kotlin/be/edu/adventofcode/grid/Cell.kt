@@ -23,18 +23,18 @@ interface Cell<T> {
 
     fun northWest(grid: Grid<Cell<T>>): Cell<T>
 
-    fun adjacents(grid: Grid<Cell<T>>): List<Cell<T>> =
-        listOf(
-            northWest(grid), north(grid), northEast(grid),
-            east(grid), west(grid),
-            southEast(grid), south(grid), southWest(grid)
-        )
+//    fun adjacents(grid: Grid<Cell<T>>): List<Cell<T>> =
+//        listOf(
+//            northWest(grid), north(grid), northEast(grid),
+//            east(grid), west(grid),
+//            southEast(grid), south(grid), southWest(grid)
+//        )
 
-//    fun adjacents(grid: Grid<Cell<T>>): List<Cell<T>> = listOf(
-//        this.visit { it.northWest(grid) }, this.visit { it.north(grid) }, this.visit { it.northEast(grid) },
-//        this.visit { it.east(grid) }, this.visit { it.west(grid) },
-//        this.visit { it.southEast(grid) }, this.visit { it.south(grid) }, this.visit { it.southWest(grid) }
-//    )
+    fun adjacents(grid: Grid<Cell<T>>): List<Cell<T>> = listOf(
+        this.visit { it.northWest(grid) }, this.visit { it.north(grid) }, this.visit { it.northEast(grid) },
+        this.visit { it.east(grid) }, this.visit { it.west(grid) },
+        this.visit { it.southEast(grid) }, this.visit { it.south(grid) }, this.visit { it.southWest(grid) }
+    )
 
     fun visit(direction: (Cell<T>) -> Cell<T>): Cell<T> = direction(this).onVisit(direction)
 
@@ -94,7 +94,7 @@ abstract class DelegatingCell<T>(private val delegate: Cell<T>) : Cell<T> {
 
     override fun northWest(grid: Grid<Cell<T>>): Cell<T> = this.delegate.northWest(grid)
 
-    override fun onVisit(direction: (Cell<T>) -> Cell<T>): Cell<T> = visit(direction)
+    override fun onVisit(direction: (Cell<T>) -> Cell<T>): Cell<T> = this.delegate.onVisit { direction(this) }
 }
 
 data class NorthBorderCell<T>(val delegate: Cell<T>) : DelegatingCell<T>(delegate) {

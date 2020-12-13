@@ -17,12 +17,12 @@ object Day11Spec : Spek({
                 assertEquals(2263, day11.part1(DayInput().lines(day11)))
             }
         }
-        xcontext("part 2") {
+        context("part 2") {
             it("Part 2 - Testcase - How many seats end up occupied?") {
                 assertEquals(26, day11.part2(LinesFromArray("L.LL.LL.LL", "LLLLLLL.LL", "L.L.L..L..", "LLLL.LL.LL", "L.LL.LL.LL", "L.LLLLL.LL", "..L.L.....", "LLLLLLLLLL", "L.LLLLLL.L", "L.LLLLL.LL")))
             }
             it("Part 2 - Solution - How many seats end up occupied?") {
-                assertEquals(0, day11.part2(DayInput().lines(day11)))
+                assertEquals(2002, day11.part2(DayInput().lines(day11)))
             }
         }
     }
