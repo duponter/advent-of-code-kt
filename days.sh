@@ -48,7 +48,7 @@ object Day${day}Spec : Spek({
                 assertEquals(0, day${day}.part1(DayInput().lines(day${day})))
             }
         }
-        context("part 2") {
+        xcontext("part 2") {
             it("Part 2 - Testcase - ") {
                 assertEquals(1, day${day}.part2(LinesFromArray("line")))
             }
