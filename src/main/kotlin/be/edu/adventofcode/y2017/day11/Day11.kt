@@ -7,7 +7,7 @@ class Day11 {
     fun part1(input: Text): Int {
         val start = Hex()
         return input.get().split(Regex(",\\s*"))
-                .map { Direction.valueOf(it.toUpperCase()) }
+            .map { HexDirection.valueOf(it.toUpperCase()) }
                 .fold(start, { acc, dir -> dir.apply(acc) })
                 .distance(start)
     }
@@ -15,13 +15,13 @@ class Day11 {
     fun part2(input: Text): Int {
         val start = Hex()
         return input.get().split(Regex(",\\s*"))
-                .map { Direction.valueOf(it.toUpperCase()) }
+            .map { HexDirection.valueOf(it.toUpperCase()) }
                 .fold(Pair(start, 0), { acc, dir -> Pair(dir.apply(acc.first), maxOf(acc.second, dir.apply(acc.first).distance(start))) })
                 .second
     }
 }
 
-enum class Direction {
+enum class HexDirection {
     NW {
         override fun apply(start: Hex): Hex = start.nw()
     },
