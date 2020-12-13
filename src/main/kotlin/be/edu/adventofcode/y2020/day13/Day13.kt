@@ -17,7 +17,24 @@ class Day13 {
             .let { it.first * it.second }
     }
 
-    fun part2(input: Lines): Int {
-        return input.get().count()
+    fun part2(input: Lines): Long {
+        val busses: Sequence<Pair<Int, Int>> = input.get().last()
+            .split(',')
+            .asSequence()
+            .mapIndexed { index, bus -> bus to index }
+            .filterNot { it.first == "x" }
+            .map { it.first.toInt() to it.second }
+
+        val maxBus = busses.maxByOrNull { it.first }!!
+        val otherBusses = busses.sortedByDescending { it.first }.drop(1)
+
+        val timestamp: Long = generateSequence(0L) { it + maxBus.first }
+            .first { departAllInOrder(otherBusses, maxBus, it) }
+
+        return busses.map { timestamp + it.second - maxBus.second }.minByOrNull { it }!!
+    }
+
+    private fun departAllInOrder(busses: Sequence<Pair<Int, Int>>, maxBus: Pair<Int, Int>, timestamp: Long): Boolean {
+        return busses.all { (timestamp + it.second - maxBus.second) % it.first == 0L }
     }
 }
