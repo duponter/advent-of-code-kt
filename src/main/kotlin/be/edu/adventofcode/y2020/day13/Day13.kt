@@ -24,6 +24,7 @@ class Day13 {
             .mapIndexed { index, bus -> bus to index }
             .filterNot { it.first == "x" }
             .map { it.first.toInt() to it.second }
+        busses.forEach { println(it) }
 
         val maxBus = busses.maxByOrNull { it.first }!!
         val otherBusses = busses.sortedByDescending { it.first }.drop(1)
