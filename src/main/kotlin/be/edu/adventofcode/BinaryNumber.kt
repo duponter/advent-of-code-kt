@@ -1,6 +1,6 @@
 package be.edu.adventofcode
 
-import java.lang.Math.pow
+import kotlin.math.pow
 
 fun toDecimal(binaryNumber : String) : Int {
     var sum = 0
@@ -18,4 +18,4 @@ fun fromDecimal(decimalNumber: Int, binaryString: String = "") : String {
     return binaryString.reversed()
 }
 
-fun pow(base: Int, exponent: Int) = pow(base.toDouble(), exponent.toDouble()).toInt()
+fun pow(base: Int, exponent: Int) = base.toDouble().pow(exponent.toDouble()).toInt()
