@@ -19,12 +19,13 @@ object Day14Spec : Spek({
                 assertEquals(12408060320841, day14.part1(DayInput().lines(day14)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day14.part2(LinesFromArray("line")))
+        context("part 2") {
+            it("Part 2 - Testcase - What is the sum of all values left in memory after it completes?") {
+                assertEquals(208, day14.part2(LinesFromArray("mask = 000000000000000000000000000000X1001X", "mem[42] = 100", "mask = 00000000000000000000000000000000X0XX", "mem[26] = 1")))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day14.part2(DayInput().lines(day14)))
+            it("Part 2 - Solution - What is the sum of all values left in memory after it completes?") {
+                assertNotEquals(1811431057425, day14.part2(DayInput().lines(day14)))
+                assertEquals(4466434626828, day14.part2(DayInput().lines(day14)))
             }
         }
     }
