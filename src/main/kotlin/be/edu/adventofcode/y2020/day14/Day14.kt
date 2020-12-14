@@ -6,16 +6,13 @@ import be.edu.adventofcode.fromDecimal
 import be.edu.adventofcode.toDecimal
 
 class Day14 {
-    fun part1(input: Lines): Int {
-        val memory: MutableMap<Int, Int> = mutableMapOf()
-
+    fun part1(input: Lines): Long {
+        val memory: MutableMap<Int, Long> = mutableMapOf()
         input.get().fold("") { acc, next -> executeNext(memory, acc, next) }
-
-        println(memory)
         return memory.values.sum()
     }
 
-    private fun executeNext(memory: MutableMap<Int, Int>, mask: String, next: String): String {
+    private fun executeNext(memory: MutableMap<Int, Long>, mask: String, next: String): String {
         val newMask = parseMask(next)
         return if (newMask != null)
             newMask
@@ -26,7 +23,7 @@ class Day14 {
         }
     }
 
-    private fun applyMask(mask: String, value: Int): Int {
+    private fun applyMask(mask: String, value: Int): Long {
         val binaryValue = fromDecimal(value).padStart(mask.length, '0')
         return binaryValue.toCharArray()
             .zip(mask.toCharArray())

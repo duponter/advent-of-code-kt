@@ -5,15 +5,16 @@ import be.edu.adventofcode.toDecimal
 
 class Day05 {
     fun part1(input: Lines): Int {
-        return seats(input).maxOrNull()!!
+        return seats(input).maxOrNull()!!.toInt()
     }
 
     fun part2(input: Lines): Int {
         return seats(input).sorted()
-            .reduce { acc, next -> if (acc + 1 == next) next else acc } + 1
+            .reduce { acc, next -> if (acc + 1 == next) next else acc }
+            .let { it.toInt() + 1 }
     }
 
-    private fun seats(input: Lines) = input.asSequence()
+    private fun seats(input: Lines): Sequence<Long> = input.asSequence()
         .map { it.take(7) to it.takeLast(3) }
         .map {
             it.first.replace('F', '0').replace('B', '1') to

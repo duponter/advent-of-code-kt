@@ -16,7 +16,7 @@ object Day14Spec : Spek({
             }
             it("Part 1 - Solution - What is the sum of all values left in memory after it completes?") {
                 assertNotEquals(2047285527, day14.part1(DayInput().lines(day14)))
-                assertEquals(0, day14.part1(DayInput().lines(day14)))
+                assertEquals(12408060320841, day14.part1(DayInput().lines(day14)))
             }
         }
         xcontext("part 2") {
