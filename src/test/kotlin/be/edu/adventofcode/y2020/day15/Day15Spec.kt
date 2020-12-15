@@ -31,7 +31,7 @@ object Day15Spec : Spek({
                 assertEquals(1836, day15.part1(TextFromString("3,1,2")))
             }
             it("Part 1 - Solution - What will be the 2020th number spoken?") {
-                assertEquals(0, day15.part1(TextFromString("0,1,5,10,3,12,19")))
+                assertEquals(1373, day15.part1(TextFromString("0,1,5,10,3,12,19")))
             }
         }
         xcontext("part 2") {
