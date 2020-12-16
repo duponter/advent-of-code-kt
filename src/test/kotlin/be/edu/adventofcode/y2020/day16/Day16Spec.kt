@@ -17,12 +17,12 @@ object Day16Spec : Spek({
                 assertEquals(22073, day16.part1(DayInput().text(day16)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day16.part2(TextFromString("line")))
+        context("part 2") {
+            it("Part 2 - Testcase - What do you get if you multiply those six values together?") {
+                assertEquals(mapOf("class" to 12, "row" to 11, "seat" to 13), day16.parsedTicket(TextFromString("class: 0-1 or 4-19\nrow: 0-5 or 8-19\nseat: 0-13 or 16-19\n\nyour ticket:\n11,12,13\n\nnearby tickets:\n3,9,18\n15,1,5\n5,14,9")))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day16.part2(DayInput().text(day16)))
+            it("Part 2 - Solution - What do you get if you multiply those six values together?") {
+                assertEquals(1346570764607, day16.part2(DayInput().text(day16)))
             }
         }
     }

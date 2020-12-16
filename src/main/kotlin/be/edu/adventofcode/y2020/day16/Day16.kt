@@ -6,9 +6,13 @@ import be.edu.adventofcode.Text
 class Day16 {
     fun part1(input: Text): Int = TrainService.parse(input).ticketScanningErrors().sum()
 
-    fun part2(input: Text): Int {
-        return input.get().count()
-    }
+    fun part2(input: Text): Long = TrainService.parse(input)
+        .assignFields()
+        .filterKeys { it.startsWith("departure") }
+        .map { it.value.toLong() }
+        .reduce { acc, i -> acc * i }
+
+    fun parsedTicket(input: Text): Map<String, Int> = TrainService.parse(input).assignFields()
 
     data class TrainService(val rules: List<FieldRule>, val myTicket: Ticket, val nearbyTickets: List<Ticket>) {
         companion object {
@@ -24,9 +28,36 @@ class Day16 {
         }
 
         fun ticketScanningErrors(): List<Int> {
-            val bundledRules: FieldRule = rules.reduce { acc, next -> acc.or(next) }
+            val bundledRules: FieldRule = bundledFieldRules()
             return nearbyTickets.flatMap { it.invalidFields(bundledRules::validate) }
         }
+
+        fun assignFields(): Map<String, Int> {
+            val assignedFields = mutableListOf<Pair<String, Int>>()
+
+            val bundledRules: FieldRule = bundledFieldRules()
+            val validNearbyTickets = nearbyTickets.filter { it.valid(bundledRules::validate) }
+            for (i in myTicket.fields.indices) {
+                assignedFields.addAll(
+                    rules.filter { rule -> validNearbyTickets.all { rule.validate(it.field(i)) } }
+                        .map { it.name to i }
+                )
+            }
+            val simplified = simplify(assignedFields.groupBy({ it.second }, { it.first }))
+            println(simplified)
+            return myTicket.apply(simplified)
+        }
+
+        private fun simplify(assignments: Map<Int, List<String>>): Map<String, Int> {
+            if (assignments.isEmpty()) {
+                return emptyMap()
+            }
+            val lockedFields: Map<String, Int> = assignments.filter { it.value.size == 1 }.map { it.value[0] to it.key }.associate { it }
+            val remaining: Map<Int, List<String>> = assignments.minus(lockedFields.values).mapValues { it.value.minus(lockedFields.keys) }
+            return lockedFields.plus(simplify(remaining))
+        }
+
+        private fun bundledFieldRules() = rules.reduce { acc, next -> acc.or(next) }
     }
 
     data class Ticket(val fields: List<Int>) {
@@ -36,7 +67,13 @@ class Day16 {
             }
         }
 
+        fun field(index: Int): Int = fields[index]
+
         fun invalidFields(rules: (Int) -> Boolean): List<Int> = fields.filterNot(rules)
+
+        fun valid(rules: (Int) -> Boolean): Boolean = fields.all(rules)
+
+        fun apply(assignments: Map<String, Int>): Map<String, Int> = assignments.mapValues { field(it.value) }
     }
 
     data class FieldRule(val name: String, val test: (Int) -> Boolean) {
