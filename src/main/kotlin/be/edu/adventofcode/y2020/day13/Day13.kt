@@ -1,7 +1,6 @@
 package be.edu.adventofcode.y2020.day13
 
 import be.edu.adventofcode.Lines
-import be.edu.adventofcode.calculations.Multiplications.Static.lcm
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -43,26 +42,27 @@ class Day13 {
         return busses.all { (timestamp + it.second - maxBus.second) % it.first == 0L }
     }
 
-    private fun solveWithLcm(busses: Sequence<Pair<Int, Int>>, start: Long = 0L): Long {
+    private fun solveWithSequences(busses: Sequence<Pair<Int, Int>>, start: Long = 0L): Long {
         val firstBus = busses.first()
         assert(firstBus.second == 0) { "Expecting first bus to have an offset of 0, but is $firstBus" }
-        val lcm = busses.drop(1)
-            .map { firstTimestampInOrder(it, firstBus) }
-            .let { lcm(it) }
-        val factor = lcm
-        println("lcm = $lcm - factor = $factor")
+        val timestampSequences: Sequence<Sequence<Long>> = busses.drop(1)
+            .map { timestampsInOrder(it, firstBus) }
+            .map { it.dropWhile { timestamp -> timestamp < start } }
 
-        return generateSequence(floor(start.toDouble() / firstBus.first).toLong()) { it + factor }
-            .first { departAllInOrder(busses.drop(1), firstBus.first, it) }
-            .let { it * firstBus.first }
+
+        val firstSequence = timestampSequences.first()
+        val otherSequences = timestampSequences.drop(1)
+
+//        return firstSequence.dropWhile { !otherSequences.all { seq -> seq.contains(it) } }.first()
+//        return firstSequence.first()
+        return firstSequence.first()
     }
 
-    private fun firstTimestampInOrder(bus: Pair<Int, Int>, firstBus: Pair<Int, Int>): Long {
-        val first = generateSequence(1L) { it + 1 }
+    private fun timestampsInOrder(bus: Pair<Int, Int>, firstBus: Pair<Int, Int>): Sequence<Long> {
+        println("Timestamps $bus aligned with $firstBus")
+        return generateSequence(1L) { it + 1 }
             .map { bus.first * it - bus.second }
-            .first { it % firstBus.first == 0L }
-        println("First timestamp $bus aligned with $firstBus = ${first / firstBus.first}")
-        return first / firstBus.first
+            .filter { it % firstBus.first == 0L }
     }
 
     private fun departAllInOrder(busses: Sequence<Pair<Int, Int>>, firstBus: Int, timestamp: Long): Boolean {
