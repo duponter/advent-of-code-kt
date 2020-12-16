@@ -4,11 +4,7 @@ import be.edu.adventofcode.StringDestructure
 import be.edu.adventofcode.Text
 
 class Day16 {
-    fun part1(input: Text): Int {
-        val trainService = TrainService.parse(input)
-        println(trainService)
-        return trainService.nearbyTickets.count()
-    }
+    fun part1(input: Text): Int = TrainService.parse(input).ticketScanningErrors().sum()
 
     fun part2(input: Text): Int {
         return input.get().count()
@@ -26,6 +22,11 @@ class Day16 {
                 )
             }
         }
+
+        fun ticketScanningErrors(): List<Int> {
+            val bundledRules: FieldRule = rules.reduce { acc, next -> acc.or(next) }
+            return nearbyTickets.flatMap { it.invalidFields(bundledRules::validate) }
+        }
     }
 
     data class Ticket(val fields: List<Int>) {
@@ -34,6 +35,8 @@ class Day16 {
                 return Ticket(input.replace("\n", "").split(',').map { it.toInt() })
             }
         }
+
+        fun invalidFields(rules: (Int) -> Boolean): List<Int> = fields.filterNot(rules)
     }
 
     data class FieldRule(val name: String, val test: (Int) -> Boolean) {
@@ -49,8 +52,12 @@ class Day16 {
             }
         }
 
-    }
+        fun validate(input: Int): Boolean = test(input)
 
+        fun or(other: FieldRule, names: (String, String) -> String = { n1, n2 -> "$n1||$n2" }): FieldRule {
+            return FieldRule(names(name, other.name)) { value -> test(value) || other.test(value) }
+        }
+    }
 }
 
 
