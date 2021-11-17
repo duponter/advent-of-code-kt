@@ -3,11 +3,11 @@ package be.edu.adventofcode.y2020.day10
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.spekframework.spek2.style.specification.xdescribe
 import kotlin.test.assertEquals
 
 object Day10Spec : Spek({
-    describe("day 10") {
+    xdescribe("day 10") {
         val day10 = Day10()
         context("part 1") {
             it("Part 1 - Testcase 1 - What is the number of 1-jolt differences multiplied by the number of 3-jolt differences?") {

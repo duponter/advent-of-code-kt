@@ -2,11 +2,11 @@ package be.edu.adventofcode.y2020.day15
 
 import be.edu.adventofcode.TextFromString
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.spekframework.spek2.style.specification.xdescribe
 import kotlin.test.assertEquals
 
 object Day15Spec : Spek({
-    describe("day 15") {
+    xdescribe("day 15") {
         val day15 = Day15()
         context("part 1") {
             it("Part 1 - Testcase 1 - What will be the 2020th number spoken?") {

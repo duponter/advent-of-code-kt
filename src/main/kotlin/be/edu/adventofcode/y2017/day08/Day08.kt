@@ -14,7 +14,7 @@ class Day08 {
     }
 
     private fun toInstruction(tokens: List<String>, registers: Map<String, Register>): Instruction {
-        val operation = Operation(registers[tokens[1]]!!, tokens[3].toInt(), Operator.valueOf(tokens[2].toUpperCase()))
+        val operation = Operation(registers[tokens[1]]!!, tokens[3].toInt(), Operator.valueOf(tokens[2].uppercase()))
         val condition = Condition(registers[tokens[4]]!!, tokens[6].toInt(), ConditionalOperator(tokens[5]))
         return Instruction(operation, condition)
     }

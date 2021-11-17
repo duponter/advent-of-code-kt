@@ -3,11 +3,11 @@ package be.edu.adventofcode.y2020.day17
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.spekframework.spek2.style.specification.xdescribe
 import kotlin.test.assertEquals
 
 object Day17Spec : Spek({
-    describe("day 17") {
+    xdescribe("day 17") {
         val day17 = Day17()
         context("part 1") {
             it("Part 1 - Testcase - How many cubes are left in the active state after the sixth cycle?") {

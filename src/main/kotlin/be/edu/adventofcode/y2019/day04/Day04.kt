@@ -12,7 +12,7 @@ class Day04 {
                 .count()
     }
 
-    fun valid(password: String): Boolean = valid(password.toList().map { it.toInt() }.toIntArray())
+    fun valid(password: String): Boolean = valid(password.toList().map { it.code }.toIntArray())
 
     private fun valid(password: IntArray): Boolean {
         val sixDigits = { ints: IntArray -> ints.size == 6 }
@@ -32,7 +32,7 @@ class Day04 {
     }
 
     fun validNoLargerGroup(password: String): Boolean {
-        val passwordInts = password.toList().map { it.toInt() }.toIntArray()
+        val passwordInts = password.toList().map { it.code }.toIntArray()
         return valid(passwordInts) && noLargerGroup(passwordInts)
     }
 
