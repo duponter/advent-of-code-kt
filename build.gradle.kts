@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.6.0"
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -37,7 +37,7 @@ tasks {
         sourceCompatibility = "unused"
         targetCompatibility = "unused"
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "17"
         }
     }
     withType<Test> {
