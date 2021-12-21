@@ -19,3 +19,4 @@ Login with Github credentials
 * [Cheat Sheet](https://github.com/MindorksOpenSource/from-java-to-kotlin)
 * [Kotlin and Gradle](https://github.com/JLLeitschuh/ktlint-gradle)
 * [Spek, Kotlin Unit Testing](http://spekframework.org/)
+* [Tips and Tricks for Solving Advent of Code](https://blog.jetbrains.com/kotlin/2021/12/tips-and-tricks-for-solving-advent-of-code/)
