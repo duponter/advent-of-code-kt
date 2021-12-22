@@ -17,12 +17,12 @@ object Day01Spec : Spek({
                 assertEquals(1502, day01.part1(DayInput().lines(day01)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day01.part2(LinesFromArray("line")))
+        context("part 2") {
+            it("Part 2 - Testcase - How many sums are larger than the previous sum?") {
+                assertEquals(5, day01.part2(LinesFromArray("199", "200", "208", "210", "200", "207", "240", "269", "260", "263")))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day01.part2(DayInput().lines(day01)))
+            it("Part 2 - Solution - How many sums are larger than the previous sum?") {
+                assertEquals(1538, day01.part2(DayInput().lines(day01)))
             }
         }
     }
