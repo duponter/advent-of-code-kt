@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day02
 import be.edu.adventofcode.Lines
 import be.edu.adventofcode.StringDestructure
 import be.edu.adventofcode.grid.Point
-import java.lang.Math.abs
+import kotlin.math.abs
 
 class Day02 {
     fun part1(input: Lines): Int {
@@ -25,6 +25,20 @@ class Day02 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val destructure = StringDestructure("([a-z]+) (\\d+)")
+        return input.get()
+            .map { destructure.pair(it).let { pair -> pair.first to pair.second.toInt() } }
+            .fold(0 to Point()) { acc, nav -> navigate(acc, nav) }
+            .second.coordinates()
+            .let { abs(it.first * it.second) }
+    }
+
+    private fun navigate(position: Pair<Int, Point>, command: Pair<String, Int>): Pair<Int, Point> {
+        return when (command.first) {
+            "forward" -> position.first to position.second.right(command.second).down(position.first * command.second)
+            "up" -> position.first - command.second to position.second
+            "down" -> position.first + command.second to position.second
+            else -> throw IllegalArgumentException("Command ${command.first} is not supported")
+        }
     }
 }
