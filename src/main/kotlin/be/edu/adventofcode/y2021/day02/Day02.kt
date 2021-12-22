@@ -1,10 +1,27 @@
 package be.edu.adventofcode.y2021.day02
 
 import be.edu.adventofcode.Lines
+import be.edu.adventofcode.StringDestructure
+import be.edu.adventofcode.grid.Point
+import java.lang.Math.abs
 
 class Day02 {
     fun part1(input: Lines): Int {
-        return input.get().count()
+        val destructure = StringDestructure("([a-z]+) (\\d+)")
+        return input.get()
+            .map { destructure.pair(it).let { pair -> pair.first to pair.second.toInt() } }
+            .fold(Point()) { acc, nav -> navigate(acc, nav) }
+            .coordinates()
+            .let { abs(it.first * it.second) }
+    }
+
+    private fun navigate(position: Point, command: Pair<String, Int>): Point {
+        return when (command.first) {
+            "forward" -> position.right(command.second)
+            "up" -> position.up(command.second)
+            "down" -> position.down(command.second)
+            else -> throw IllegalArgumentException("Command ${command.first} is not supported")
+        }
     }
 
     fun part2(input: Lines): Int {
