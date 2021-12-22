@@ -15,7 +15,12 @@ class Day04 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val lines: List<String> = input.get()
+        val drawnNumbers = lines.first()
+        val bingo = Bingo.parse(lines.drop(1), 5)
+        return drawnNumbers.split(',')
+            .map { it.toInt() }
+            .fold(-1) { acc, called -> if (acc > -1) acc else bingo.drawLast(called) }
     }
 }
 
@@ -29,6 +34,16 @@ data class Bingo(val boards: List<Board>) {
 
     fun draw(called: Int): Int {
         return boards.fold(-1) { acc, board -> if (acc > -1) acc else board.draw(called) }
+    }
+
+    fun drawLast(called: Int): Int {
+        val notWon = boards.filterNot { it.wins() }
+        return if (notWon.size == 1) {
+            notWon.first().draw(called)
+        } else {
+            boards.forEach { it.draw(called) }
+            -1
+        }
     }
 
     fun print(): String {
@@ -46,7 +61,7 @@ data class Board(val numbers: Matrix<Number>) {
         return numbers.flatten().filterNot { it.marked }.sumOf { it.value } * called
     }
 
-    private fun wins(): Boolean {
+    fun wins(): Boolean {
         val winningRow: Boolean = numbers.any { it.all { n -> n.marked } }
         val winningCol: Boolean = numbers.transpose().any { it.all { n -> n.marked } }
         return (winningRow || winningCol)

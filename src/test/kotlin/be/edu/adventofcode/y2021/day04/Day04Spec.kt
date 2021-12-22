@@ -41,7 +41,7 @@ object Day04Spec : Spek({
                 assertEquals(67716, day04.part1(DayInput().lines(day04)))
             }
         }
-        xcontext("part 2") {
+        context("part 2") {
             it("Part 2 - Testcase - Once it wins, what would its final score be?") {
                 assertEquals(
                     1924, day04.part2(
@@ -70,7 +70,7 @@ object Day04Spec : Spek({
                 )
             }
             it("Part 2 - Solution - Once it wins, what would its final score be?") {
-                assertEquals(0, day04.part2(DayInput().lines(day04)))
+                assertEquals(1830, day04.part2(DayInput().lines(day04)))
             }
         }
     }
