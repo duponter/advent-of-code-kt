@@ -10,11 +10,26 @@ object Day05Spec : Spek({
     describe("day 05") {
         val day05 = Day05()
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                assertEquals(1, day05.part1(LinesFromArray("line")))
+            it("Part 1 - Testcase - At how many points do at least two lines overlap?") {
+                assertEquals(
+                    5, day05.part1(
+                        LinesFromArray(
+                            "0,9 -> 5,9",
+                            "8,0 -> 0,8",
+                            "9,4 -> 3,4",
+                            "2,2 -> 2,1",
+                            "7,0 -> 7,4",
+                            "6,4 -> 2,0",
+                            "0,9 -> 2,9",
+                            "3,4 -> 1,4",
+                            "0,0 -> 8,8",
+                            "5,5 -> 8,2",
+                        )
+                    )
+                )
             }
-            it("Part 1 - Solution - ") {
-                assertEquals(0, day05.part1(DayInput().lines(day05)))
+            it("Part 1 - Solution - At how many points do at least two lines overlap?") {
+                assertEquals(4826, day05.part1(DayInput().lines(day05)))
             }
         }
         xcontext("part 2") {
