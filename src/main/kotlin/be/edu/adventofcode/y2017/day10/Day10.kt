@@ -7,9 +7,9 @@ class Day10 {
         val numbers = (0 until size).toList()
         val hash = KnotHash()
         return input.get().split(Regex(",\\s*")).map(String::toInt)
-                .foldIndexed(Pair(numbers, 0), { index, acc, length -> hash.singleRound(acc, index, length) })
-                .first.take(2)
-                .fold(1, { acc, i -> acc * i })
+            .foldIndexed(Pair(numbers, 0)) { index, acc, length -> hash.singleRound(acc, index, length) }
+            .first.take(2)
+            .fold(1) { acc, i -> acc * i }
     }
 
     fun part2(input: Text, size: Int): String = KnotHash().calculate(input.get(), size)
@@ -35,4 +35,4 @@ fun <T> List<T>.split(index: Int): Pair<List<T>, List<T>> {
     return pair
 }
 
-fun <T> List<T>.repeat(times: Int): List<T> = (1..times).fold(listOf(), { acc, _ -> acc.plus(this) })
+fun <T> List<T>.repeat(times: Int): List<T> = (1..times).fold(listOf()) { acc, _ -> acc.plus(this) }
