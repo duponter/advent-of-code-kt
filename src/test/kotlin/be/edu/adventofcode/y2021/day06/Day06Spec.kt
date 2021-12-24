@@ -18,12 +18,12 @@ object Day06Spec : Spek({
                 assertEquals(365862, day06.part1(DayInput().text(day06)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day06.part2(TextFromString("3,4,3,1,2")))
+        context("part 2") {
+            it("Part 2 - Testcase - How many lanternfish would there be after 256 days?") {
+                assertEquals(26984457539, day06.part2(TextFromString("3,4,3,1,2")))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day06.part2(DayInput().text(day06)))
+            it("Part 2 - Solution - How many lanternfish would there be after 256 days?") {
+                assertEquals(1653250886439, day06.part2(DayInput().text(day06)))
             }
         }
     }
