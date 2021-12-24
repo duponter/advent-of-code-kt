@@ -11,7 +11,7 @@ class Day05 {
             .map { destructure.many(it) }
             .map { it.map { s -> s.toInt() } }
             .map { Line(Point(it[0], it[1]), Point(it[2], it[3])) }
-            .flatMap { it.coveredPoints() }
+            .flatMap { it.coveredPointsOrthogonally() }
             .groupBy { it }
             .mapValues { it.value.count() }
             .filterValues { it >= 2 }
@@ -19,12 +19,44 @@ class Day05 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        val destructure = StringDestructure("(\\d+),(\\d+) -> (\\d+),(\\d+)")
+        return input.get()
+            .map { destructure.many(it) }
+            .map { it.map { s -> s.toInt() } }
+            .map { Line(Point(it[0], it[1]), Point(it[2], it[3])) }
+            .flatMap { it.coveredPointsDiagonally() }
+            .groupBy { it }
+            .mapValues { it.value.count() }
+            .filterValues { it >= 2 }
+            .size
     }
 }
 
 data class Line(val start: Point, val end: Point) {
-    fun coveredPoints(): List<Point> {
+    fun coveredPointsDiagonally(): List<Point> {
+        val coordinatesStart: Pair<Int, Int> = start.coordinates()
+        val coordinatesEnd: Pair<Int, Int> = end.coordinates()
+
+        if (coordinatesStart.first == coordinatesEnd.first || coordinatesStart.second == coordinatesEnd.second) {
+            return coveredPointsOrthogonally()
+        }
+
+        val rows: IntProgression = if (coordinatesStart.first < coordinatesEnd.first) {
+            (coordinatesStart.first..coordinatesEnd.first)
+        } else {
+            (coordinatesStart.first downTo coordinatesEnd.first)
+        }
+
+        val cols: IntProgression = if (coordinatesStart.second < coordinatesEnd.second) {
+            (coordinatesStart.second..coordinatesEnd.second)
+        } else {
+            (coordinatesStart.second downTo coordinatesEnd.second)
+        }
+
+        return rows.zip(cols) { r, c -> Point(r, c) }
+    }
+
+    fun coveredPointsOrthogonally(): List<Point> {
         val coordinatesStart: Pair<Int, Int> = start.coordinates()
         val coordinatesEnd: Pair<Int, Int> = end.coordinates()
 
@@ -32,7 +64,7 @@ data class Line(val start: Point, val end: Point) {
             return (if (coordinatesStart.second < coordinatesEnd.second) {
                 (coordinatesStart.second..coordinatesEnd.second)
             } else {
-                (coordinatesEnd.second..coordinatesStart.second)
+                (coordinatesStart.second downTo coordinatesEnd.second)
             }).map { Point(coordinatesStart.first, it) }.toList()
         }
 
@@ -40,7 +72,7 @@ data class Line(val start: Point, val end: Point) {
             return (if (coordinatesStart.first < coordinatesEnd.first) {
                 (coordinatesStart.first..coordinatesEnd.first)
             } else {
-                (coordinatesEnd.first..coordinatesStart.first)
+                (coordinatesStart.first downTo coordinatesEnd.first)
             }).map { Point(it, coordinatesStart.second) }.toList()
         }
 
