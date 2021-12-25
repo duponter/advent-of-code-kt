@@ -14,7 +14,7 @@ object Day07Spec : Spek({
                 assertEquals(37, day07.part1(TextFromString("16,1,2,0,4,2,7,1,2,14")))
             }
             it("Part 1 - Solution - How much fuel must they spend to align to that position?") {
-                assertEquals(0, day07.part1(DayInput().text(day07)))
+                assertEquals(341534, day07.part1(DayInput().text(day07)))
             }
         }
         xcontext("part 2") {
