@@ -11,6 +11,17 @@ class Day07 {
     }
 
     fun part2(input: Text): Int {
-        return input.get().count()
+        val crabPositions = input.get().trim().split(',').map { it.toInt() }
+        val fuelRates: List<Int> = (0..crabPositions.maxOrNull()!!)
+            .map { sumNatural(it) }
+        return (0..crabPositions.maxOrNull()!!)
+            .minOf { pos -> crabPositions.sumOf { fuelRates[abs(it - pos)] } }
+    }
+
+    private tailrec fun sumNatural(num: Int): Int {
+        if (num == 0) {
+            return 0
+        }
+        return num + sumNatural(num - 1)
     }
 }

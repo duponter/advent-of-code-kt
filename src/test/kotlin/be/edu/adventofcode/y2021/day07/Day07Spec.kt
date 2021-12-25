@@ -17,12 +17,12 @@ object Day07Spec : Spek({
                 assertEquals(341534, day07.part1(DayInput().text(day07)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day07.part2(TextFromString("line")))
+        context("part 2") {
+            it("Part 2 - Testcase - How much fuel must they spend to align to that position?") {
+                assertEquals(168, day07.part2(TextFromString("16,1,2,0,4,2,7,1,2,14")))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day07.part2(DayInput().text(day07)))
+            it("Part 2 - Solution - How much fuel must they spend to align to that position?") {
+                assertEquals(93397632, day07.part2(DayInput().text(day07)))
             }
         }
     }
