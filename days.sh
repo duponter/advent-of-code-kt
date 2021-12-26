@@ -40,9 +40,10 @@ import kotlin.test.assertEquals
 object Day${day}Spec : Spek({
     describe("day ${day}") {
         val day${day} = Day${day}()
+        val testInput = LinesFromArray("line")
         context("part 1") {
             it("Part 1 - Testcase - ") {
-                assertEquals(1, day${day}.part1(LinesFromArray("line")))
+                assertEquals(1, day${day}.part1(testInput))
             }
             it("Part 1 - Solution - ") {
                 assertEquals(0, day${day}.part1(DayInput().lines(day${day})))
@@ -50,7 +51,7 @@ object Day${day}Spec : Spek({
         }
         xcontext("part 2") {
             it("Part 2 - Testcase - ") {
-                assertEquals(1, day${day}.part2(LinesFromArray("line")))
+                assertEquals(1, day${day}.part2(testInput))
             }
             it("Part 2 - Solution - ") {
                 assertEquals(0, day${day}.part2(DayInput().lines(day${day})))
