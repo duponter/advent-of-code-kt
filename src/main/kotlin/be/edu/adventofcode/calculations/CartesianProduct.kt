@@ -22,6 +22,6 @@ class CartesianProduct {
                 }
                 .toSet()
 
-        private fun <T> List<T>.repeat(times: Int): List<T> = (1..times).fold(listOf(), { acc, _ -> acc.plus(this) })
+        private fun <T> List<T>.repeat(times: Int): List<T> = (1..times).fold(listOf()) { acc, _ -> acc.plus(this) }
     }
 }

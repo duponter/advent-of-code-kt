@@ -29,7 +29,7 @@ object Day08Spec : Spek({
                 )
             }
             it("Part 1 - Solution - In the output values, how many times do digits 1, 4, 7, or 8 appear?") {
-                assertEquals(0, day08.part1(DayInput().lines(day08)))
+                assertEquals(392, day08.part1(DayInput().lines(day08)))
             }
         }
         xcontext("part 2") {
