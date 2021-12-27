@@ -4,7 +4,9 @@ package be.edu.adventofcode
 data class BinaryString(val value: String) {
     constructor(decimalNumber: Long) : this(fromDecimal(decimalNumber));
 
-    private companion object Static {
+    constructor(decimalNumber: Int) : this(decimalNumber.toLong());
+
+    private companion object {
         fun fromDecimal(decimalNumber: Long, binaryString: String = ""): String {
             while (decimalNumber > 0) {
                 val temp = "${binaryString}${decimalNumber % 2}"
@@ -22,13 +24,6 @@ data class BinaryString(val value: String) {
             .let { BinaryString(it) }
     }
 
-    fun toDecimal(): Long {
-        var sum = 0L
-        value.reversed().forEachIndexed { k, v ->
-            sum += v.toString().toLong() * pow(2, k)
-        }
-        return sum
-    }
-
+    fun toDecimal(): Long = value.toLong(2)
 }
 

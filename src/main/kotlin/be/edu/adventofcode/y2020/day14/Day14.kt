@@ -1,9 +1,8 @@
 package be.edu.adventofcode.y2020.day14
 
+import be.edu.adventofcode.BinaryString
 import be.edu.adventofcode.Lines
 import be.edu.adventofcode.StringDestructure
-import be.edu.adventofcode.fromDecimal
-import be.edu.adventofcode.toDecimal
 
 class Day14 {
     fun part1(input: Lines): Long {
@@ -24,12 +23,12 @@ class Day14 {
     }
 
     private fun applyMaskToValue(mask: String, value: Int): Long {
-        val binaryValue = fromDecimal(value).padStart(mask.length, '0')
+        val binaryValue = BinaryString(value).value.padStart(mask.length, '0')
         return binaryValue.toCharArray()
             .zip(mask.toCharArray())
             .map { if (it.second == 'X') it.first else it.second }
             .joinToString("")
-            .let { toDecimal(it) }
+            .toLong(2)
     }
 
     fun part2(input: Lines): Long {
@@ -50,13 +49,13 @@ class Day14 {
     }
 
     private fun applyMaskToKey(mask: String, key: Int): List<Long> {
-        val binaryValue = fromDecimal(key).padStart(mask.length, '0')
+        val binaryValue = BinaryString(key).value.padStart(mask.length, '0')
         return binaryValue.toCharArray()
             .zip(mask.toCharArray())
             .map { if (it.second == '0') it.first else it.second }
             .joinToString("")
             .let { replaceX(it) }
-            .map { toDecimal(it) }
+            .map { it.toLong(2) }
     }
 
     private fun replaceX(value: String): List<String> {
