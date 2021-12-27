@@ -5,6 +5,7 @@ import be.edu.adventofcode.LinesFromArray
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 object Day09Spec : Spek({
     describe("day 09") {
@@ -24,11 +25,12 @@ object Day09Spec : Spek({
                 assertEquals(458, day09.part1(DayInput().lines(day09)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day09.part2(testInput))
+        context("part 2") {
+            it("Part 2 - Testcase - What do you get if you multiply together the sizes of the three largest basins?") {
+                assertEquals(1134, day09.part2(testInput))
             }
-            it("Part 2 - Solution - ") {
+            it("Part 2 - Solution - What do you get if you multiply together the sizes of the three largest basins?") {
+                assertTrue(day09.part2(DayInput().lines(day09)) > 1224300, "Result should be higher than 1224300")
                 assertEquals(0, day09.part2(DayInput().lines(day09)))
             }
         }
