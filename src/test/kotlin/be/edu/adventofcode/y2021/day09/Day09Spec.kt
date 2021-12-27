@@ -21,7 +21,7 @@ object Day09Spec : Spek({
                 assertEquals(15, day09.part1(testInput))
             }
             it("Part 1 - Solution - What is the sum of the risk levels of all low points on your heightmap?") {
-                assertEquals(0, day09.part1(DayInput().lines(day09)))
+                assertEquals(458, day09.part1(DayInput().lines(day09)))
             }
         }
         xcontext("part 2") {
