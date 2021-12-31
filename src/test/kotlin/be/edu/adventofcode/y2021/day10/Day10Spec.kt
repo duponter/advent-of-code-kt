@@ -9,13 +9,24 @@ import kotlin.test.assertEquals
 object Day10Spec : Spek({
     describe("day 10") {
         val day10 = Day10()
-        val testInput = LinesFromArray("line")
+        val testInput = LinesFromArray(
+            "[({(<(())[]>[[{[]{<()<>>",
+            "[(()[<>])]({[<{<<[]>>(",
+            "{([(<{}[<>[]}>{[]{[(<()>",
+            "(((({<>}<{<{<>}{[]{[]{}",
+            "[[<[([]))<([[{}[[()]]]",
+            "[{[{({}]{}}([{[{{{}}([]",
+            "{<[[]]>}<{[{[{[]{()[[[]",
+            "[<(<(<(<{}))><([]([]()",
+            "<{([([[(<>()){}]>(<<{{",
+            "<{([{{}}[<[[[<>{}]]]>[]]"
+        )
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                assertEquals(1, day10.part1(testInput))
+            it("Part 1 - Testcase - What is the total syntax error score for those errors?") {
+                assertEquals(26397, day10.part1(testInput))
             }
-            it("Part 1 - Solution - ") {
-                assertEquals(0, day10.part1(DayInput().lines(day10)))
+            it("Part 1 - Solution - What is the total syntax error score for those errors?") {
+                assertEquals(392421, day10.part1(DayInput().lines(day10)))
             }
         }
         xcontext("part 2") {
