@@ -9,9 +9,20 @@ class Day10 {
             .sumOf { it.errorScore() }
     }
 
-    fun part2(input: Lines): Int {
-        return input.get().count()
+    fun part2(input: Lines): Long {
+        return input.get()
+            .map { Line.parse(it) }
+            .filter { !it.isCorrupted() }
+            .map { it.completionScore() }
+            .sorted()
+            .median()
     }
+}
+
+fun List<Long>.median(): Long = if (this.size % 2 == 0) {
+    (this[this.size / 2] + this[this.size / 2 - 1]) / 2
+} else {
+    this[this.size / 2]
 }
 
 interface Chunk {
@@ -20,6 +31,8 @@ interface Chunk {
     fun closeChunk(char: Char): Chunk
 
     fun isIncomplete(): Boolean
+
+    fun toComplete(): String
 
     fun isCorrupted(): Boolean
 
@@ -43,7 +56,7 @@ data class Line(val chunks: MutableList<Chunk>) : Chunk {
         } else {
             chunks.last().openChunk(char)
         }
-        return this;
+        return this
     }
 
     override fun closeChunk(char: Char): Line {
@@ -56,6 +69,20 @@ data class Line(val chunks: MutableList<Chunk>) : Chunk {
 
     override fun isIncomplete(): Boolean = chunks.last().isIncomplete()
 
+    override fun toComplete(): String = if (chunks.isEmpty() || !chunks.last().isIncomplete()) "" else chunks.last().toComplete()
+
+    fun completionScore(): Long {
+        return toComplete().fold(0) { score, char ->
+            score * 5 + when (char) {
+                ')' -> 1
+                ']' -> 2
+                '}' -> 3
+                '>' -> 4
+                else -> throw IllegalArgumentException("Unknown close character $char")
+            }
+        }
+    }
+
     override fun isCorrupted(): Boolean = chunks.any { it.isCorrupted() }
 
     override fun errorScore(): Int {
@@ -67,6 +94,21 @@ data class OpenChunk(val open: Char, val chunks: MutableList<Chunk>) : Chunk {
     constructor(open: Char) : this(open, mutableListOf())
 
     override fun isIncomplete(): Boolean = true
+
+    override fun toComplete(): String {
+        val completeThis = when (open) {
+            '(' -> ")"
+            '[' -> "]"
+            '{' -> "}"
+            '<' -> ">"
+            else -> throw IllegalArgumentException("Unknown open character $open")
+        }
+        return if (chunks.isEmpty() || !chunks.last().isIncomplete()) {
+            completeThis
+        } else {
+            chunks.last().toComplete() + completeThis
+        }
+    }
 
     override fun isCorrupted(): Boolean = chunks.any { it.isCorrupted() }
 
@@ -94,6 +136,8 @@ data class OpenChunk(val open: Char, val chunks: MutableList<Chunk>) : Chunk {
 
 data class ClosedChunk(val open: Char, val chunks: List<Chunk>, val close: Char) : Chunk {
     override fun isIncomplete(): Boolean = false
+
+    override fun toComplete(): String = ""
 
     override fun isCorrupted(): Boolean = chunks.any { it.isCorrupted() } || when (open) {
         '(' -> close != ')'

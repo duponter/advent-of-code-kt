@@ -29,12 +29,12 @@ object Day10Spec : Spek({
                 assertEquals(392421, day10.part1(DayInput().lines(day10)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day10.part2(testInput))
+        context("part 2") {
+            it("Part 2 - Testcase - What is the middle score?") {
+                assertEquals(288957, day10.part2(testInput))
             }
-            it("Part 2 - Solution - ") {
-                assertEquals(0, day10.part2(DayInput().lines(day10)))
+            it("Part 2 - Solution - What is the middle score?") {
+                assertEquals(2769449099, day10.part2(DayInput().lines(day10)))
             }
         }
     }
