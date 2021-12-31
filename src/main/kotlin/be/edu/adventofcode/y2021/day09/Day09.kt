@@ -9,7 +9,6 @@ class Day09 {
         val rows = lowPoints(toMatrix(input.get()))
         val cols = lowPoints(toMatrix(input.get()).transpose()).transpose()
         val lowPoints = rows.zip(cols) { r, c -> r.zip(c) }.flatMap { it.map { pair -> if (pair.first == pair.second) pair.first else -1 } }
-        println("part 1 - lowpoints found: ${lowPoints.filterNot { it == -1 }.size}")
         return lowPoints.sumOf { it + 1 }
     }
 
@@ -37,6 +36,58 @@ class Day09 {
         val basinSizes: List<Basin> = lowPoints.map { Basin(listOf(it)) }.map { basin -> basin.expand(matrix) }.sortedByDescending { it.size() }
         return basinSizes.take(3).fold(1) { acc, next -> acc * next.size() }
     }
+
+    fun part2alt(input: Lines): Int {
+        val matrix: Matrix<LowPoint> = toMatrix(input.get())
+            .mapIndexed { rowIdx, row -> row.mapIndexed { colIdx, value -> LowPoint(rowIdx, colIdx, value) } }
+
+        val horizontalBasins: List<List<Basin>> = matrix.map { splitOn9(it) }.map { row -> row.flatMap { it.split() } }
+        val verticalBasins: List<List<Basin>> = matrix.transpose()
+            .map { row -> row.map { it.transpose() } }
+            .map { splitOn9(it) }
+            .map { row -> row.flatMap { it.split() }.map { Basin(it.points.map { pt -> pt.transpose() }) } }
+
+        var allBasins = horizontalBasins.flatten().plus(verticalBasins.flatten())
+        while (true) {
+            val merged = mergeBasins(allBasins)
+            if (merged.size == allBasins.size) {
+                break
+            }
+            allBasins = merged
+        }
+
+        return allBasins.sortedByDescending { it.size() }.take(3).fold(1) { acc, next -> acc * next.size() }
+    }
+
+    private fun splitOn9(line: List<LowPoint>): List<Basin> {
+        val nines: List<LowPoint> = line.filter { it.value == 9 }
+        val chunked: List<List<LowPoint>> = nines.windowed(2) { line.subList(it.first().col + 1, it.last().col) }
+        return listOf(line.take(nines.first().col))
+            .plus(chunked)
+            .plus(listOf(line.drop(nines.last().col + 1)))
+            .filterNot { it.isEmpty() }
+            .map { Basin(it) }
+    }
+
+    private fun mergeBasins(basins: List<Basin>): List<Basin> {
+        val basinsPerPoint: MutableMap<LowPoint, Basin> = basins.flatMap { it.points }.distinct()
+            .map { it to basins.filter { basin -> basin.points.contains(it) } }
+            .associate { it.first to Basin.mergeAll(it.second) }
+            .toMutableMap()
+
+        return groupOverlapping(
+            basinsPerPoint.values.sortedBy { it.size() }
+                .map { Basin.mergeAll(it.points.mapNotNull { pt -> basinsPerPoint.remove(pt) }) }
+                .filter { it.size() > 0 }
+        )
+    }
+
+    private fun groupOverlapping(basins: List<Basin>): List<Basin> {
+        val overlappingBasins = basins.sortedBy { it.size() }.filter { it.overlap(basins.first()) }.toSet()
+        val remainder = basins.minus(overlappingBasins)
+        val merged = listOf(Basin.mergeAll(overlappingBasins))
+        return if (remainder.isEmpty()) merged else merged.plus(groupOverlapping(remainder))
+    }
 }
 
 data class LowPoint(val row: Int, val col: Int, val value: Int) {
@@ -44,7 +95,48 @@ data class LowPoint(val row: Int, val col: Int, val value: Int) {
 }
 
 data class Basin(val points: List<LowPoint>) {
+    companion object {
+        fun mergeAll(basins: Iterable<Basin>): Basin = Basin(basins.flatMap { it.points }.distinct())
+    }
+
     fun size(): Int = points.size
+
+    fun overlap(other: Basin) = other.points.any { this.points.contains(it) }
+
+    fun split(): List<Basin> {
+        if (size() == 1) {
+            return listOf(this)
+        }
+        val selected: MutableList<MutableList<LowPoint>> = mutableListOf(mutableListOf(points.first()))
+        var desc = true
+        for (point in points.drop(1)) {
+            val prev = selected.last().last()
+            if (point.col == prev.col + 1) {
+                when (point.value) {
+                    prev.value + 1 -> {
+                        selected.last().add(point)
+                        desc = false
+                    }
+                    prev.value - 1 -> {
+                        if (desc) {
+                            selected.last().add(point)
+                        } else {
+                            selected.add(mutableListOf(point))
+                            desc = true
+                        }
+                    }
+                    else -> {
+                        selected.add(mutableListOf(point))
+                        desc = true
+                    }
+                }
+            } else {
+                selected.add(mutableListOf(point))
+                desc = true
+            }
+        }
+        return selected.map { Basin(it.toList()) }
+    }
 
     fun expand(matrix: Matrix<Int>): Basin = this.expand(matrix, matrix.transpose())
 

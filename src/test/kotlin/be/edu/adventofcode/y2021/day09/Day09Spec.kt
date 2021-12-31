@@ -28,8 +28,11 @@ object Day09Spec : Spek({
             it("Part 2 - Testcase - What do you get if you multiply together the sizes of the three largest basins?") {
                 assertEquals(1134, day09.part2(testInput))
             }
-            it("Part 2 - Solution - What do you get if you multiply together the sizes of the three largest basins?") {
+            xit("Part 2 - Solution - What do you get if you multiply together the sizes of the three largest basins?") {
                 assertEquals(0, day09.part2(DayInput().lines(day09)), "Result should be higher than 1224300")
+            }
+            xit("Part 2 - Solution (alternative) - What do you get if you multiply together the sizes of the three largest basins?") {
+                assertEquals(0, day09.part2alt(DayInput().lines(day09)), "Result should be higher than 1224300")
             }
         }
     }
