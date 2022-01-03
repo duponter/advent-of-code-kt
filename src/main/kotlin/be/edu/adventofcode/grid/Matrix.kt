@@ -18,6 +18,10 @@ fun <T, R> Matrix<T>.mapIndexed(transform: (row: Int, col: Int, T) -> R): Matrix
     return this.mapIndexed { rowIdx, row -> row.mapIndexed { colIdx, value -> transform(rowIdx, colIdx, value) } }
 }
 
+fun <T> Matrix<T>.size(): Int {
+    return if (this.isEmpty()) 0 else this.size * this[0].size
+}
+
 fun <T> Matrix<T>.print(): String {
     return this.joinToString("\n")
 }
