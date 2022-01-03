@@ -9,13 +9,25 @@ import kotlin.test.assertEquals
 object Day11Spec : Spek({
     describe("day 11") {
         val day11 = Day11()
-        val testInput = LinesFromArray("line")
+        val testInput = LinesFromArray(
+            "5483143223",
+            "2745854711",
+            "5264556173",
+            "6141336146",
+            "6357385478",
+            "4167524645",
+            "2176841721",
+            "6882881134",
+            "4846848554",
+            "5283751526"
+        )
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                assertEquals(1, day11.part1(testInput))
+            it("Part 1 - Testcase - How many total flashes are there after 100 steps?") {
+                assertEquals(204, day11.part1(testInput, 10))
+                assertEquals(1656, day11.part1(testInput))
             }
-            it("Part 1 - Solution - ") {
-                assertEquals(0, day11.part1(DayInput().lines(day11)))
+            it("Part 1 - Solution - How many total flashes are there after 100 steps?") {
+                assertEquals(1625, day11.part1(DayInput().lines(day11)))
             }
         }
         xcontext("part 2") {

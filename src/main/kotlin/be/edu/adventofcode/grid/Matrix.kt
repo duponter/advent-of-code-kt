@@ -9,3 +9,15 @@ fun <T> Matrix<T>.transpose(): Matrix<T> {
         }
     }
 }
+
+fun <T, R> Matrix<T>.map(transform: (T) -> R): Matrix<R> {
+    return this.map { row: List<T> -> row.map { transform(it) } }
+}
+
+fun <T, R> Matrix<T>.mapIndexed(transform: (row: Int, col: Int, T) -> R): Matrix<R> {
+    return this.mapIndexed { rowIdx, row -> row.mapIndexed { colIdx, value -> transform(rowIdx, colIdx, value) } }
+}
+
+fun <T> Matrix<T>.print(): String {
+    return this.joinToString("\n")
+}
