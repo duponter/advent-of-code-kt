@@ -33,8 +33,8 @@ object Day14Spec : Spek({
             it("Part 1 - Testcase - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
                 assertEquals(1588, day14.part1(testInput))
             }
-            xit("Part 1 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(0, day14.part1(DayInput().lines(day14)))
+            it("Part 1 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
+                assertEquals(2947, day14.part1(DayInput().lines(day14)))
             }
         }
         xcontext("part 2") {
