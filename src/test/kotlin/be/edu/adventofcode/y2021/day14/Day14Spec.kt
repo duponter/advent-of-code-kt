@@ -37,12 +37,16 @@ object Day14Spec : Spek({
                 assertEquals(2947, day14.part1(DayInput().lines(day14)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day14.part2(testInput))
+        context("part 2") {
+            it("Part 2 - Testcase 10 steps - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
+                assertEquals(1588, day14.part2(testInput, 10))
+                assertEquals(2947, day14.part2(DayInput().lines(day14), 10))
             }
-            xit("Part 2 - Solution - ") {
-                assertEquals(0, day14.part2(DayInput().lines(day14)))
+            xit("Part 2 - Testcase - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
+                assertEquals(2188189693529, day14.part2(testInput), "Does not complete after 30m")
+            }
+            xit("Part 2 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
+                assertEquals(0, day14.part2(DayInput().lines(day14)), "Does not complete after 30m")
             }
         }
     }
