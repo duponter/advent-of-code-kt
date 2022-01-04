@@ -4,6 +4,22 @@ import be.edu.adventofcode.Lines
 
 class Day12 {
     fun part1(input: Lines): Int {
+        val caves: Map<String, Cave> = parseCaves(input)
+        return Path().crawl(caves["start"]!!).distinct().filter { it.visited.last() == "end" }.size
+    }
+
+    fun part2(input: Lines): Int {
+        val caves: Map<String, Cave> = parseCaves(input)
+        val start = caves["start"]!!
+        return caves.minus(listOf("start", "end")).values.map { Path2(it.name) }
+            .flatMap { it.crawl(start) }
+            .map { it.visited }
+            .distinct()
+            .filter { it.last() == "end" }
+            .size
+    }
+
+    private fun parseCaves(input: Lines): Map<String, Cave> {
         val connections: List<List<String>> = input.get()
             .map { it.split("-") }
 
@@ -14,12 +30,7 @@ class Day12 {
             caves[it.last()]!!.connections.add(caves[it.first()]!!)
         }
         caves["end"]!!.connections.clear()
-
-        return Path().crawl(caves["start"]!!).distinct().filter { it.visited.last() == "end" }.size
-    }
-
-    fun part2(input: Lines): Int {
-        return input.get().count()
+        return caves
     }
 }
 
@@ -33,6 +44,19 @@ data class Path(val visited: MutableList<String> = mutableListOf()) {
             return listOf(this)
         }
         return cave.connections.flatMap { Path(visited.toMutableList()).crawl(it) }
+    }
+}
+
+data class Path2(val twice: String, val visited: MutableList<String> = mutableListOf()) {
+    fun crawl(cave: Cave): List<Path2> {
+        if (cave.small && visited.contains(cave.name) && (cave.name != twice || visited.count { it == twice } == 2)) {
+            return listOf(this)
+        }
+        this.visited.add(cave.name)
+        if (cave.connections.isEmpty()) {
+            return listOf(this)
+        }
+        return cave.connections.flatMap { Path2(twice, visited.toMutableList()).crawl(it) }
     }
 }
 

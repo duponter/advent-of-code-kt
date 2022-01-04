@@ -45,7 +45,7 @@ object Day${day}Spec : Spek({
             it("Part 1 - Testcase - ") {
                 assertEquals(1, day${day}.part1(testInput))
             }
-            it("Part 1 - Solution - ") {
+            xit("Part 1 - Solution - ") {
                 assertEquals(0, day${day}.part1(DayInput().lines(day${day})))
             }
         }
@@ -53,7 +53,7 @@ object Day${day}Spec : Spek({
             it("Part 2 - Testcase - ") {
                 assertEquals(1, day${day}.part2(testInput))
             }
-            it("Part 2 - Solution - ") {
+            xit("Part 2 - Solution - ") {
                 assertEquals(0, day${day}.part2(DayInput().lines(day${day})))
             }
         }
