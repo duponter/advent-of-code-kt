@@ -36,8 +36,8 @@ object Day13Spec : Spek({
             it("Part 1 - Testcase - How many dots are visible after completing just the first fold instruction on your transparent paper?") {
                 assertEquals(17, day13.part1(testInput))
             }
-            xit("Part 1 - Solution - How many dots are visible after completing just the first fold instruction on your transparent paper?") {
-                assertEquals(0, day13.part1(DayInput().lines(day13)))
+            it("Part 1 - Solution - How many dots are visible after completing just the first fold instruction on your transparent paper?") {
+                assertEquals(675, day13.part1(DayInput().lines(day13)))
             }
         }
         xcontext("part 2") {
