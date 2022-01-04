@@ -56,8 +56,8 @@ object Day12Spec : Spek({
                 assertEquals(19, day12.part1(testInput2))
                 assertEquals(226, day12.part1(testInput3))
             }
-            xit("Part 1 - Solution - How many paths through this cave system are there that visit small caves at most once?") {
-                assertEquals(0, day12.part1(DayInput().lines(day12)))
+            it("Part 1 - Solution - How many paths through this cave system are there that visit small caves at most once?") {
+                assertEquals(4411, day12.part1(DayInput().lines(day12)))
             }
         }
         xcontext("part 2") {
