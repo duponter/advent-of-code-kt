@@ -40,12 +40,12 @@ object Day13Spec : Spek({
                 assertEquals(675, day13.part1(DayInput().lines(day13)))
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                assertEquals(1, day13.part2(testInput))
+        context("part 2") {
+            it("Part 2 - Testcase - What code do you use to activate the infrared thermal imaging camera system?") {
+                day13.part2(testInput)
             }
-            xit("Part 2 - Solution - ") {
-                assertEquals(0, day13.part2(DayInput().lines(day13)))
+            it("Part 2 - Solution - What code do you use to activate the infrared thermal imaging camera system?") {
+                day13.part2(DayInput().lines(day13))
             }
         }
     }

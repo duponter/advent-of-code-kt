@@ -7,12 +7,16 @@ class Day13 {
         val dots: List<Pair<Int, Int>> = parseDots(input)
         val paper: Paper = plot(dots)
         val folds = parseFolds(input)
-//        folds.fold(paper) { p, fold -> fold.map(p) }.forEach { println(it) }
         return folds.first().map(paper).dotCount()
     }
 
-    fun part2(input: Lines): Int {
-        return input.get().count()
+    fun part2(input: Lines) {
+        val dots: List<Pair<Int, Int>> = parseDots(input)
+        val paper: Paper = plot(dots)
+        val folds = parseFolds(input)
+        folds.fold(paper) { p, fold -> fold.map(p) }
+            .map { it.replace(".", " ") }
+            .forEach { println(it) }
     }
 
     private fun plot(dots: List<Pair<Int, Int>>): Paper {
@@ -48,7 +52,7 @@ fun Paper.foldDown(row: Int): Paper {
         .plus(lower.drop(upper.size))
 }
 
-fun Paper.foldLeft(col: Int): Paper = this.foldRight(col)
+fun Paper.foldLeft(col: Int): Paper = this.foldRight(col).map { it.reversed() }
 
 fun Paper.foldRight(col: Int): Paper {
     val left = this.map { it.take(col).reversed() }
