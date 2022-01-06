@@ -12,6 +12,7 @@ cat_main() {
 package be.edu.adventofcode.y${year}.day${day}
 
 import be.edu.adventofcode.Lines
+import be.edu.adventofcode.LinesFromArray
 
 class Day${day} {
     fun part1(input: Lines): Int {
@@ -21,6 +22,14 @@ class Day${day} {
     fun part2(input: Lines): Int {
         return input.get().count()
     }
+}
+
+fun main() {
+    val testInput = LinesFromArray(
+
+    )
+    println("Day ${day}, part 1 = ${Day${day}().part1(testInput)}")
+//    println("Day ${day}, part 2 = ${Day${day}().part2(testInput)}")
 }
 EOL
 }
@@ -40,7 +49,9 @@ import kotlin.test.assertEquals
 object Day${day}Spec : Spek({
     describe("day ${day}") {
         val day${day} = Day${day}()
-        val testInput = LinesFromArray("line")
+        val testInput = LinesFromArray(
+
+        )
         context("part 1") {
             it("Part 1 - Testcase - ") {
                 assertEquals(1, day${day}.part1(testInput))
