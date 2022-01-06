@@ -42,11 +42,11 @@ object Day14Spec : Spek({
                 assertEquals(1588, day14.part2(testInput, 10))
                 assertEquals(2947, day14.part2(DayInput().lines(day14), 10))
             }
-            xit("Part 2 - Testcase - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(2188189693529, day14.part2(testInput), "Does not complete after 30m")
+            it("Part 2 - Testcase - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
+                assertEquals(2188189693529, day14.part2(testInput))
             }
-            xit("Part 2 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(0, day14.part2(DayInput().lines(day14)), "Does not complete after 30m")
+            it("Part 2 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
+                assertEquals(3232426226464, day14.part2(DayInput().lines(day14)))
             }
         }
     }
