@@ -2,10 +2,36 @@ package be.edu.adventofcode.y2021.day15
 
 import be.edu.adventofcode.Lines
 import be.edu.adventofcode.LinesFromArray
+import be.edu.adventofcode.grid.Grid
+import be.edu.adventofcode.grid.Point
+import kotlin.math.min
 
 class Day15 {
     fun part1(input: Lines): Int {
-        return input.get().count()
+        val grid: Grid<Int> = Grid(input.get().map { line -> line.map { it.digitToInt() } })
+        return crawl(grid, Point())
+    }
+
+    private fun crawl(grid: Grid<Int>, point: Point): Int {
+        val right = point.right()
+        val rightValue = grid.value(right)
+        fun rightCrawl(): Int {
+            return crawl(grid, right) + rightValue!!
+        }
+
+        val down = point.up()
+        val downValue = grid.value(down)
+        fun downCrawl(): Int {
+            return crawl(grid, down) + downValue!!
+        }
+
+        return if (rightValue == null) {
+            if (downValue == null) 0 else downCrawl()
+        } else if (downValue == null) {
+            rightCrawl()
+        } else {
+            min(rightCrawl(), downCrawl())
+        }
     }
 
     fun part2(input: Lines): Int {

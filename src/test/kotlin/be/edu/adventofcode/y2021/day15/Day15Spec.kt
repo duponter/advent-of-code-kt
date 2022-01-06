@@ -25,7 +25,7 @@ object Day15Spec : Spek({
             it("Part 1 - Testcase - What is the lowest total risk of any path from the top left to the bottom right?") {
                 assertEquals(40, day15.part1(testInput))
             }
-            xit("Part 1 - Solution - What is the lowest total risk of any path from the top left to the bottom right?") {
+            it("Part 1 - Solution - What is the lowest total risk of any path from the top left to the bottom right?") {
                 assertEquals(0, day15.part1(DayInput().lines(day15)))
             }
         }
