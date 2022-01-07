@@ -2,7 +2,6 @@ package be.edu.adventofcode.y2020.day07
 
 import be.edu.adventofcode.Lines
 import be.edu.adventofcode.StringDestructure
-import java.lang.IllegalArgumentException
 
 class Day07 {
     fun part1(input: Lines): Int {
@@ -15,7 +14,7 @@ class Day07 {
         return regulations["shiny gold"]!!.count(regulations) - 1
     }
 
-    private fun parseRegulations(input: Lines) = input.asSequence()
+    private fun parseRegulations(input: Lines) = input.get().asSequence()
         .map { parse(it) }
         .associateBy { it.type }
 

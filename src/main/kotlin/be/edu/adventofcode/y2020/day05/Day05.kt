@@ -13,7 +13,7 @@ class Day05 {
             .let { it.toInt() + 1 }
     }
 
-    private fun seats(input: Lines): Sequence<Long> = input.asSequence()
+    private fun seats(input: Lines): Sequence<Long> = input.get().asSequence()
         .map { it.take(7) to it.takeLast(3) }
         .map {
             it.first.replace('F', '0').replace('B', '1') to
