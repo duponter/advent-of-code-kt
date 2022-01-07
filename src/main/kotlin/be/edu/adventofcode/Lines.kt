@@ -5,7 +5,7 @@ import java.io.File
 interface Lines {
     fun get(): List<String>
 
-    fun asSequence(): Sequence<String> = get().asSequence()
+    fun digits(): List<List<Int>> = get().map { line -> line.map { it.digitToInt() } }
 }
 
 class LinesFromFile(private val file: File) : Lines {

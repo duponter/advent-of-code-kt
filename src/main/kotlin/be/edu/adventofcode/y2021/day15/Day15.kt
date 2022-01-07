@@ -8,7 +8,7 @@ import kotlin.math.min
 
 class Day15 {
     fun part1(input: Lines): Int {
-        val grid: Grid<Int> = Grid(input.get().map { line -> line.map { it.digitToInt() } })
+        val grid: Grid<Int> = Grid(input.digits())
         return crawl(grid, Point())
     }
 

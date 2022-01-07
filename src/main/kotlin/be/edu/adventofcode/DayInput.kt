@@ -8,5 +8,5 @@ class DayInput {
 
     fun text(instance: Any): Text = TextFromFile(inputFile(instance))
 
-    private fun inputFile(instance: Any): File = File(instance.javaClass.getResource("${instance.javaClass.simpleName}.txt").toURI())
+    private fun inputFile(instance: Any): File = File(instance.javaClass.getResource("${instance.javaClass.simpleName}.txt")!!.toURI())
 }
