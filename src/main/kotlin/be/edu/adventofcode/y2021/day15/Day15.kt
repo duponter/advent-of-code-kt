@@ -1,9 +1,13 @@
 package be.edu.adventofcode.y2021.day15
 
-import be.edu.adventofcode.*
+import be.edu.adventofcode.Algorithm
+import be.edu.adventofcode.GridExploration
+import be.edu.adventofcode.Lines
+import be.edu.adventofcode.LinesFromArray
+import be.edu.adventofcode.Route
 import be.edu.adventofcode.grid.Grid
 import be.edu.adventofcode.grid.Point
-import kotlin.math.min
+import java.util.*
 
 @GridExploration
 @Route
@@ -11,35 +15,55 @@ import kotlin.math.min
 class Day15 {
     fun part1(input: Lines): Int {
         val grid: Grid<Int> = Grid(input.digits())
-        return crawl(grid, Point())
+
+        return crawl(grid, sortedSetOf(Path()))
     }
 
-    private fun crawl(grid: Grid<Int>, point: Point): Int {
-        val right = point.right()
-        val rightValue = grid.value(right)
-        fun rightCrawl(): Int {
-            return crawl(grid, right) + rightValue!!
-        }
+    private tailrec fun crawl(grid: Grid<Int>, paths: SortedSet<Path>): Int {
+        val lowestRisk = paths.minOrNull()!!
+        val right = lowestRisk.current.right()
+        val down = lowestRisk.current.up()
 
-        val down = point.up()
-        val downValue = grid.value(down)
-        fun downCrawl(): Int {
-            return crawl(grid, down) + downValue!!
-        }
-
-        return if (rightValue == null) {
-            if (downValue == null) 0 else downCrawl()
-        } else if (downValue == null) {
-            rightCrawl()
+        var modified: List<Path>
+        if (!grid.contains(right)) {
+            if (!grid.contains(down)) {
+                return lowestRisk.risk
+            } else {
+                modified = paths.drop(1).plus(lowestRisk.visit(down, grid.value(down)!!))
+            }
         } else {
-            min(rightCrawl(), downCrawl())
+            modified = paths.drop(1).plus(lowestRisk.visit(right, grid.value(right)!!))
+            if (grid.contains(down)) {
+                modified = modified.plus(lowestRisk.visit(down, grid.value(down)!!))
+            }
         }
+
+        return crawl(grid, modified.toSortedSet())
     }
 
     fun part2(input: Lines): Int {
         return input.get().count()
     }
 }
+
+data class Path(val visited: Path?, val current: Point, val risk: Int) : Comparable<Path> {
+    constructor() : this(null, Point(), 0)
+
+    fun visit(position: Point, riskLevel: Int): Path {
+        return Path(this, position, risk + riskLevel)
+    }
+
+    override fun compareTo(other: Path): Int {
+        return when {
+            this.risk != other.risk -> this.risk compareTo other.risk
+            this.current != other.current -> this.current compareTo other.current
+            this.visited == null -> -1
+            other.visited == null -> 1
+            else -> this.visited compareTo other.visited
+        }
+    }
+}
+
 
 fun main() {
     val testInput = LinesFromArray(
