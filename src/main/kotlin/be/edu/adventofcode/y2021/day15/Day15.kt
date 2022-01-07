@@ -1,11 +1,13 @@
 package be.edu.adventofcode.y2021.day15
 
-import be.edu.adventofcode.Lines
-import be.edu.adventofcode.LinesFromArray
+import be.edu.adventofcode.*
 import be.edu.adventofcode.grid.Grid
 import be.edu.adventofcode.grid.Point
 import kotlin.math.min
 
+@GridExploration
+@Route
+@Algorithm("Dijkstra")
 class Day15 {
     fun part1(input: Lines): Int {
         val grid: Grid<Int> = Grid(input.digits())
