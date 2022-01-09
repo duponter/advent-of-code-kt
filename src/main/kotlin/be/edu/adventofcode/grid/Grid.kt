@@ -5,16 +5,13 @@ import kotlin.math.abs
 class Grid<T>(private val layout: List<List<T>>) {
     fun dimensions(): Pair<Int, Int> = layout.size to layout[0].size
 
-    fun contains(point: Point): Boolean {
-        val (row, col) = toCell(point)
-        return contains(row, col)
-    }
+    fun contains(point: Point): Boolean = value(point) != null
 
     fun contains(row: Int, col: Int): Boolean {
         return row >= 0 && col >= 0 && row < this.layout.size && col < this.layout[row].size
     }
 
-    fun value(point: Point): T? = value(toCell(point))
+    fun value(point: Point): T? = point.value(this.layout)
 
     fun value(cell: Pair<Int, Int>): T? {
         val (row, col) = cell
