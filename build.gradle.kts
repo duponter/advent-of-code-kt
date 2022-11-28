@@ -24,13 +24,12 @@ dependencies {
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
+    testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
+    testImplementation("io.kotest:kotest-assertions-core:5.5.4")
+
+
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-
-    testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.19")
-
-    testImplementation("org.spekframework.spek2:spek-runner-junit5:2.0.19")
-
 }
 
 tasks.withType<KotlinCompile>().configureEach {

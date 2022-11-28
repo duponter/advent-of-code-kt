@@ -2,11 +2,10 @@ package be.edu.adventofcode.y2020.day16
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.TextFromString
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import io.kotest.core.spec.style.DescribeSpec
 import kotlin.test.assertEquals
 
-object Day16Spec : Spek({
+class Day16Spec : DescribeSpec({
     describe("day 16") {
         val day16 = Day16()
         context("part 1") {

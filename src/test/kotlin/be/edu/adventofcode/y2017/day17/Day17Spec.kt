@@ -1,10 +1,9 @@
 package be.edu.adventofcode.y2017.day17
 
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import io.kotest.core.spec.style.DescribeSpec
 import kotlin.test.assertEquals
 
-object Day17Spec : Spek({
+class Day17Spec : DescribeSpec({
     describe("day 17") {
         val day17 = Day17()
         context("part 1") {

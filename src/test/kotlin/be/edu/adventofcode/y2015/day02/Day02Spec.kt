@@ -1,10 +1,9 @@
 package be.edu.adventofcode.y2015.day02
 
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import io.kotest.core.spec.style.DescribeSpec
 import kotlin.test.assertEquals
 
-object Day02Spec : Spek({
+class Day02Spec : DescribeSpec({
     describe("examples day 02 part 1") {
         assertEquals(52, Present(2, 3, 4).surfaceArea())
         assertEquals(6, Present(2, 3, 4).smallestSideArea())

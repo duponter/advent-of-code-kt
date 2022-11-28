@@ -2,8 +2,7 @@ package be.edu.adventofcode.y2020.day03
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import io.kotest.core.spec.style.DescribeSpec
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
@@ -21,7 +20,7 @@ val testInput = LinesFromArray(
     ".#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#"
 )
 
-object Day03Spec : Spek({
+class Day03Spec : DescribeSpec({
     describe("day 03") {
         val day03 = Day03()
         context("part 1") {

@@ -2,16 +2,16 @@ package be.edu.adventofcode.y2015.day07
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import io.kotest.core.spec.style.DescribeSpec
 import kotlin.test.assertEquals
 
-object Day07Spec : Spek({
+class Day07Spec : DescribeSpec({
     describe("day 07") {
         val day07 = Day07()
         context("part 1") {
             it("signals on the wires of a simple circuit") {
-                val map = day07.parseLines(LinesFromArray(
+                val map = day07.parseLines(
+                    LinesFromArray(
                         "123 -> x",
                         "456 -> y",
                         "x AND y -> d",
