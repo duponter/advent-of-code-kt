@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day08
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day08Spec : DescribeSpec({
     describe("day 08") {
@@ -22,18 +22,18 @@ class Day08Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - In the output values, how many times do digits 1, 4, 7, or 8 appear?") {
-                assertEquals(26, day08.part1(testInput))
+                day08.part1(testInput) shouldBe 26
             }
             it("Part 1 - Solution - In the output values, how many times do digits 1, 4, 7, or 8 appear?") {
-                assertEquals(392, day08.part1(DayInput().lines(day08)))
+                day08.part1(DayInput().lines(day08)) shouldBe 392
             }
         }
         context("part 2") {
             it("Part 2 - Testcase - What do you get if you add up all of the output values?") {
-                assertEquals(61229, day08.part2(testInput))
+                day08.part2(testInput) shouldBe 61229
             }
             it("Part 2 - Solution - What do you get if you add up all of the output values?") {
-                assertEquals(1004688, day08.part2(DayInput().lines(day08)))
+                day08.part2(DayInput().lines(day08)) shouldBe 1004688
             }
         }
     }

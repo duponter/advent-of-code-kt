@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day14
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day14Spec : DescribeSpec({
     describe("day 14") {
@@ -30,22 +30,22 @@ class Day14Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(1588, day14.part1(testInput))
+                day14.part1(testInput) shouldBe 1588
             }
             it("Part 1 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(2947, day14.part1(DayInput().lines(day14)))
+                day14.part1(DayInput().lines(day14)) shouldBe 2947
             }
         }
         context("part 2") {
             it("Part 2 - Testcase 10 steps - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(1588, day14.part2(testInput, 10))
-                assertEquals(2947, day14.part2(DayInput().lines(day14), 10))
+                day14.part2(testInput, 10) shouldBe 1588
+                day14.part2(DayInput().lines(day14), 10) shouldBe 2947
             }
             it("Part 2 - Testcase - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(2188189693529, day14.part2(testInput))
+                day14.part2(testInput) shouldBe 2188189693529
             }
             it("Part 2 - Solution - What do you get if you take the quantity of the most common element and subtract the quantity of the least common element?") {
-                assertEquals(3232426226464, day14.part2(DayInput().lines(day14)))
+                day14.part2(DayInput().lines(day14)) shouldBe 3232426226464
             }
         }
     }

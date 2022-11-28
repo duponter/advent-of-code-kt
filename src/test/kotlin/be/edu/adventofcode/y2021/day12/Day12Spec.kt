@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day12
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day12Spec : DescribeSpec({
     describe("day 12") {
@@ -51,22 +51,22 @@ class Day12Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - How many paths through this cave system are there that visit small caves at most once?") {
-                assertEquals(10, day12.part1(testInput1))
-                assertEquals(19, day12.part1(testInput2))
-                assertEquals(226, day12.part1(testInput3))
+                day12.part1(testInput1) shouldBe 10
+                day12.part1(testInput2) shouldBe 19
+                day12.part1(testInput3) shouldBe 226
             }
             it("Part 1 - Solution - How many paths through this cave system are there that visit small caves at most once?") {
-                assertEquals(4411, day12.part1(DayInput().lines(day12)))
+                day12.part1(DayInput().lines(day12)) shouldBe 4411
             }
         }
         context("part 2") {
             it("Part 2 - Testcase - How many paths through this cave system are there that visit 1 small cave twice and the other small caves at most once?") {
-                assertEquals(36, day12.part2(testInput1))
-                assertEquals(103, day12.part2(testInput2))
-                assertEquals(3509, day12.part2(testInput3))
+                day12.part2(testInput1) shouldBe 36
+                day12.part2(testInput2) shouldBe 103
+                day12.part2(testInput3) shouldBe 3509
             }
             it("Part 2 - Solution - How many paths through this cave system are there that visit 1 small cave twice and the other small caves at most once?") {
-                assertEquals(136767, day12.part2(DayInput().lines(day12)))
+                day12.part2(DayInput().lines(day12)) shouldBe 136767
             }
         }
     }

@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2015.day07
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day07Spec : DescribeSpec({
     describe("day 07") {
@@ -20,24 +20,25 @@ class Day07Spec : DescribeSpec({
                         "y RSHIFT 2 -> g",
                         "NOT x -> h",
                         "NOT y -> i"
-                ))
-                assertEquals(72, map["d"]!!.connect { map[it]!! })
-                assertEquals(507, map["e"]!!.connect { map[it]!! })
-                assertEquals(492, map["f"]!!.connect { map[it]!! })
-                assertEquals(114, map["g"]!!.connect { map[it]!! })
-                assertEquals(65412, map["h"]!!.connect { map[it]!! })
-                assertEquals(65079, map["i"]!!.connect { map[it]!! })
-                assertEquals(456, map["y"]!!.connect { map[it]!! })
-                assertEquals(123, map["x"]!!.connect { map[it]!! })
+                    )
+                )
+                map["d"]!!.connect { map[it]!! } shouldBe 72
+                map["e"]!!.connect { map[it]!! } shouldBe 507
+                map["f"]!!.connect { map[it]!! } shouldBe 492
+                map["g"]!!.connect { map[it]!! } shouldBe 114
+                map["h"]!!.connect { map[it]!! } shouldBe 65412
+                map["i"]!!.connect { map[it]!! } shouldBe 65079
+                map["y"]!!.connect { map[it]!! } shouldBe 456
+                map["x"]!!.connect { map[it]!! } shouldBe 123
 
             }
             it("should answer What signal is ultimately provided to wire a?") {
-                assertEquals(46065, day07.part1(DayInput().lines(day07)))
+                day07.part1(DayInput().lines(day07)) shouldBe 46065
             }
         }
         context("part 2") {
             it("should answer What new signal is ultimately provided to wire a?") {
-                assertEquals(14134, day07.part2(DayInput().lines(day07)))
+                day07.part2(DayInput().lines(day07)) shouldBe 14134
             }
         }
     }

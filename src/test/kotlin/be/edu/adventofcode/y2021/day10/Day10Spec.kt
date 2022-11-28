@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day10
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day10Spec : DescribeSpec({
     describe("day 10") {
@@ -22,18 +22,18 @@ class Day10Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - What is the total syntax error score for those errors?") {
-                assertEquals(26397, day10.part1(testInput))
+                day10.part1(testInput) shouldBe 26397
             }
             it("Part 1 - Solution - What is the total syntax error score for those errors?") {
-                assertEquals(392421, day10.part1(DayInput().lines(day10)))
+                day10.part1(DayInput().lines(day10)) shouldBe 392421
             }
         }
         context("part 2") {
             it("Part 2 - Testcase - What is the middle score?") {
-                assertEquals(288957, day10.part2(testInput))
+                day10.part2(testInput) shouldBe 288957
             }
             it("Part 2 - Solution - What is the middle score?") {
-                assertEquals(2769449099, day10.part2(DayInput().lines(day10)))
+                day10.part2(DayInput().lines(day10)) shouldBe 2769449099
             }
         }
     }

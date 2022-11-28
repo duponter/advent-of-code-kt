@@ -43,7 +43,7 @@ package be.edu.adventofcode.y${year}.day${day}
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day${day}Spec : DescribeSpec({
     describe("day ${day}") {
@@ -53,18 +53,18 @@ class Day${day}Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - ") {
-                assertEquals(1, day${day}.part1(testInput))
+                day${day}.part1(testInput) shouldBe 1
             }
             xit("Part 1 - Solution - ") {
-                assertEquals(0, day${day}.part1(DayInput().lines(day${day})))
+                day${day}.part1(DayInput().lines(day${day})) shouldBe 0
             }
         }
         xcontext("part 2") {
             it("Part 2 - Testcase - ") {
-                assertEquals(1, day${day}.part2(testInput))
+                day${day}.part2(testInput) shouldBe 1
             }
             xit("Part 2 - Solution - ") {
-                assertEquals(0, day${day}.part2(DayInput().lines(day${day})))
+                day${day}.part2(DayInput().lines(day${day})) shouldBe 0
             }
         }
     }

@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day13
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day13Spec : DescribeSpec({
     describe("day 13") {
@@ -33,10 +33,10 @@ class Day13Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - How many dots are visible after completing just the first fold instruction on your transparent paper?") {
-                assertEquals(17, day13.part1(testInput))
+                day13.part1(testInput) shouldBe 17
             }
             it("Part 1 - Solution - How many dots are visible after completing just the first fold instruction on your transparent paper?") {
-                assertEquals(675, day13.part1(DayInput().lines(day13)))
+                day13.part1(DayInput().lines(day13)) shouldBe 675
             }
         }
         context("part 2") {

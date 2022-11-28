@@ -3,7 +3,7 @@ package be.edu.adventofcode.y2021.day11
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
-import kotlin.test.assertEquals
+import io.kotest.matchers.shouldBe
 
 class Day11Spec : DescribeSpec({
     describe("day 11") {
@@ -22,19 +22,19 @@ class Day11Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - How many total flashes are there after 100 steps?") {
-                assertEquals(204, day11.part1(testInput, 10))
-                assertEquals(1656, day11.part1(testInput))
+                day11.part1(testInput, 10) shouldBe 204
+                day11.part1(testInput) shouldBe 1656
             }
             it("Part 1 - Solution - How many total flashes are there after 100 steps?") {
-                assertEquals(1625, day11.part1(DayInput().lines(day11)))
+                day11.part1(DayInput().lines(day11)) shouldBe 1625
             }
         }
         context("part 2") {
             it("Part 2 - Testcase - What is the first step during which all octopuses flash?") {
-                assertEquals(195, day11.part2(testInput))
+                day11.part2(testInput) shouldBe 195
             }
             it("Part 2 - Solution - What is the first step during which all octopuses flash?") {
-                assertEquals(244, day11.part2(DayInput().lines(day11)))
+                day11.part2(DayInput().lines(day11)) shouldBe 244
             }
         }
     }
