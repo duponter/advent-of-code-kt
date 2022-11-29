@@ -18,7 +18,7 @@ class Day07 {
             .minOf { pos -> crabPositions.sumOf { fuelRates[abs(it - pos)] } }
     }
 
-    private tailrec fun sumNatural(num: Int): Int {
+    private fun sumNatural(num: Int): Int {
         if (num == 0) {
             return 0
         }

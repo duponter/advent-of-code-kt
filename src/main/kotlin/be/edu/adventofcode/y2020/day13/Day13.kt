@@ -51,8 +51,7 @@ class Day13 {
 
 
         val firstSequence = timestampSequences.first()
-        val otherSequences = timestampSequences.drop(1)
-
+//        val otherSequences = timestampSequences.drop(1)
 //        return firstSequence.dropWhile { !otherSequences.all { seq -> seq.contains(it) } }.first()
 //        return firstSequence.first()
         return firstSequence.first()
