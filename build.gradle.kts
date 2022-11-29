@@ -14,15 +14,17 @@ repositories {
     mavenCentral()
 }
 
+val kotestVersion = "5.5.4"
+
 dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    // Use the Kotlin JDK 8 standard library.
+    // Use the Kotlin JDK standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-    testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
-    testImplementation("io.kotest:kotest-assertions-core:5.5.4")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
 }
 
 tasks.withType<KotlinCompile>().configureEach {

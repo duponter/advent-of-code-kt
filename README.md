@@ -2,7 +2,7 @@
 
 ## Puzzles
 
-**Login with Github credentials**
+**Login with GitHub credentials**
 
 * Year [2022](http://adventofcode.com/2022)
 * Year [2021](http://adventofcode.com/2021)
@@ -12,12 +12,6 @@
 * Year [2017](http://adventofcode.com/2017)
 * ~~Year [2016](http://adventofcode.com/2016)~~ is written in Java, go to [this](https://github.com/duponter/advent-of-code) repository.
 * Year [2015](http://adventofcode.com/2015)
-
-## Todo's 2022
-
-* Integrate Kotest + Day template! + Replace link in resource list
-* Remove Spek2
-* Initialise 2022
 
 ## Algorithms
 
@@ -43,4 +37,5 @@ By taggging puzzles, it is easier to find, link and solve similar puzzles.
 * [Cheat Sheet](https://github.com/MindorksOpenSource/from-java-to-kotlin)
 * [Kotlin and Gradle](https://github.com/JLLeitschuh/ktlint-gradle)
 * [Kotest](https://kotest.io/)
+* [Server-Side Development with Kotlin: Frameworks and Libraries](https://blog.jetbrains.com/kotlin/2020/11/server-side-development-with-kotlin-frameworks-and-libraries/)
 * [Tips and Tricks for Solving Advent of Code](https://blog.jetbrains.com/kotlin/2021/12/tips-and-tricks-for-solving-advent-of-code/)
