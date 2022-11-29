@@ -28,8 +28,8 @@ fun main() {
     val testInput = LinesFromArray(
 
     )
-    println("Day ${day}, part 1 = ${Day${day}().part1(testInput)}")
-//    println("Day ${day}, part 2 = ${Day${day}().part2(testInput)}")
+    println("Day ${day}, part 1 = \${Day${day}().part1(testInput)}")
+//    println("Day ${day}, part 2 = \${Day${day}().part2(testInput)}")
 }
 EOL
 }
