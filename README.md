@@ -5,6 +5,7 @@
 **Login with GitHub credentials**
 
 * Year [2022](http://adventofcode.com/2022)
+  * [JetBrains Advent of Code 2022 in Kotlin contest](https://blog.jetbrains.com/kotlin/2022/11/advent-of-code-2022-in-kotlin/)
 * Year [2021](http://adventofcode.com/2021)
 * Year [2020](http://adventofcode.com/2020)
 * Year [2019](http://adventofcode.com/2019)
