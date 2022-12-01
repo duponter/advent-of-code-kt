@@ -47,7 +47,7 @@ class Day${day}Spec : DescribeSpec({
             it("Part 1 - Testcase - ") {
                 day${day}.part1(testInput) shouldBe 1
             }
-            xit("Part 1 - Solution - ") {
+            it("Part 1 - Solution - ") {
                 day${day}.part1(DayInput().lines(day${day})) shouldBe 0
             }
         }
@@ -55,7 +55,7 @@ class Day${day}Spec : DescribeSpec({
             it("Part 2 - Testcase - ") {
                 day${day}.part2(testInput) shouldBe 1
             }
-            xit("Part 2 - Solution - ") {
+            it("Part 2 - Solution - ") {
                 day${day}.part2(DayInput().lines(day${day})) shouldBe 0
             }
         }
