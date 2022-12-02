@@ -8,15 +8,13 @@ import io.kotest.matchers.shouldBe
 class Day02Spec : DescribeSpec({
     describe("day 02") {
         val day02 = Day02()
-        val testInput = LinesFromArray(
-
-        )
+        val testInput = LinesFromArray("A Y", "B X", "C Z")
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                day02.part1(testInput) shouldBe 1
+            it("Part 1 - Testcase - What would your total score be if everything goes exactly according to your strategy guide?") {
+                day02.part1(testInput) shouldBe 15
             }
-            it("Part 1 - Solution - ") {
-                day02.part1(DayInput().lines(day02)) shouldBe 0
+            it("Part 1 - Solution - What would your total score be if everything goes exactly according to your strategy guide?") {
+                day02.part1(DayInput().lines(day02)) shouldBe 12645
             }
         }
         xcontext("part 2") {
