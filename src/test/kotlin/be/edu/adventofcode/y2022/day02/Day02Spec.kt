@@ -17,12 +17,12 @@ class Day02Spec : DescribeSpec({
                 day02.part1(DayInput().lines(day02)) shouldBe 12645
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day02.part2(testInput) shouldBe 1
+        context("part 2") {
+            it("Part 2 - Testcase - What would your total score be if everything goes exactly according to your strategy guide?") {
+                day02.part2(testInput) shouldBe 12
             }
-            it("Part 2 - Solution - ") {
-                day02.part2(DayInput().lines(day02)) shouldBe 0
+            it("Part 2 - Solution - What would your total score be if everything goes exactly according to your strategy guide?") {
+                day02.part2(DayInput().lines(day02)) shouldBe 11756
             }
         }
     }
