@@ -41,7 +41,7 @@ class Day${day}Spec : DescribeSpec({
     describe("day ${day}") {
         val day${day} = Day${day}()
         val testInput = LinesFromArray(
-
+          ""
         )
         context("part 1") {
             it("Part 1 - Testcase - ") {

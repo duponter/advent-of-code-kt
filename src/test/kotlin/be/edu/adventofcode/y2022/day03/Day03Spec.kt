@@ -9,14 +9,19 @@ class Day03Spec : DescribeSpec({
     describe("day 03") {
         val day03 = Day03()
         val testInput = LinesFromArray(
-
+            "vJrwpWtwJgWrhcsFMMfFFhFp",
+            "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+            "PmmdzqPrVvPwwTWBwg",
+            "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+            "ttgJtRGJQctTZtZT",
+            "CrZsJsPPZsGzwwsLwLmpwMDw"
         )
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                day03.part1(testInput) shouldBe 1
+            it("Part 1 - Testcase - What is the sum of the priorities of those item types?") {
+                day03.part1(testInput) shouldBe 157
             }
-            it("Part 1 - Solution - ") {
-                day03.part1(DayInput().lines(day03)) shouldBe 0
+            it("Part 1 - Solution - What is the sum of the priorities of those item types?") {
+                day03.part1(DayInput().lines(day03)) shouldBe 8018
             }
         }
         xcontext("part 2") {
