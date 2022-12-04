@@ -19,6 +19,9 @@ class Day04 {
         .toSortedSet()
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        return input.get()
+            .map { it.split(',') }
+            .map { toAssignmentPair(it) }
+            .count { it.first.intersect(it.second).isNotEmpty() }
     }
 }

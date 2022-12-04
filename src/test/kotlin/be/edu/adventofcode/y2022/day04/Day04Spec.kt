@@ -24,12 +24,12 @@ class Day04Spec : DescribeSpec({
                 day04.part1(DayInput().lines(day04)) shouldBe 485
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day04.part2(testInput) shouldBe 1
+        context("part 2") {
+            it("Part 2 - Testcase - In how many assignment pairs do the ranges overlap?") {
+                day04.part2(testInput) shouldBe 4
             }
-            it("Part 2 - Solution - ") {
-                day04.part2(DayInput().lines(day04)) shouldBe 0
+            it("Part 2 - Solution - In how many assignment pairs do the ranges overlap?") {
+                day04.part2(DayInput().lines(day04)) shouldBe 857
             }
         }
     }
