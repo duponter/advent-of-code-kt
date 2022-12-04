@@ -8,11 +8,10 @@ touch_file() {
 cat_main() {
 	year=$1
 	day=$2
-	cat >src/main/kotlin/be/edu/adventofcode/y${year}/day${day}/Day${day}.kt <<EOL
-package be.edu.adventofcode.y${year}.day${day}
+	cat >src/main/kotlin/be/edu/adventofcode/y${year}/Day${day}.kt <<EOL
+package be.edu.adventofcode.y${year}
 
 import be.edu.adventofcode.Lines
-import be.edu.adventofcode.LinesFromArray
 
 class Day${day} {
     fun part1(input: Lines): Int {
@@ -31,8 +30,8 @@ EOL
 cat_test() {
 	year=$1
 	day=$2
-	cat >src/test/kotlin/be/edu/adventofcode/y${year}/day${day}/Day${day}Spec.kt <<EOL
-package be.edu.adventofcode.y${year}.day${day}
+	cat >src/test/kotlin/be/edu/adventofcode/y${year}/Day${day}Spec.kt <<EOL
+package be.edu.adventofcode.y${year}
 
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
@@ -47,7 +46,7 @@ class Day${day}Spec : DescribeSpec({
         )
         context("part 1") {
             it("Part 1 - Testcase - ") {
-                day${day}.part1(testInput) shouldBe 1
+                day${day}.part1(testInput) shouldBe 0
             }
             it("Part 1 - Solution - ") {
                 day${day}.part1(DayInput().lines(day${day})) shouldBe 0
@@ -55,7 +54,7 @@ class Day${day}Spec : DescribeSpec({
         }
         xcontext("part 2") {
             it("Part 2 - Testcase - ") {
-                day${day}.part2(testInput) shouldBe 1
+                day${day}.part2(testInput) shouldBe 0
             }
             it("Part 2 - Solution - ") {
                 day${day}.part2(DayInput().lines(day${day})) shouldBe 0
@@ -73,9 +72,9 @@ do
 
 	echo "Generating ${day} of ${year}"
 
-	touch_file src/main/kotlin/be/edu/adventofcode/y${year}/day${day}/Day${day}.kt
-	touch_file src/main/resources/be/edu/adventofcode/y${year}/day${day}/Day${day}.txt
-	touch_file src/test/kotlin/be/edu/adventofcode/y${year}/day${day}/Day${day}Spec.kt
+	touch_file src/main/kotlin/be/edu/adventofcode/y${year}/Day${day}.kt
+	touch_file src/main/resources/be/edu/adventofcode/y${year}/Day${day}.txt
+	touch_file src/test/kotlin/be/edu/adventofcode/y${year}/Day${day}Spec.kt
 
 	cat_main ${year} ${day}
 	cat_test ${year} ${day}

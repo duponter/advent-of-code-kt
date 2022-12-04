@@ -1,4 +1,4 @@
-package be.edu.adventofcode.y2022.day04
+package be.edu.adventofcode.y2022
 
 import be.edu.adventofcode.Lines
 
