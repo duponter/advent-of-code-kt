@@ -16,11 +16,13 @@ import be.edu.adventofcode.LinesFromArray
 
 class Day${day} {
     fun part1(input: Lines): Int {
-        return input.get().count()
+        return input.get()
+            .count()
     }
 
     fun part2(input: Lines): Int {
-        return input.get().count()
+        return input.get()
+            .count()
     }
 }
 EOL
