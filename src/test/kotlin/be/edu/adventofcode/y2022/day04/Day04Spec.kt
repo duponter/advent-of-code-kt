@@ -9,14 +9,19 @@ class Day04Spec : DescribeSpec({
     describe("day 04") {
         val day04 = Day04()
         val testInput = LinesFromArray(
-            ""
+            "2-4,6-8",
+            "2-3,4-5",
+            "5-7,7-9",
+            "2-8,3-7",
+            "6-6,4-6",
+            "2-6,4-8"
         )
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                day04.part1(testInput) shouldBe 1
+            it("Part 1 - Testcase - In how many assignment pairs does one range fully contain the other?") {
+                day04.part1(testInput) shouldBe 2
             }
-            it("Part 1 - Solution - ") {
-                day04.part1(DayInput().lines(day04)) shouldBe 0
+            it("Part 1 - Solution - In how many assignment pairs does one range fully contain the other?") {
+                day04.part1(DayInput().lines(day04)) shouldBe 485
             }
         }
         xcontext("part 2") {
