@@ -27,12 +27,12 @@ class Day05Spec : DescribeSpec({
                 day05.part1(DayInput().lines(day05)) shouldBe "TWSGQHNHL"
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day05.part2(testInput) shouldBe 1
+        context("part 2") {
+            it("Part 2 - Testcase - After the rearrangement procedure completes, what crate ends up on top of each stack?") {
+                day05.part2(testInput) shouldBe "MCD"
             }
-            it("Part 2 - Solution - ") {
-                day05.part2(DayInput().lines(day05)) shouldBe 0
+            it("Part 2 - Solution - After the rearrangement procedure completes, what crate ends up on top of each stack?") {
+                day05.part2(DayInput().lines(day05)) shouldBe "JNRSCDWPP"
             }
         }
     }
