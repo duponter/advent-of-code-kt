@@ -30,52 +30,52 @@ class Day05 {
             .filterValues { it >= 2 }
             .size
     }
-}
 
-data class Line(val start: Point, val end: Point) {
-    fun coveredPointsDiagonally(): List<Point> {
-        val coordinatesStart: Pair<Int, Int> = start.coordinates()
-        val coordinatesEnd: Pair<Int, Int> = end.coordinates()
+    data class Line(val start: Point, val end: Point) {
+        fun coveredPointsDiagonally(): List<Point> {
+            val coordinatesStart: Pair<Int, Int> = start.coordinates()
+            val coordinatesEnd: Pair<Int, Int> = end.coordinates()
 
-        if (coordinatesStart.first == coordinatesEnd.first || coordinatesStart.second == coordinatesEnd.second) {
-            return coveredPointsOrthogonally()
-        }
+            if (coordinatesStart.first == coordinatesEnd.first || coordinatesStart.second == coordinatesEnd.second) {
+                return coveredPointsOrthogonally()
+            }
 
-        val rows: IntProgression = if (coordinatesStart.first < coordinatesEnd.first) {
-            (coordinatesStart.first..coordinatesEnd.first)
-        } else {
-            (coordinatesStart.first downTo coordinatesEnd.first)
-        }
-
-        val cols: IntProgression = if (coordinatesStart.second < coordinatesEnd.second) {
-            (coordinatesStart.second..coordinatesEnd.second)
-        } else {
-            (coordinatesStart.second downTo coordinatesEnd.second)
-        }
-
-        return rows.zip(cols) { r, c -> Point(r, c) }
-    }
-
-    fun coveredPointsOrthogonally(): List<Point> {
-        val coordinatesStart: Pair<Int, Int> = start.coordinates()
-        val coordinatesEnd: Pair<Int, Int> = end.coordinates()
-
-        if (coordinatesStart.first == coordinatesEnd.first) {
-            return (if (coordinatesStart.second < coordinatesEnd.second) {
-                (coordinatesStart.second..coordinatesEnd.second)
-            } else {
-                (coordinatesStart.second downTo coordinatesEnd.second)
-            }).map { Point(coordinatesStart.first, it) }.toList()
-        }
-
-        if (coordinatesStart.second == coordinatesEnd.second) {
-            return (if (coordinatesStart.first < coordinatesEnd.first) {
+            val rows: IntProgression = if (coordinatesStart.first < coordinatesEnd.first) {
                 (coordinatesStart.first..coordinatesEnd.first)
             } else {
                 (coordinatesStart.first downTo coordinatesEnd.first)
-            }).map { Point(it, coordinatesStart.second) }.toList()
+            }
+
+            val cols: IntProgression = if (coordinatesStart.second < coordinatesEnd.second) {
+                (coordinatesStart.second..coordinatesEnd.second)
+            } else {
+                (coordinatesStart.second downTo coordinatesEnd.second)
+            }
+
+            return rows.zip(cols) { r, c -> Point(r, c) }
         }
 
-        return emptyList()
+        fun coveredPointsOrthogonally(): List<Point> {
+            val coordinatesStart: Pair<Int, Int> = start.coordinates()
+            val coordinatesEnd: Pair<Int, Int> = end.coordinates()
+
+            if (coordinatesStart.first == coordinatesEnd.first) {
+                return (if (coordinatesStart.second < coordinatesEnd.second) {
+                    (coordinatesStart.second..coordinatesEnd.second)
+                } else {
+                    (coordinatesStart.second downTo coordinatesEnd.second)
+                }).map { Point(coordinatesStart.first, it) }.toList()
+            }
+
+            if (coordinatesStart.second == coordinatesEnd.second) {
+                return (if (coordinatesStart.first < coordinatesEnd.first) {
+                    (coordinatesStart.first..coordinatesEnd.first)
+                } else {
+                    (coordinatesStart.first downTo coordinatesEnd.first)
+                }).map { Point(it, coordinatesStart.second) }.toList()
+            }
+
+            return emptyList()
+        }
     }
 }

@@ -32,39 +32,39 @@ class Day12 {
         caves["end"]!!.connections.clear()
         return caves
     }
-}
 
-data class Path(val visited: MutableList<String> = mutableListOf()) {
-    fun crawl(cave: Cave): List<Path> {
-        if (cave.small && visited.contains(cave.name)) {
-            return listOf(this)
+    data class Path(val visited: MutableList<String> = mutableListOf()) {
+        fun crawl(cave: Cave): List<Path> {
+            if (cave.small && visited.contains(cave.name)) {
+                return listOf(this)
+            }
+            this.visited.add(cave.name)
+            if (cave.connections.isEmpty()) {
+                return listOf(this)
+            }
+            return cave.connections.flatMap { Path(visited.toMutableList()).crawl(it) }
         }
-        this.visited.add(cave.name)
-        if (cave.connections.isEmpty()) {
-            return listOf(this)
-        }
-        return cave.connections.flatMap { Path(visited.toMutableList()).crawl(it) }
     }
-}
 
-data class Path2(val twice: String, val visited: MutableList<String> = mutableListOf()) {
-    fun crawl(cave: Cave): List<Path2> {
-        if (cave.small && visited.contains(cave.name) && (cave.name != twice || visited.count { it == twice } == 2)) {
-            return listOf(this)
+    data class Path2(val twice: String, val visited: MutableList<String> = mutableListOf()) {
+        fun crawl(cave: Cave): List<Path2> {
+            if (cave.small && visited.contains(cave.name) && (cave.name != twice || visited.count { it == twice } == 2)) {
+                return listOf(this)
+            }
+            this.visited.add(cave.name)
+            if (cave.connections.isEmpty()) {
+                return listOf(this)
+            }
+            return cave.connections.flatMap { Path2(twice, visited.toMutableList()).crawl(it) }
         }
-        this.visited.add(cave.name)
-        if (cave.connections.isEmpty()) {
-            return listOf(this)
-        }
-        return cave.connections.flatMap { Path2(twice, visited.toMutableList()).crawl(it) }
     }
-}
 
-data class Cave(val name: String, val small: Boolean, val connections: MutableList<Cave>) {
-    constructor(name: String) : this(name, name == name.lowercase(), mutableListOf())
+    data class Cave(val name: String, val small: Boolean, val connections: MutableList<Cave>) {
+        constructor(name: String) : this(name, name == name.lowercase(), mutableListOf())
 
-    override fun toString(): String {
-        return "Cave(name=$name, small=$small, connections=${connections.map { "Cave(name=${it.name}, small=${it.small}" }})"
+        override fun toString(): String {
+            return "Cave(name=$name, small=$small, connections=${connections.map { "Cave(name=${it.name}, small=${it.small}" }})"
+        }
     }
 }
 

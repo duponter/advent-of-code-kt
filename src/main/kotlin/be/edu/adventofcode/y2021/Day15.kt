@@ -44,19 +44,19 @@ class Day15 {
     fun part2(input: Lines): Int {
         return input.get().count()
     }
-}
 
-data class Path(val visited: Path?, val current: Point, val risk: Int) : Comparable<Path> {
-    constructor() : this(null, Point(), 0)
+    data class Path(val visited: Path?, val current: Point, val risk: Int) : Comparable<Path> {
+        constructor() : this(null, Point(), 0)
 
-    fun visit(position: Point, riskLevel: Int): Path {
-        return Path(this, position, this.risk + riskLevel)
-    }
+        fun visit(position: Point, riskLevel: Int): Path {
+            return Path(this, position, this.risk + riskLevel)
+        }
 
-    override fun compareTo(other: Path): Int = this.risk compareTo other.risk
+        override fun compareTo(other: Path): Int = this.risk compareTo other.risk
 
-    override fun toString(): String {
-        return "Path(current=$current,risk=$risk,previous=${visited?.current}"
+        override fun toString(): String {
+            return "Path(current=$current,risk=$risk,previous=${visited?.current}"
+        }
     }
 }
 
