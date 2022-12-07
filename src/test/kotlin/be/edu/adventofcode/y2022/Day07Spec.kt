@@ -41,12 +41,12 @@ class Day07Spec : DescribeSpec({
                 day07.part1(DayInput().lines(day07)) shouldBe 1307902
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day07.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - What is the total size of that directory?") {
+                day07.part2(testInput) shouldBe 24933642
             }
-            it("Part 2 - Solution - ") {
-                day07.part2(DayInput().lines(day07)) shouldBe 0
+            it("Part 2 - Solution - What is the total size of that directory?") {
+                day07.part2(DayInput().lines(day07)) shouldBe 7068748
             }
         }
     }

@@ -9,9 +9,14 @@ class Day07 {
         return instructions.filterIsInstance<Directory>().map { it.size() }.filter { it <= 100000 }.sumOf { it }
     }
 
-    fun part2(input: Lines): Int {
-        return input.get()
-            .count()
+    fun part2(input: Lines): Long {
+        val instructions = input.get().map { Instruction.parse(it) }
+        val dirtree = mutableListOf(Directory("/"))
+        instructions.fold(dirtree) { tree, instruction -> instruction.execute(tree) }
+
+        val freeSpace = 70000000 - dirtree.first().size()
+        val spaceRequired = 30000000 - freeSpace
+        return instructions.filterIsInstance<Directory>().map { it.size() }.filter { it >= spaceRequired }.minOf { it }
     }
 
     interface Instruction {
