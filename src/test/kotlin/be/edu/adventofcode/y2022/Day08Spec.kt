@@ -9,14 +9,18 @@ class Day08Spec : DescribeSpec({
     describe("day 08") {
         val day08 = Day08()
         val testInput = LinesFromArray(
-            ""
+            "30373",
+            "25512",
+            "65332",
+            "33549",
+            "35390"
         )
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                day08.part1(testInput) shouldBe 0
+            it("Part 1 - Testcase - How many trees are visible from outside the grid?") {
+                day08.part1(testInput) shouldBe 21
             }
-            it("Part 1 - Solution - ") {
-                day08.part1(DayInput().lines(day08)) shouldBe 0
+            it("Part 1 - Solution - How many trees are visible from outside the grid?") {
+                day08.part1(DayInput().lines(day08)) shouldBe 1708
             }
         }
         xcontext("part 2") {
