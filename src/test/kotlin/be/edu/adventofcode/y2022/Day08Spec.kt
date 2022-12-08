@@ -23,12 +23,12 @@ class Day08Spec : DescribeSpec({
                 day08.part1(DayInput().lines(day08)) shouldBe 1708
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day08.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - What is the highest scenic score possible for any tree?") {
+                day08.part2(testInput) shouldBe 8
             }
-            it("Part 2 - Solution - ") {
-                day08.part2(DayInput().lines(day08)) shouldBe 0
+            it("Part 2 - Solution - What is the highest scenic score possible for any tree?") {
+                day08.part2(DayInput().lines(day08)) shouldBe 504000
             }
         }
     }
