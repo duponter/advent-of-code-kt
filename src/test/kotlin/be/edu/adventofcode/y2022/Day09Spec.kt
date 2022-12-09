@@ -26,11 +26,25 @@ class Day09Spec : DescribeSpec({
                 day09.part1(DayInput().lines(day09)) shouldBe 5981
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day09.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - How many positions does the tail of the rope visit at least once?") {
+                day09.part2(testInput) shouldBe 1
             }
-            it("Part 2 - Solution - ") {
+            it("Part 2 - Larger Testcase - How many positions does the tail of the rope visit at least once?") {
+                day09.part2(
+                    LinesFromArray(
+                        "R 5",
+                        "U 8",
+                        "L 8",
+                        "D 3",
+                        "R 17",
+                        "D 10",
+                        "L 25",
+                        "U 20"
+                    )
+                ) shouldBe 36
+            }
+            xit("Part 2 - Solution - How many positions does the tail of the rope visit at least once?") {
                 day09.part2(DayInput().lines(day09)) shouldBe 0
             }
         }
