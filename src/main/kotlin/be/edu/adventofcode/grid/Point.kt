@@ -23,6 +23,10 @@ data class Point(private val x: Int, private val y: Int) : Comparable<Point> {
 
     fun coordinates(): Pair<Int, Int> = x to y
 
+    fun x(): Int = x
+
+    fun y(): Int = y
+
     fun <T> value(grid: List<List<T>>): T? = if (y in grid.indices && x in grid[y].indices) grid[y][x] else null
 
     fun manhattanDistance(other: Point): Int = abs(abs(x) - abs(other.x)) + abs(abs(y) - abs(other.y))
