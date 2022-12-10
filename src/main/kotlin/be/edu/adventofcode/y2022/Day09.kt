@@ -3,6 +3,7 @@ package be.edu.adventofcode.y2022
 import be.edu.adventofcode.Lines
 import be.edu.adventofcode.grid.Direction
 import be.edu.adventofcode.grid.Point
+import be.edu.adventofcode.grid.PointPlotter
 import kotlin.math.abs
 
 class Day09 {
@@ -17,11 +18,14 @@ class Day09 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get()
+        val motions = input.get()
             .asSequence()
             .map { Motion.parse(it) }
-            .fold(mutableListOf(LargerRope(List(9) { Rope() }))) { ropes, motion -> ropes.addAll(ropes.last().move(motion)); ropes }
-            .map { it.last().tail }
+        val executedSteps = motions.fold(mutableListOf(LargerRope(List(9) { Rope() }))) { ropes, motion -> ropes.addAll(ropes.last().move(motion)); ropes }
+        println("${motions.sumOf { it.steps }} steps vs ${executedSteps.size} ropes")
+        val tailPositions = executedSteps.map { it.last().tail }
+        PointPlotter().plot(tailPositions.distinct())
+        return tailPositions
             .distinct()
             .count()
     }
@@ -115,19 +119,4 @@ class Day09 {
 
         private fun print() = (ropes.map { it.head } + ropes.last().tail + Point()).forEachIndexed { index, rope -> println("${if (index == 0) "H" else if (index == 10) "s" else index} - $rope") }
     }
-}
-
-fun main() {
-//    val first = Day09.Motion(Direction.RIGHT, 4)
-//        .execute(Day09.Rope())
-//    first.forEach { println(it) }
-//    val second = Day09.Motion(Direction.UP, 4)
-//        .execute(first.last())
-//    second.forEach { println(it) }
-//    val third = Day09.Motion(Direction.LEFT, 3)
-//        .execute(second.last())
-    val start = Day09.Rope(Point(4, 4), Point(4, 3))
-    println(start)
-    val third = start.move(Day09.Motion(Direction.LEFT, 3))
-    third.forEach { println(it) }
 }
