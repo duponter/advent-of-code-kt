@@ -10,7 +10,7 @@ class Day09 {
         return input.get()
             .asSequence()
             .map { Motion.parse(it) }
-            .fold(mutableListOf(Rope())) { ropes, motion -> ropes.addAll(motion.execute(ropes.last())); ropes }
+            .fold(mutableListOf(Rope())) { ropes, motion -> ropes.addAll(ropes.last().move(motion)); ropes }
             .map { it.tail }
             .distinct()
             .count()
@@ -20,7 +20,7 @@ class Day09 {
         return input.get()
             .asSequence()
             .map { Motion.parse(it) }
-            .fold(mutableListOf(LargerRope(List(9) { Rope() }))) { ropes, motion -> ropes.addAll(motion.execute(ropes.last())); ropes }
+            .fold(mutableListOf(LargerRope(List(9) { Rope() }))) { ropes, motion -> ropes.addAll(ropes.last().move(motion)); ropes }
             .map { it.last().tail }
             .distinct()
             .count()
@@ -40,29 +40,19 @@ class Day09 {
                 return Motion(direction, tokens.last().toInt())
             }
         }
-
-        fun execute(rope: Rope): List<Rope> {
-            var currentRope = rope
-            val ropes = mutableListOf<Rope>()
-            repeat(steps) {
-                currentRope = currentRope.move(this.direction)
-                ropes.add(currentRope)
-            }
-            return ropes
-        }
-
-        fun execute(rope: LargerRope): List<LargerRope> {
-            var currentRope = rope
-            val ropes = mutableListOf<LargerRope>()
-            repeat(steps) {
-                currentRope = currentRope.move(this.direction)
-                ropes.add(currentRope)
-            }
-            return ropes
-        }
     }
 
     data class Rope(val head: Point = Point(), val tail: Point = Point()) {
+        fun move(motion: Motion): List<Rope> {
+            var currentRope = this
+            val ropes = mutableListOf<Rope>()
+            repeat(motion.steps) {
+                currentRope = currentRope.move(motion.direction)
+                ropes.add(currentRope)
+            }
+            return ropes
+        }
+
         fun move(direction: Direction): Rope {
             val movedHead = direction.apply(this.head)
             return Rope(movedHead, followTail(movedHead, this.tail, direction));
@@ -74,7 +64,7 @@ class Day09 {
                     return currentTail
 
                 var movedTail = direction.apply(currentTail)
-                println("$currentTail follows $currentHead going $direction giving $movedTail")
+                println("- $currentTail follows $currentHead going $direction giving $movedTail")
                 if (currentHead.manhattanDistance(movedTail) > 1) {
                     val temp = movedTail
                     movedTail = if (direction == Direction.LEFT || direction == Direction.RIGHT)
@@ -82,7 +72,7 @@ class Day09 {
                     else
                         if (currentHead.x() > movedTail.x()) movedTail.right(1) else movedTail.left(1)
 
-                    println("$temp jumped diagonally to $movedTail")
+                    println("-- $temp jumped diagonally to $movedTail")
                 }
 
                 return movedTail
@@ -95,10 +85,21 @@ class Day09 {
     }
 
     data class LargerRope(val ropes: List<Rope>) {
-        fun move(direction: Direction): LargerRope {
-            println("Moving $direction")
+        fun move(motion: Motion): List<LargerRope> {
+            var currentRope = this
+            val ropes = mutableListOf<LargerRope>()
+            println("$motion")
+            repeat(motion.steps) {
+                currentRope = currentRope.move(motion.direction)
+                ropes.add(currentRope)
+            }
+            currentRope.print()
+            return ropes
+        }
+
+        private fun move(direction: Direction): LargerRope {
             val first = ropes.first().move(direction)
-            println("first rope moved to $first")
+            println("HEAD moved to $first")
 
             val remainingTails = ropes.drop(1).map { it.tail }
             val newRopes = remainingTails.fold(mutableListOf(first)) { list, tail ->
@@ -106,12 +107,13 @@ class Day09 {
                 list.add(Rope(head, Rope.followTail(head, tail, direction)))
                 list
             }.toList()
-            newRopes.forEachIndexed { index, rope -> println("${if (index == 0) "H" else index} - $rope") }
 
             return LargerRope(newRopes)
         }
 
         fun last(): Rope = this.ropes.last()
+
+        private fun print() = (ropes.map { it.head } + ropes.last().tail + Point()).forEachIndexed { index, rope -> println("${if (index == 0) "H" else if (index == 10) "s" else index} - $rope") }
     }
 }
 
@@ -126,7 +128,6 @@ fun main() {
 //        .execute(second.last())
     val start = Day09.Rope(Point(4, 4), Point(4, 3))
     println(start)
-    val third = Day09.Motion(Direction.LEFT, 3)
-        .execute(start)
+    val third = start.move(Day09.Motion(Direction.LEFT, 3))
     third.forEach { println(it) }
 }
