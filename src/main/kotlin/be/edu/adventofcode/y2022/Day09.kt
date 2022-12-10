@@ -19,16 +19,11 @@ class Day09 {
     }
 
     fun part2(input: Lines): Int {
-        val motions = input.get()
+        return input.get()
             .asSequence()
             .map { Motion.parse(it) }
-        val executedSteps = motions.fold(mutableListOf(LargerRope(List(9) { Rope() }))) { ropes, motion -> ropes.addAll(ropes.last().move(motion)); ropes }
-        println("${motions.sumOf { it.steps }} steps vs ${executedSteps.size} ropes")
-        executedSteps.last().plot()
-
-        val tailPositions = executedSteps.map { it.last().tail }
-        PointPlotter().plot(tailPositions.distinct())
-        return tailPositions
+            .fold(mutableListOf(LargerRope(List(9) { Rope() }))) { ropes, motion -> ropes.addAll(ropes.last().move(motion)); ropes }
+            .map { it.last().tail }
             .distinct()
             .count()
     }
@@ -62,22 +57,21 @@ class Day09 {
 
         fun move(direction: Direction): Rope {
             val movedHead = direction.apply(this.head)
-            return Rope(movedHead, followTail(movedHead, this.tail, direction));
+            return Rope(movedHead, followTail(movedHead, this.tail))
         }
 
         companion object {
-            fun followTail(currentHead: Point, currentTail: Point, direction: Direction): Point {
-//                println("? TAIL $currentTail follows HEAD $currentHead in direction $direction")
+            fun followTail(currentHead: Point, currentTail: Point): Point {
                 if (touching(currentHead, currentTail))
                     return currentTail
 
-                if (isDirectlyTwoStepsBetween(currentHead, currentTail))
-                    return direction.apply(currentTail)
+                if (isHorizontallyTwoStepsBetween(currentHead, currentTail))
+                    return if (currentHead.x() > currentTail.x()) currentTail.right() else currentTail.left()
+                if (isVerticallyTwoStepsBetween(currentHead, currentTail))
+                    return if (currentHead.y() > currentTail.y()) currentTail.up() else currentTail.down()
 
                 var movedTail = if (currentHead.y() > currentTail.y()) currentTail.up() else currentTail.down()
                 movedTail = if (currentHead.x() > movedTail.x()) movedTail.right() else movedTail.left()
-                println("- TAIL $currentTail follows $currentHead diagonally to $movedTail")
-
                 return movedTail
             }
 
@@ -85,12 +79,16 @@ class Day09 {
                 return horizontalDistance(first, second) < 2 && verticalDistance(first, second) < 2
             }
 
-            private fun isDirectlyTwoStepsBetween(first: Point, second: Point): Boolean {
-                return (first.y() == second.y() && horizontalDistance(first, second) == 2) || (first.x() == second.x() && verticalDistance(first, second) == 2)
+            private fun isHorizontallyTwoStepsBetween(first: Point, second: Point): Boolean {
+                return (first.y() == second.y() && horizontalDistance(first, second) == 2)
             }
 
             private fun horizontalDistance(first: Point, second: Point): Int {
                 return max(first.x(), second.x()) - min(first.x(), second.x())
+            }
+
+            private fun isVerticallyTwoStepsBetween(first: Point, second: Point): Boolean {
+                return (first.x() == second.x() && verticalDistance(first, second) == 2)
             }
 
             private fun verticalDistance(first: Point, second: Point): Int {
@@ -103,24 +101,20 @@ class Day09 {
         fun move(motion: Motion): List<LargerRope> {
             var currentRope = this
             val ropes = mutableListOf<LargerRope>()
-            println("$motion")
             repeat(motion.steps) {
                 currentRope = currentRope.move(motion.direction)
                 ropes.add(currentRope)
             }
-            currentRope.plot()
             return ropes
         }
 
         private fun move(direction: Direction): LargerRope {
             val first = ropes.first().move(direction)
-            println("HEAD moved from ${ropes.first()} to $first")
-
             return ropes.drop(1)
                 .map { it.tail }
                 .fold(mutableListOf(first)) { list, tail ->
                     val head = list.last().tail
-                    list.add(Rope(head, Rope.followTail(head, tail, direction)))
+                    list.add(Rope(head, Rope.followTail(head, tail)))
                     list
                 }.toList()
                 .let { LargerRope(it) }
@@ -128,7 +122,7 @@ class Day09 {
 
         fun last(): Rope = this.ropes.last()
 
-        private fun print() = (ropes.map { it.head } + ropes.last().tail + Point()).forEachIndexed { index, rope -> println("${if (index == 0) "H" else if (index == 10) "s" else index} - $rope") }
+        fun print() = (ropes.map { it.head } + ropes.last().tail + Point()).forEachIndexed { index, rope -> println("${if (index == 0) "H" else if (index == 10) "s" else index} - $rope") }
 
         fun plot(plotter: PointPlotter = PointPlotter()) = plotter.plot(this.ropes.map { it.head } + this.ropes.last().tail)
     }

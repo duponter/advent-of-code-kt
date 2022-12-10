@@ -44,8 +44,8 @@ class Day09Spec : DescribeSpec({
                     )
                 ) shouldBe 36
             }
-            xit("Part 2 - Solution - How many positions does the tail of the rope visit at least once?") {
-                day09.part2(DayInput().lines(day09)) shouldBe 0
+            it("Part 2 - Solution - How many positions does the tail of the rope visit at least once?") {
+                day09.part2(DayInput().lines(day09)) shouldBe 2352
             }
         }
     }
