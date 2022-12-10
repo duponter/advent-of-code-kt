@@ -1,6 +1,8 @@
 package be.edu.adventofcode.y2022
 
+import be.edu.adventofcode.DigitDisplay
 import be.edu.adventofcode.Lines
+import kotlin.math.abs
 
 class Day10 {
     fun part1(input: Lines): Int {
@@ -9,44 +11,34 @@ class Day10 {
             .sumOf { signalStrength(instructions, it) }
     }
 
-    private fun signalStrength(instructions: List<Instruction>, atCycle: Int): Int {
-        val cycles = mutableListOf<Int>()
+    private fun signalStrength(instructions: List<Instruction>, atCycle: Int): Int = registerX(instructions, atCycle) * atCycle
+
+    private fun registerX(instructions: List<Instruction>, atCycle: Int): Int {
+        var cycles = 0
         val value = instructions.fold(1) { x, instruction ->
-            cycles.add(instruction.cycles())
-            if (cycles.sum() < atCycle) x + instruction.registerIncrease() else x
+            cycles += instruction.cycles
+            if (cycles < atCycle) x + instruction.registerIncrease else x
         }
-//        println("During the ${atCycle}th cycle, register X has the value ${value}, so the signal strength is ${atCycle * value}.")
-        return value * atCycle
+        return value
     }
 
-    fun part2(input: Lines): Int {
-        return input.get()
-            .count()
+    @DigitDisplay
+    fun part2(input: Lines): List<String> {
+        val instructions = input.get().map { Instruction.parse(it) }
+        return (1..240)
+            .map { drawPixel(registerX(instructions, it), it) }
+            .chunked(40) { it.joinToString("") }
     }
 
-    interface Instruction {
+    private fun drawPixel(x: Int, cycle: Int) = if (abs((cycle - 1) % 40 - x) < 2) "#" else "."
+
+    data class Instruction(val cycles: Int, val registerIncrease: Int = 0) {
         companion object {
             fun parse(input: String): Instruction {
-                if (input == "noop") return NoOp()
-                if (input.startsWith("addx")) return AddX(input.removePrefix("addx ").toInt())
+                if (input == "noop") return Instruction(1)
+                if (input.startsWith("addx")) return Instruction(2, input.removePrefix("addx ").toInt())
                 throw IllegalArgumentException(input)
             }
         }
-
-        fun cycles(): Int
-
-        fun registerIncrease(): Int
-    }
-
-    data class NoOp(val increase: Int = 0) : Instruction {
-        override fun cycles(): Int = 1
-
-        override fun registerIncrease(): Int = increase
-    }
-
-    data class AddX(val increase: Int) : Instruction {
-        override fun cycles(): Int = 2
-
-        override fun registerIncrease(): Int = increase
     }
 }

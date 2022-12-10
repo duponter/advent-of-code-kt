@@ -164,12 +164,26 @@ class Day10Spec : DescribeSpec({
                 day10.part1(DayInput().lines(day10)) shouldBe 14040
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day10.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - What eight capital letters appear on your CRT?") {
+                day10.part2(testInput) shouldBe listOf(
+                    "##..##..##..##..##..##..##..##..##..##..",
+                    "###...###...###...###...###...###...###.",
+                    "####....####....####....####....####....",
+                    "#####.....#####.....#####.....#####.....",
+                    "######......######......######......####",
+                    "#######.......#######.......#######....."
+                )
             }
-            it("Part 2 - Solution - ") {
-                day10.part2(DayInput().lines(day10)) shouldBe 0
+            it("Part 2 - Solution - What eight capital letters appear on your CRT?") {
+                day10.part2(DayInput().lines(day10)) shouldBe listOf(
+                    "####..##...##....##.####...##.####.#....",
+                    "...#.#..#.#..#....#....#....#.#....#....",
+                    "..#..#....#.......#...#.....#.###..#....",
+                    ".#...#.##.#.......#..#......#.#....#....",
+                    "#....#..#.#..#.#..#.#....#..#.#....#....",
+                    "####..###..##...##..####..##..#....####."
+                )
             }
         }
     }
