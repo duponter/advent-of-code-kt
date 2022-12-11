@@ -46,10 +46,10 @@ class Day11Spec : DescribeSpec({
             }
         }
         xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day11.part2(testInput) shouldBe 0
+            it("Part 2 - Testcase - What is the level of monkey business after 10000 rounds?") {
+                day11.part2(testInput) shouldBe 2713310158
             }
-            it("Part 2 - Solution - ") {
+            it("Part 2 - Solution - What is the level of monkey business after 10000 rounds?") {
                 day11.part2(DayInput().lines(day11)) shouldBe 0
             }
         }
