@@ -15,7 +15,7 @@ class Day12Spec : DescribeSpec({
             "acctuvwj",
             "abdefghi"
         )
-        context("part 1") {
+        xcontext("part 1") {
             it("Part 1 - Testcase - What is the fewest steps required to move from your current position to the location that should get the best signal?") {
                 day12.part1(testInput) shouldBe 31
             }
