@@ -23,20 +23,20 @@ class Day01Spec : DescribeSpec({
             }
         }
         val testInput2 = LinesFromArray(
-            "two1nine" +
-            "eightwothree" +
-            "abcone2threexyz" +
-            "xtwone3four" +
-            "4nineeightseven2" +
-            "zoneight234" +
+            "two1nine",
+            "eightwothree",
+            "abcone2threexyz",
+            "xtwone3four",
+            "4nineeightseven2",
+            "zoneight234",
             "7pqrstsixteen"
         )
-        xcontext("part 2") {
+        context("part 2") {
             it("Part 2 - Testcase - What is the sum of all of the calibration values?") {
                 day01.part2(testInput2) shouldBe 281
             }
             it("Part 2 - Solution - What is the sum of all of the calibration values?") {
-                day01.part2(DayInput().lines(day01)) shouldBe 0
+                day01.part2(DayInput().lines(day01)) shouldBe 55413
             }
         }
     }
