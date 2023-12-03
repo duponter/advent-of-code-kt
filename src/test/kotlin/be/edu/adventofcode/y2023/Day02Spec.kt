@@ -20,15 +20,15 @@ class Day02Spec : DescribeSpec({
                 day02.part1(testInput) shouldBe 8
             }
             it("Part 1 - Solution - What is the sum of the IDs of those games?") {
-                day02.part1(DayInput().lines(day02)) shouldBe 0
+                day02.part1(DayInput().lines(day02)) shouldBe 2085
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day02.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - What is the sum of the power of these sets?") {
+                day02.part2(testInput) shouldBe 2286
             }
-            it("Part 2 - Solution - ") {
-                day02.part2(DayInput().lines(day02)) shouldBe 0
+            it("Part 2 - Solution - What is the sum of the power of these sets?") {
+                day02.part2(DayInput().lines(day02)) shouldBe 79315
             }
         }
     }
