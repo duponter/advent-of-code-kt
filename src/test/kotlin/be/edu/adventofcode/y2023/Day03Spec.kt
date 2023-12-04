@@ -3,6 +3,7 @@ package be.edu.adventofcode.y2023
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 
 class Day03Spec : DescribeSpec({
@@ -25,7 +26,9 @@ class Day03Spec : DescribeSpec({
                 day03.part1(testInput) shouldBe 4361
             }
             it("Part 1 - Solution - What is the sum of all of the part numbers in the engine schematic?") {
-                day03.part1(DayInput().lines(day03)) shouldBe 0
+                val result = day03.part1(DayInput().lines(day03))
+                result shouldBeGreaterThan 532992
+                result shouldBe 532992
             }
         }
         xcontext("part 2") {
