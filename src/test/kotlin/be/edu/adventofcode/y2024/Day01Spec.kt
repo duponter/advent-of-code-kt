@@ -24,12 +24,12 @@ class Day01Spec : DescribeSpec({
                 day01.part1(DayInput().lines(day01)) shouldBe 2756096
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day01.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - What is their similarity score?") {
+                day01.part2(testInput) shouldBe 31
             }
-            it("Part 2 - Solution - ") {
-                day01.part2(DayInput().lines(day01)) shouldBe 0
+            it("Part 2 - Solution - What is their similarity score?") {
+                day01.part2(DayInput().lines(day01)) shouldBe 23117829
             }
         }
     }

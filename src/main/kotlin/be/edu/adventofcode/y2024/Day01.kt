@@ -13,7 +13,8 @@ class Day01 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get()
-            .count()
+        val tokens = input.get().map { StringDestructure("^(\\d+)\\s+(\\d+)\$").pair(it) }
+        val occurrences = tokens.map { it.second.toInt() }.groupingBy { it }.eachCount()
+        return tokens.map { it.first.toInt() }.sorted().sumOf { it * occurrences.getOrDefault(it, 0) }
     }
 }
