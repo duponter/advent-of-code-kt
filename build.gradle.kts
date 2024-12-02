@@ -34,6 +34,17 @@ tasks.withType<KotlinCompile>().configureEach {
     }
 }
 
+val javaVersion = 21
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(javaVersion))
+    }
+}
+
+tasks.withType(JavaCompile::class) {
+    options.release.set(javaVersion)
+}
+
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
