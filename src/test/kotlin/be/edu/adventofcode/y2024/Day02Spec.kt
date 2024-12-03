@@ -24,12 +24,12 @@ class Day02Spec : DescribeSpec({
                 day02.part1(DayInput().lines(day02)) shouldBe 686
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day02.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - How many reports are now safe?") {
+                day02.part2(testInput) shouldBe 4
             }
-            it("Part 2 - Solution - ") {
-                day02.part2(DayInput().lines(day02)) shouldBe 0
+            it("Part 2 - Solution - How many reports are now safe?") {
+                day02.part2(DayInput().lines(day02)) shouldBe 717
             }
         }
     }
