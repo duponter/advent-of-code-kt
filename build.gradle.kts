@@ -1,8 +1,9 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.7.21"
+    id("org.jetbrains.kotlin.jvm") version "2.0.21"
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -14,7 +15,7 @@ repositories {
     mavenCentral()
 }
 
-val kotestVersion = "5.5.4"
+val kotestVersion = "5.9.1"
 
 dependencies {
     // Align versions of all Kotlin components
@@ -28,7 +29,20 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions { jvmTarget = "17" }
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
+}
+
+val javaVersion = 21
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(javaVersion))
+    }
+}
+
+tasks.withType(JavaCompile::class) {
+    options.release.set(javaVersion)
 }
 
 tasks.withType<Test>().configureEach {
