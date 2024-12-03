@@ -4,6 +4,7 @@
 
 **Login with GitHub credentials**
 
+* Year [2024](http://adventofcode.com/2024)
 * Year [2023](http://adventofcode.com/2023)
   * [Tackle Advent of Code 2023 With Kotlin](https://blog.jetbrains.com/kotlin/2023/11/advent-of-code-2023-with-kotlin/)
 * Year [2022](http://adventofcode.com/2022)
@@ -19,7 +20,7 @@
 ## Algorithms
 
 Many puzzles can be solved very easily when knowing or using the correct algorithm.
-By taggging puzzles, it is easier to find, link and solve similar puzzles.
+By tagging puzzles, it is easier to find, link and solve similar puzzles.
 
 **[Tag annotations](https://kotlinlang.org/docs/annotations.html)**
 

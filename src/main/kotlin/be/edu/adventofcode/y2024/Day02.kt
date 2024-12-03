@@ -1,5 +1,6 @@
 package be.edu.adventofcode.y2024
 
+import be.edu.adventofcode.BruteForce
 import be.edu.adventofcode.Lines
 
 class Day02 {
@@ -37,6 +38,7 @@ class Day02 {
             return (min >= 1 && max <= 3) || (min >= -3 && max <= -1)
         }
 
+        @BruteForce
         fun safeWithDampener(): Boolean {
             if (safe()) {
                 return true
