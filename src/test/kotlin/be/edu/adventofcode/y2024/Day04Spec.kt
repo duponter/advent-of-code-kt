@@ -3,6 +3,7 @@ package be.edu.adventofcode.y2024
 import be.edu.adventofcode.DayInput
 import be.edu.adventofcode.LinesFromArray
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.ints.shouldBeLessThan
 import io.kotest.matchers.shouldBe
 
 class Day04Spec : DescribeSpec({
@@ -29,11 +30,11 @@ class Day04Spec : DescribeSpec({
             }
         }
         xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day04.part2(testInput) shouldBe 0
+            it("Part 2 - Testcase - How many times does an X-MAS appear?") {
+                day04.part2(testInput) shouldBe 9
             }
-            it("Part 2 - Solution - ") {
-                day04.part2(DayInput().lines(day04)) shouldBe 0
+            it("Part 2 - Solution - How many times does an X-MAS appear?") {
+                day04.part2(DayInput().lines(day04)) shouldBeLessThan 2688 shouldBe 0
             }
         }
     }

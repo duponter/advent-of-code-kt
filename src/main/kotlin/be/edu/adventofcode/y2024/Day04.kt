@@ -1,6 +1,7 @@
 package be.edu.adventofcode.y2024
 
 import be.edu.adventofcode.Lines
+import kotlin.math.min
 
 class Day04 {
     fun part1(input: Lines): Int {
@@ -16,8 +17,12 @@ class Day04 {
     }
 
     fun part2(input: Lines): Int {
-        return input.get()
-            .count()
+        val mas = "MAS".toRegex()
+        val sam = "SAM".toRegex()
+
+        val multiView = MultiView(input.get())
+        return min(multiView.diagonalUp().sumOf { mas.findAll(it).count() + sam.findAll(it).count() },
+            multiView.diagonalDown().sumOf { mas.findAll(it).count() + sam.findAll(it).count() })
     }
 
     class MultiView(val lines: List<String>) {
@@ -26,6 +31,7 @@ class Day04 {
 
         fun vertical(): List<String> = transpose(lines)
 
+        // from top left to bottom right
         fun diagonalDown(): List<String> {
             return transpose(lines.indices.map { x -> lines[x].drop(x) + " ".repeat(x) }).map { it.trim() }.reversed()
                 .plus(
@@ -35,6 +41,7 @@ class Day04 {
                 )
         }
 
+        // from bottom left to top right
         fun diagonalUp(): List<String> {
             return transpose(lines.indices.map { x -> " ".repeat(x) + lines[x].take(lines[x].count() - x) }
                 .reversed()).map { it.trim() }
