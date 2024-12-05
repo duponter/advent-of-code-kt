@@ -27,21 +27,24 @@ class Day05 {
         val updates = parseUpdates(input, pageOrders)
 
         // select invalid updates
-        val pairs = updates.filter {
+        val invalid = updates.filter {
             !pageOrders.all { po ->
                 val intersect = it intersect po
                 intersect.size < 2 || (intersect.first() == po.first() && intersect.last() == po.last())
             }
-        }
-            .map {
-                it to pageOrders.filter { po ->
-                    val intersect = it intersect po
-                    intersect.size == 2 && intersect.first() == po.last()
+        }.map { it to pageOrders.filter { po -> (it intersect po).size == 2 }.sortedBy { p -> p.first() } }
+
+        val corrected = invalid.map {
+            it.second.fold(it.first.toMutableList()) { acc: MutableList<Int>, po: Set<Int> ->
+                if (acc.indexOf(po.first()) > acc.indexOf(po.last())) {
+                    acc.removeAt(acc.indexOf(po.first()))
+                    acc.add(acc.indexOf(po.last()), po.first())
                 }
+                acc
             }
-        return pairs
-            .map { it.first }
-            .sumOf { it[(it.size - 1) / 2] }
+        }
+
+        return corrected.sumOf { it[(it.size - 1) / 2] }
     }
 
     private fun parsePageOrders(input: Lines): List<Set<Int>> {
