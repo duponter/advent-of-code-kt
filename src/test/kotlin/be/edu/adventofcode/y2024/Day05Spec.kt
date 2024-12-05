@@ -47,10 +47,10 @@ class Day05Spec : DescribeSpec({
             }
         }
         xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day05.part2(testInput) shouldBe 0
+            it("Part 2 - Testcase - What do you get if you add up the middle page numbers after correctly ordering just those updates?") {
+                day05.part2(testInput) shouldBe 123
             }
-            it("Part 2 - Solution - ") {
+            it("Part 2 - Solution - What do you get if you add up the middle page numbers after correctly ordering just those updates?") {
                 day05.part2(DayInput().lines(day05)) shouldBe 0
             }
         }
