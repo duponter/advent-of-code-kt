@@ -21,6 +21,14 @@ class Day04 {
         val sam = "SAM".toRegex()
 
         val multiView = MultiView(input.get())
+
+        /*
+        SOLUTION
+        1. Determine points of A in the match results (line, index)
+        2. Convert points to normal axis
+        3. Count intersection of both lists
+         */
+
         return min(multiView.diagonalUp().sumOf { mas.findAll(it).count() + sam.findAll(it).count() },
             multiView.diagonalDown().sumOf { mas.findAll(it).count() + sam.findAll(it).count() })
     }
