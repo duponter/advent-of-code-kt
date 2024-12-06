@@ -28,11 +28,11 @@ class Day06Spec : DescribeSpec({
                 day06.part1(DayInput().lines(day06)) shouldBe 5199
             }
         }
-        xcontext("part 2") {
-            it("Part 2 - Testcase - ") {
-                day06.part2(testInput) shouldBe 0
+        context("part 2") {
+            it("Part 2 - Testcase - How many different positions could you choose for this obstruction?") {
+                day06.part2(testInput) shouldBe 6
             }
-            it("Part 2 - Solution - ") {
+            xit("Part 2 - Solution - How many different positions could you choose for this obstruction?") {
                 day06.part2(DayInput().lines(day06)) shouldBe 0
             }
         }
