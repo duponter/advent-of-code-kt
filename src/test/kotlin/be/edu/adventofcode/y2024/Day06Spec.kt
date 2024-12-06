@@ -9,14 +9,23 @@ class Day06Spec : DescribeSpec({
     describe("day 06") {
         val day06 = Day06()
         val testInput = LinesFromArray(
-          ""
+            "....#.....",
+            ".........#",
+            "..........",
+            "..#.......",
+            ".......#..",
+            "..........",
+            ".#..^.....",
+            "........#.",
+            "#.........",
+            "......#..."
         )
         context("part 1") {
             it("Part 1 - Testcase - How many distinct positions will the guard visit before leaving the mapped area?") {
                 day06.part1(testInput) shouldBe 41
             }
             it("Part 1 - Solution - How many distinct positions will the guard visit before leaving the mapped area?") {
-                day06.part1(DayInput().lines(day06)) shouldBe 0
+                day06.part1(DayInput().lines(day06)) shouldBe 5199
             }
         }
         xcontext("part 2") {

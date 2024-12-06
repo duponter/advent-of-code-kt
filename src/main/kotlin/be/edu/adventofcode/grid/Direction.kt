@@ -39,7 +39,7 @@ enum class Direction {
     abstract fun turnRight(): Direction
 
     fun turn(degrees: Int): Direction {
-        if (degrees % 90 != 0) throw IllegalArgumentException("Degrees must be a multiple of 90, $degrees is not")
+        require(degrees % 90 == 0) { "Degrees must be a multiple of 90, $degrees is not" }
         val doTurn: (Direction) -> Direction = if (degrees > 0) {
             { it.turnRight() }
         } else {
