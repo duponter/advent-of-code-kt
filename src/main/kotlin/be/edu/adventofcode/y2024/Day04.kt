@@ -20,17 +20,22 @@ class Day04 {
         val mas = "MAS".toRegex()
         val sam = "SAM".toRegex()
 
-        val multiView = MultiView(input.get())
+        val lines = input.get()
+        val multiView = MultiView(lines)
 
-        /*
-        SOLUTION
-        1. Determine points of A in the match results (line, index)
-        2. Convert points to normal axis
-        3. Count intersection of both lists
-         */
+        val upIndices = findLetterA(multiView.diagonalUp(), mas)
+            .plus( findLetterA(multiView.diagonalUp(), sam))
+            .map { it.toUpPoint(lines.size - 1) }
 
-        return min(multiView.diagonalUp().sumOf { mas.findAll(it).count() + sam.findAll(it).count() },
-            multiView.diagonalDown().sumOf { mas.findAll(it).count() + sam.findAll(it).count() })
+        val downIndices = findLetterA(multiView.diagonalDown(), mas)
+            .plus( findLetterA(multiView.diagonalDown(), sam))
+            .map { it.toDownPoint(lines[0].length - 1) }
+
+        return (upIndices intersect downIndices).size
+    }
+
+    private fun findLetterA(list: List<String>, regex: Regex): List<Cell> {
+        return list.withIndex().flatMap { regex.findAll(it.value).map { mr -> Cell(it.index, mr.range.drop(1).first()) }.toList() }
     }
 
     class MultiView(val lines: List<String>) {
@@ -72,4 +77,16 @@ class Day04 {
             }
         }
     }
+
+    data class Cell(val row: Int, val col: Int) {
+        fun toUpPoint(ymax: Int): Point {
+            return (if (row <= ymax) Point(0, row) else Point(row - ymax, ymax)).let { p -> Point(p.x + col, p.y - col) }
+        }
+
+        fun toDownPoint(xmax: Int): Point {
+            return (if (row <= xmax) Point(xmax - row, 0) else Point(0, row - xmax)).let { p -> Point(p.x + col, p.y + col) }
+        }
+    }
+
+    data class Point(val x: Int, val y: Int)
 }
