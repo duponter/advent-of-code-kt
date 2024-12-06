@@ -12,10 +12,10 @@ class Day06Spec : DescribeSpec({
           ""
         )
         context("part 1") {
-            it("Part 1 - Testcase - ") {
-                day06.part1(testInput) shouldBe 0
+            it("Part 1 - Testcase - How many distinct positions will the guard visit before leaving the mapped area?") {
+                day06.part1(testInput) shouldBe 41
             }
-            it("Part 1 - Solution - ") {
+            it("Part 1 - Solution - How many distinct positions will the guard visit before leaving the mapped area?") {
                 day06.part1(DayInput().lines(day06)) shouldBe 0
             }
         }
