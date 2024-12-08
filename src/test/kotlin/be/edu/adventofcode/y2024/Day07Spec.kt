@@ -24,7 +24,7 @@ class Day07Spec : DescribeSpec({
                 day07.part1(testInput) shouldBe 3749
             }
             it("Part 1 - Solution - What is their total calibration result?") {
-                day07.part1(DayInput().lines(day07)) shouldBe 0
+                day07.part1(DayInput().lines(day07)) shouldBe 2437272016585L
             }
         }
         xcontext("part 2") {
