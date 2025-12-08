@@ -25,11 +25,15 @@ By tagging puzzles, it is easier to find, link and solve similar puzzles.
 **[Tag annotations](https://kotlinlang.org/docs/annotations.html)**
 
 * Algorithm(name, url)
-    * GridExploration
-    * DigitDisplay
-    * Route
-        * https://levelup.gitconnected.com/dijkstras-shortest-path-algorithm-in-a-grid-eb505eb3a290
-    * BinaryTree
+  * A* (A-star)
+    * https://en.wikipedia.org/wiki/A*_search_algorithm
+    * https://www.datacamp.com/tutorial/a-star-algorithm
+  * GridExploration
+  * DigitDisplay
+  * Route
+      * https://levelup.gitconnected.com/dijkstras-shortest-path-algorithm-in-a-grid-eb505eb3a290
+      * https://www.redblobgames.com/pathfinding/a-star/introduction.html
+  * BinaryTree
 * BruteForce
 
 ## Kotlin Resources
